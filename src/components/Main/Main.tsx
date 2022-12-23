@@ -1,17 +1,19 @@
 import * as React from "react";
-import "./Main.css";
 import LineGraph from "components/LineGraph";
 import runningWinrateOverTimeData from "data/running-winrate-over-time.json";
 import { PLAYERS } from "config";
 import PlayerSelector from "components/PlayerSelector";
+import style from "./Main.module.css";
 
 export const Main = (props: any) => {
     const [currentPlayer, setCurrentPlayer] = React.useState(PLAYERS[0]);
 
     return (
-        <div>
+        <div className={style.Main}>
             <LineGraph
-                id="bruh"
+                id={style.RunningWinrateOverTime}
+                title="Win Rate Over Time"
+                description="Individiual performance since October 2022"
                 data={runningWinrateOverTimeData
                     .map(d => ({
                         date: new Date(d.block_end_time),

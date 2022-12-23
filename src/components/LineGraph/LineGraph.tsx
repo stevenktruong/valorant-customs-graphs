@@ -3,12 +3,15 @@ import * as React from "react";
 import * as d3 from "d3";
 
 import GraphContainer from "components/GraphContainer";
+import Caption from "components/Caption";
 import { PLAYER_COLORS } from "config";
-import "./LineGraph.css";
+import style from "./LineGraph.module.css";
 import { useParentDimensions } from "helpers";
 
 interface Props {
     id: string;
+    title: string;
+    description: string;
     data: {
         date: Date;
         data: any;
@@ -30,7 +33,7 @@ export const LineGraph = (props: Props) => {
     let dimensions = useParentDimensions(svgRef);
 
     React.useEffect(() => {
-        if (dimensions.width == 0 || dimensions.height == 0) return;
+        if (dimensions.width === 0 || dimensions.height === 0) return;
 
         const svg = d3.select(svgRef.current);
 
@@ -247,7 +250,12 @@ export const LineGraph = (props: Props) => {
 
     return (
         <GraphContainer id={props.id}>
-            <svg ref={svgRef} />
+            <span className={style.CaptionContainer}>
+                <Caption title={props.title} description={props.description} />
+            </span>
+            <div className={style.Graph}>
+                <svg ref={svgRef} />
+            </div>
         </GraphContainer>
     );
 };
