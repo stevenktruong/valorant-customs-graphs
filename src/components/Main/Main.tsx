@@ -1,9 +1,15 @@
 import * as React from "react";
 import LineGraph from "components/LineGraph";
-import runningWinrateOverTimeData from "data/running-winrate-over-time.json";
-import { PLAYERS } from "config";
+import runningWinrateOverTimeJson from "data/running-winrate-over-time.json";
+import individualJson from "data/individual.json";
+import { PLAYERS, PLAYER_COLORS } from "config";
 import PlayerSelector from "components/PlayerSelector";
 import style from "./Main.module.css";
+import BarGraph from "components/BarGraph";
+
+const runningWinrateOverTimeData: Record<string, any>[] =
+    runningWinrateOverTimeJson;
+const individualData: Record<string, any> = individualJson;
 
 export const Main = (props: any) => {
     const [currentPlayer, setCurrentPlayer] = React.useState(PLAYERS[0]);
@@ -17,12 +23,30 @@ export const Main = (props: any) => {
                 data={runningWinrateOverTimeData
                     .map(d => ({
                         date: new Date(d.block_end_time),
-                        data: d.data,
+                        value: d.data[currentPlayer].winrate || 0,
                     }))
                     .filter(d => d.date >= new Date("2022-10-16"))}
-                player={currentPlayer}
+                color={PLAYER_COLORS[currentPlayer]}
                 margin={{
                     top: 30,
+                    right: 30,
+                    bottom: 30,
+                    left: 30,
+                }}
+            />
+            <BarGraph
+                id={style.LobbyWinRates}
+                title="Lobby Win Rates"
+                description="Lifetime performances"
+                data={Object.entries(individualData)
+                    .map(([name, playerStats]) => ({
+                        label: name,
+                        color: PLAYER_COLORS[name],
+                        value: playerStats.winrate || 0,
+                    }))
+                    .sort((a, b) => a.value - b.value)}
+                margin={{
+                    top: 0,
                     right: 30,
                     bottom: 30,
                     left: 30,

@@ -1,8 +1,11 @@
 .CaptionContainer {
     display: inline-block;
+    vertical-align: top;
     width: 20%;
     height: 100%;
-    vertical-align: top;
+
+    padding-top: 20px;
+    padding-left: 24px;
 }
 
 .Graph {

@@ -4,7 +4,6 @@ import * as d3 from "d3";
 
 import GraphContainer from "components/GraphContainer";
 import Caption from "components/Caption";
-import { PLAYER_COLORS } from "config";
 import style from "./LineGraph.module.css";
 import { useParentDimensions } from "helpers";
 
@@ -14,9 +13,9 @@ interface Props {
     description: string;
     data: {
         date: Date;
-        data: any;
+        value: number;
     }[];
-    player: string;
+    color: string;
     margin: {
         top: number;
         left: number;
@@ -26,7 +25,7 @@ interface Props {
 }
 
 export const LineGraph = (props: Props) => {
-    const initialDrawDuration = 4000;
+    const initialDrawDuration = 1000;
     const playerChangeTransitionDuration = 1000;
 
     const svgRef = React.useRef();
@@ -37,11 +36,7 @@ export const LineGraph = (props: Props) => {
 
         const svg = d3.select(svgRef.current);
 
-        const { player, margin } = props;
-        const data = props.data.map(d => ({
-            date: d.date,
-            winrate: d.data[player].winrate || 0,
-        }));
+        const { data, color, margin } = props;
 
         const { width: svgWidth, height: svgHeight } = dimensions;
 
@@ -120,12 +115,12 @@ export const LineGraph = (props: Props) => {
             .area()
             .x(d => x(d.date))
             .y0(d => y(0))
-            .y1(d => y(d.winrate));
+            .y1(d => y(d.value));
 
         const dataLine = d3
             .line()
             .x(d => x(d.date))
-            .y(d => y(d.winrate));
+            .y(d => y(d.value));
 
         // Begin updating the svg
         svg.attr("width", svgWidth).attr("height", svgHeight);
@@ -144,8 +139,8 @@ export const LineGraph = (props: Props) => {
                         .attr("height", svgHeight)
                         .transition()
                         .duration(initialDrawDuration)
-                        .ease(d3.easeExpOut)
-                        .attr("width", svgWidth),
+                        .ease(d3.easeLinear)
+                        .attr("width", x(data[data.length - 1].date) + 20),
                 update =>
                     update
                         .select("#clip rect")
@@ -175,7 +170,7 @@ export const LineGraph = (props: Props) => {
                     enter
                         .append("path")
                         .attr("id", "dataArea")
-                        .attr("fill", PLAYER_COLORS[player])
+                        .attr("fill", color)
                         .attr("fill-opacity", 0.25)
                         .attr("d", dataArea(data))
                         .attr("clip-path", "url(#clip)"),
@@ -183,7 +178,7 @@ export const LineGraph = (props: Props) => {
                     update
                         .transition()
                         .duration(playerChangeTransitionDuration)
-                        .attr("fill", PLAYER_COLORS[player])
+                        .attr("fill", color)
                         .attr("d", dataArea(data))
             );
         svg.selectAll("#dataLine")
@@ -193,7 +188,7 @@ export const LineGraph = (props: Props) => {
                     enter
                         .append("path")
                         .attr("id", "dataLine")
-                        .attr("stroke", PLAYER_COLORS[player])
+                        .attr("stroke", color)
                         .attr("stroke-width", "3")
                         .attr("fill-opacity", 0)
                         .attr("d", dataLine(data))
@@ -202,7 +197,7 @@ export const LineGraph = (props: Props) => {
                     update
                         .transition()
                         .duration(playerChangeTransitionDuration)
-                        .attr("stroke", PLAYER_COLORS[player])
+                        .attr("stroke", color)
                         .attr("d", dataLine(data))
             );
         svg.selectAll(".point")
@@ -212,21 +207,21 @@ export const LineGraph = (props: Props) => {
                     const point = enter.append("g").attr("class", "point");
                     point
                         .append("circle")
-                        .attr("fill", PLAYER_COLORS[player])
+                        .attr("fill", color)
                         .attr("stroke", "none")
                         .attr("cx", d => x(d.date))
-                        .attr("cy", d => y(d.winrate))
+                        .attr("cy", d => y(d.value))
                         .attr("r", 5)
                         .attr("clip-path", "url(#clip)");
                     point
                         .append("text")
                         .attr("x", d => x(d.date))
-                        .attr("y", d => y(d.winrate))
+                        .attr("y", d => y(d.value))
                         .attr("dy", -12)
                         .attr("text-anchor", "middle")
                         .attr("fill", "#ffffff")
                         .style("font-size", "12px")
-                        .text(d => `${d.winrate}%`)
+                        .text(d => `${d.value}%`)
                         .attr("clip-path", "url(#clip)");
                 },
                 update => {
@@ -234,16 +229,20 @@ export const LineGraph = (props: Props) => {
                         .select("circle")
                         .transition()
                         .duration(playerChangeTransitionDuration)
-                        .attr("fill", PLAYER_COLORS[player])
+                        .attr("fill", color)
                         .attr("cx", d => x(d.date))
-                        .attr("cy", d => y(d.winrate));
+                        .attr("cy", d => y(d.value));
                     update
                         .select("text")
-                        .text(d => `${d.winrate}%`)
                         .transition()
                         .duration(playerChangeTransitionDuration)
+                        .textTween(function (d) {
+                            const start = d3.select(this).text().split("%")[0];
+                            return t =>
+                                `${d3.interpolateRound(start, d.value)(t)}%`;
+                        })
                         .attr("x", d => x(d.date))
-                        .attr("y", d => y(d.winrate));
+                        .attr("y", d => y(d.value));
                 }
             );
     }, [props, dimensions]);

@@ -17,7 +17,7 @@ export const PLAYERS = [
     "yang",
 ];
 
-export const PLAYER_COLORS = {
+export const PLAYER_COLORS: Record<string, string> = {
     andy: "#f6de64",
     brandon: "#384268",
     brian: "#757e8a",

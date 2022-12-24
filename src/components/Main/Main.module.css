@@ -5,9 +5,19 @@
 }
 
 #RunningWinrateOverTime {
-    display: block;
-    margin: auto;
+    display: inline-block;
+    vertical-align: top;
     margin-top: 20px;
-    width: 75%;
+    margin-left: 20px;
+    margin-right: 40px;
+    width: 800px;
     height: 400px;
+}
+
+#LobbyWinRates {
+    display: inline-block;
+    vertical-align: top;
+    margin-top: 20px;
+    width: 600px;
+    height: 600px;
 }
