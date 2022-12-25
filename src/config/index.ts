@@ -35,3 +35,14 @@ export const PLAYER_COLORS: Record<string, string> = {
     tang: "#cea891",
     yang: "#c62c38",
 };
+
+export const MAP_COLORS: Record<string, string> = {
+    Ascent: "#D5B7BE",
+    Bind: "#B9835D",
+    Split: "#808488",
+    Icebox: "#48609A",
+    Pearl: "#3CB7C6",
+    Fracture: "#4F6740",
+    Haven: "#8F5142",
+    Breeze: "#649AB1",
+};

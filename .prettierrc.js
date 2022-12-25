@@ -1,5 +1,5 @@
 module.exports = {
-    "prettier.arrowParens": "avoid",
+    arrowParens: "avoid",
     tabWidth: 4,
     importOrder: [
         "^config$",

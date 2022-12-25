@@ -42,7 +42,7 @@ export const LineGraph = (props: Props) => {
         // Set up scales
         const x = d3
             .scaleTime()
-            .domain(d3.extent(data.map((d) => d.date)))
+            .domain(d3.extent(data.map(d => d.date)))
             .range([margin.left + 40, margin.left + width - 40]);
 
         const y = d3
@@ -51,41 +51,41 @@ export const LineGraph = (props: Props) => {
             .range([margin.top + height - 40, margin.top + 40]);
 
         // Set up axes
-        const xAxis = (g) =>
+        const xAxis = g =>
             g
                 .attr("transform", `translate(0, ${margin.top + height - 40})`)
                 .call(
                     d3
                         .axisTop(x)
-                        .tickValues(data.map((d) => d.date))
+                        .tickValues(data.map(d => d.date))
                         .tickFormat(d3.timeFormat("%_m/%d/%y"))
                         .tickSize(height - 40)
                 )
-                .call((g) => g.select(".domain").remove())
-                .call((g) =>
+                .call(g => g.select(".domain").remove())
+                .call(g =>
                     g
                         .selectAll(".tick line")
                         .attr("stroke-opacity", 0.5)
                         .attr("stroke-dasharray", "2")
                 )
-                .call((g) =>
+                .call(g =>
                     g.selectAll(".tick text").attr("y", 0).attr("dy", 16)
                 )
-                .call((g) =>
+                .call(g =>
                     g
                         .select(".tick:last-of-type line")
                         .attr("y1", 16)
                         .attr("stroke-opacity", 1)
                         .attr("stroke-dasharray", "4")
                 )
-                .call((g) =>
+                .call(g =>
                     g
                         .select(".tick:last-of-type text")
                         .text("today")
                         .attr("dy", 32)
                 );
 
-        const yAxis = (g) =>
+        const yAxis = g =>
             g
                 .attr("transform", `translate(${margin.left}, 0)`)
                 .call(
@@ -93,30 +93,30 @@ export const LineGraph = (props: Props) => {
                         .axisRight(y)
                         .tickValues([0, 25, 50, 75, 100])
                         .tickSize(width)
-                        .tickFormat((val) => `${val}%`)
+                        .tickFormat(val => `${val}%`)
                 )
-                .call((g) => g.select(".domain").remove())
-                .call((g) =>
+                .call(g => g.select(".domain").remove())
+                .call(g =>
                     g
                         .selectAll(".tick:not(:first-of-type) line")
                         .attr("stroke-opacity", 0.5)
                         .attr("stroke-dasharray", "2")
                 )
-                .call((g) =>
+                .call(g =>
                     g.selectAll(".tick text").attr("x", 4).attr("dy", -4)
                 );
 
         // Draw data
-        const dataArea = d3
+        const area = d3
             .area()
-            .x((d) => x(d.date))
-            .y0((d) => y(0))
-            .y1((d) => y(d.value));
+            .x(d => x(d.date))
+            .y0(d => y(0))
+            .y1(d => y(d.value));
 
-        const dataLine = d3
+        const line = d3
             .line()
-            .x((d) => x(d.date))
-            .y((d) => y(d.value));
+            .x(d => x(d.date))
+            .y(d => y(d.value));
 
         // Begin updating the svg
         svg.attr("width", "100%").attr("height", "100%");
@@ -126,7 +126,7 @@ export const LineGraph = (props: Props) => {
         svg.selectAll("#clip")
             .data([{ dimensions, margin }])
             .join(
-                (enter) =>
+                enter =>
                     enter
                         .append("clipPath")
                         .attr("id", "clip")
@@ -137,7 +137,7 @@ export const LineGraph = (props: Props) => {
                         .duration(initialDrawDuration)
                         .ease(d3.easeLinear)
                         .attr("width", x(data[data.length - 1].date) + 20),
-                (update) =>
+                update =>
                     update
                         .select("#clip rect")
                         .attr("height", svgHeight)
@@ -148,99 +148,97 @@ export const LineGraph = (props: Props) => {
         svg.selectAll(".x-axis")
             .data([{ dimensions, margin }])
             .join(
-                (enter) =>
-                    enter.append("g").attr("class", "x-axis").call(xAxis),
-                (update) => update.call(xAxis)
+                enter => enter.append("g").attr("class", "x-axis").call(xAxis),
+                update => update.call(xAxis)
             );
         svg.selectAll(".y-axis")
             .data([{ dimensions, margin }])
             .join(
-                (enter) =>
-                    enter.append("g").attr("class", "y-axis").call(yAxis),
-                (update) => update.call(yAxis)
+                enter => enter.append("g").attr("class", "y-axis").call(yAxis),
+                update => update.call(yAxis)
             );
 
         // Draw and update data
-        svg.selectAll("#dataArea")
+        svg.selectAll("#area")
             .data([data])
             .join(
-                (enter) =>
+                enter =>
                     enter
                         .append("path")
-                        .attr("id", "dataArea")
+                        .attr("id", "area")
                         .attr("fill", color)
                         .attr("fill-opacity", 0.25)
-                        .attr("d", dataArea(data))
+                        .attr("d", area(data))
                         .attr("clip-path", "url(#clip)"),
-                (update) =>
+                update =>
                     update
                         .transition()
                         .duration(playerChangeTransitionDuration)
                         .attr("fill", color)
-                        .attr("d", dataArea(data))
+                        .attr("d", area(data))
             );
-        svg.selectAll("#dataLine")
+        svg.selectAll("#line")
             .data([data])
             .join(
-                (enter) =>
+                enter =>
                     enter
                         .append("path")
-                        .attr("id", "dataLine")
+                        .attr("id", "line")
                         .attr("stroke", color)
                         .attr("stroke-width", "3")
                         .attr("fill-opacity", 0)
-                        .attr("d", dataLine(data))
+                        .attr("d", line(data))
                         .attr("clip-path", "url(#clip)"),
-                (update) =>
+                update =>
                     update
                         .transition()
                         .duration(playerChangeTransitionDuration)
                         .attr("stroke", color)
-                        .attr("d", dataLine(data))
+                        .attr("d", line(data))
             );
         svg.selectAll(".point")
             .data(data)
             .join(
-                (enter) => {
+                enter => {
                     const point = enter.append("g").attr("class", "point");
                     point
                         .append("circle")
                         .attr("fill", color)
                         .attr("stroke", "none")
-                        .attr("cx", (d) => x(d.date))
-                        .attr("cy", (d) => y(d.value))
+                        .attr("cx", d => x(d.date))
+                        .attr("cy", d => y(d.value))
                         .attr("r", 5)
                         .attr("clip-path", "url(#clip)");
                     point
                         .append("text")
-                        .attr("x", (d) => x(d.date))
-                        .attr("y", (d) => y(d.value))
+                        .attr("x", d => x(d.date))
+                        .attr("y", d => y(d.value))
                         .attr("dy", -12)
                         .attr("text-anchor", "middle")
                         .attr("fill", "#ffffff")
                         .style("font-size", "12px")
-                        .text((d) => `${d.value}%`)
+                        .text(d => `${d.value}%`)
                         .attr("clip-path", "url(#clip)");
                 },
-                (update) => {
+                update => {
                     update
                         .select("circle")
                         .transition()
                         .duration(playerChangeTransitionDuration)
                         .attr("fill", color)
-                        .attr("cx", (d) => x(d.date))
-                        .attr("cy", (d) => y(d.value));
+                        .attr("cx", d => x(d.date))
+                        .attr("cy", d => y(d.value));
                     update
                         .select("text")
                         .transition()
                         .duration(playerChangeTransitionDuration)
                         .textTween(function (d) {
                             const start = d3.select(this).text().split("%")[0];
-                            return (t) =>
+                            return t =>
                                 `${d3.interpolateRound(start, d.value)(t)}%`;
                         })
-                        .attr("x", (d) => x(d.date))
-                        .attr("y", (d) => y(d.value));
+                        .attr("x", d => x(d.date))
+                        .attr("y", d => y(d.value));
                 }
             );
     }, [props, dimensions]);

@@ -8,8 +8,8 @@ export const useParentDimensions = (ref: React.MutableRefObject<any>) => {
     });
 
     React.useEffect(() => {
-        const observer = new ResizeObserver((containers) =>
-            containers.forEach((container) =>
+        const observer = new ResizeObserver(containers =>
+            containers.forEach(container =>
                 setDimensions({
                     width: container.contentRect.width,
                     height: container.contentRect.height,
@@ -22,4 +22,12 @@ export const useParentDimensions = (ref: React.MutableRefObject<any>) => {
     }, [ref]);
 
     return dimensions;
+};
+
+export const luminance = (color: string): number => {
+    const hex = parseInt(color.slice(1), 16);
+    const r = (hex >> 16) & 0xff;
+    const g = (hex >> 8) & 0xff;
+    const b = (hex >> 0) & 0xff;
+    return 0.2126 * r + 0.7152 * g + 0.0722 * b;
 };
