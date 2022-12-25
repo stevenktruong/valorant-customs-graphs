@@ -1,6 +1,6 @@
 exports.exports = {
     resolve: {
-        extensions: [".ts", ".tsx", ".js", ".jsx"]
+        extensions: [".ts", ".tsx", ".js", ".jsx"],
     },
     module: {
         loaders: [
@@ -8,4 +8,4 @@ exports.exports = {
             { test: /\.tsx?$/, loader: "ts-loader" },
         ],
     },
-}
+};
