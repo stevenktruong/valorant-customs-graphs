@@ -1,4 +1,3 @@
-import { count } from "console";
 import * as React from "react";
 
 import { MAP_COLORS, PLAYERS, PLAYER_COLORS } from "config";
@@ -151,7 +150,7 @@ export const Main = (props: any) => {
                         width="15%"
                     />
                     <PieGraph
-                        data={Object.entries(mapsJson).map(([map, count]) => ({
+                        data={Object.entries(mapsData).map(([map, count]) => ({
                             label: map,
                             color: MAP_COLORS[map],
                             count: Number(count),
