@@ -144,11 +144,11 @@ export const Main = (props: any) => {
                         transitionDuration={1000}
                     />
                 </Dashboard>
-                <Dashboard id={style.MapCounter} direction="column">
+                <Dashboard id={style.MapCounter} direction="row">
                     <Caption
                         title="Map Counter"
                         description="Lobby map pick frequency"
-                        height="15%"
+                        width="15%"
                     />
                     <PieGraph
                         data={Object.entries(mapsJson).map(([map, count]) => ({

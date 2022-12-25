@@ -79,7 +79,8 @@ export const PieGraph = (props: Props) => {
                             })`
                         )
                         .attr("fill", d => d.data.color)
-                        .attr("d", d =>
+                        .attr(
+                            "d",
                             arc({
                                 startAngle: 0,
                                 endAngle: 0,
