@@ -1,15 +1,5 @@
-.CaptionContainer {
-    display: inline-block;
-    vertical-align: top;
-    width: 20%;
+.GraphContainer {
+    flex: 1;
     height: 100%;
-
-    padding-top: 20px;
-    padding-left: 24px;
-}
-
-.Graph {
-    display: inline-block;
-    width: 80%;
-    height: 100%;
+    width: 100%;
 }

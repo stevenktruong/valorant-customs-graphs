@@ -1,5 +1,9 @@
+.CaptionContainer {
+    padding-top: 24px;
+    padding-left: 24px;
+}
+
 .Caption {
-    display: inline-block;
     border-left: 4px solid #ffffff;
     text-align: left;
     padding-left: 12px;
