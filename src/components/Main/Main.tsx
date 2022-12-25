@@ -33,7 +33,11 @@ export const Main = (props: any) => {
     return (
         <div className={style.Main}>
             <div className={style.IndividualStats}>
-                <Dashboard id={style.RunningWinrateOverTime} direction="row">
+                <Dashboard
+                    id={style.RunningWinrateOverTime}
+                    className={style.Dashboard}
+                    direction="row"
+                >
                     <Caption
                         title="Win Rate Over Time"
                         description="Individiual performance since October 2022"
@@ -57,7 +61,11 @@ export const Main = (props: any) => {
                         transitionDuration={1000}
                     />
                 </Dashboard>
-                <Dashboard id={style.TeammateSynergy} direction="column">
+                <Dashboard
+                    id={style.TeammateSynergy}
+                    className={style.Dashboard}
+                    direction="column"
+                >
                     <Caption
                         title="Teammate Synergy"
                         description="Win rate with player on same team"
@@ -87,7 +95,11 @@ export const Main = (props: any) => {
                         transitionDuration={1000}
                     />
                 </Dashboard>
-                <Dashboard id={style.Matchups} direction="column">
+                <Dashboard
+                    id={style.Matchups}
+                    className={style.Dashboard}
+                    direction="column"
+                >
                     <Caption
                         title="Matchups"
                         description="Win rate against player on opposing team"
@@ -119,7 +131,11 @@ export const Main = (props: any) => {
                 </Dashboard>
             </div>
             <div className={style.LobbyStats}>
-                <Dashboard id={style.LobbyWinRates} direction="column">
+                <Dashboard
+                    id={style.LobbyWinRates}
+                    className={style.Dashboard}
+                    direction="column"
+                >
                     <Caption
                         title="Lobby Win Rates"
                         description="Lifetime performances"
@@ -143,7 +159,11 @@ export const Main = (props: any) => {
                         transitionDuration={1000}
                     />
                 </Dashboard>
-                <Dashboard id={style.MapCounter} direction="row">
+                <Dashboard
+                    id={style.MapCounter}
+                    className={style.Dashboard}
+                    direction="row"
+                >
                     <Caption
                         title="Map Counter"
                         description="Lobby map pick frequency"
