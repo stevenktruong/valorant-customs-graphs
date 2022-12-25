@@ -18,12 +18,11 @@ interface Props {
         right: number;
         bottom: number;
     };
+    initialDrawDuration: number;
+    transitionDuration: number;
 }
 
 export const BarGraph = (props: Props) => {
-    const initialDrawDuration = 1000;
-    const transitionDuration = 1000;
-
     const svgRef = React.useRef();
     let dimensions = useParentDimensions(svgRef);
 
@@ -32,7 +31,7 @@ export const BarGraph = (props: Props) => {
 
         const svg = d3.select(svgRef.current);
 
-        const { data, margin } = props;
+        const { initialDrawDuration, transitionDuration, data, margin } = props;
 
         const { width: svgWidth, height: svgHeight } = dimensions;
 
@@ -99,20 +98,27 @@ export const BarGraph = (props: Props) => {
                         .call(yAxis)
                         .attr("opacity", 1),
                 update => {
-                    update
-                        .transition()
-                        .duration(transitionDuration / 2)
-                        .ease(d3.easeLinear)
-                        .attr("opacity", 0);
-                    update
-                        .transition()
-                        .delay(transitionDuration / 2)
-                        .duration(0)
-                        .call(yAxis)
-                        .transition()
-                        .duration(transitionDuration / 2)
-                        .ease(d3.easeLinear)
-                        .attr("opacity", 1);
+                    // Transition only if the labels have changed
+                    const prev = update.selectAll(".tick text").data();
+                    const curr = data.map(d => d.label);
+                    if (prev.every((label, i) => label == curr[i])) {
+                        update.call(yAxis);
+                    } else {
+                        update
+                            .transition()
+                            .duration(transitionDuration / 2)
+                            .ease(d3.easeLinear)
+                            .attr("opacity", 0);
+                        update
+                            .transition()
+                            .duration(0)
+                            .delay(transitionDuration / 2)
+                            .call(yAxis)
+                            .transition()
+                            .duration(transitionDuration / 2)
+                            .ease(d3.easeLinear)
+                            .attr("opacity", 1);
+                    }
                 }
             );
 

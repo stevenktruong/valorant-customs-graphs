@@ -18,12 +18,11 @@ interface Props {
         right: number;
         bottom: number;
     };
+    initialDrawDuration: number;
+    transitionDuration: number;
 }
 
 export const LineGraph = (props: Props) => {
-    const initialDrawDuration = 1000;
-    const playerChangeTransitionDuration = 1000;
-
     const svgRef = React.useRef();
     let dimensions = useParentDimensions(svgRef);
 
@@ -32,7 +31,8 @@ export const LineGraph = (props: Props) => {
 
         const svg = d3.select(svgRef.current);
 
-        const { data, color, margin } = props;
+        const { initialDrawDuration, transitionDuration, data, color, margin } =
+            props;
 
         const { width: svgWidth, height: svgHeight } = dimensions;
 
@@ -173,7 +173,7 @@ export const LineGraph = (props: Props) => {
                 update =>
                     update
                         .transition()
-                        .duration(playerChangeTransitionDuration)
+                        .duration(transitionDuration)
                         .attr("fill", color)
                         .attr("d", area(data))
             );
@@ -192,7 +192,7 @@ export const LineGraph = (props: Props) => {
                 update =>
                     update
                         .transition()
-                        .duration(playerChangeTransitionDuration)
+                        .duration(transitionDuration)
                         .attr("stroke", color)
                         .attr("d", line(data))
             );
@@ -224,14 +224,14 @@ export const LineGraph = (props: Props) => {
                     update
                         .select("circle")
                         .transition()
-                        .duration(playerChangeTransitionDuration)
+                        .duration(transitionDuration)
                         .attr("fill", color)
                         .attr("cx", d => x(d.date))
                         .attr("cy", d => y(d.value));
                     update
                         .select("text")
                         .transition()
-                        .duration(playerChangeTransitionDuration)
+                        .duration(transitionDuration)
                         .textTween(function (d) {
                             const start = d3.select(this).text().split("%")[0];
                             return t =>

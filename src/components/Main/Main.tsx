@@ -54,6 +54,8 @@ export const Main = (props: any) => {
                             bottom: 30,
                             left: 30,
                         }}
+                        initialDrawDuration={1000}
+                        transitionDuration={1000}
                     />
                 </Dashboard>
                 <Dashboard id={style.TeammateSynergy} direction="column">
@@ -74,6 +76,7 @@ export const Main = (props: any) => {
                                         : "#ffffff",
                                 value: d.winrate || 0,
                             }))
+                            .filter(d => d.label !== currentPlayer)
                             .sort((a, b) => a.value - b.value)}
                         margin={{
                             top: 30,
@@ -81,6 +84,8 @@ export const Main = (props: any) => {
                             bottom: 30,
                             left: 30,
                         }}
+                        initialDrawDuration={1000}
+                        transitionDuration={1000}
                     />
                 </Dashboard>
                 <Dashboard id={style.Matchups} direction="column">
@@ -101,13 +106,16 @@ export const Main = (props: any) => {
                                         : "#ffffff",
                                 value: d.winrate || 0,
                             }))
-                            .sort((a, b) => a.value - b.value)}
+                            .filter(d => d.label !== currentPlayer)
+                            .sort((a, b) => b.value - a.value)}
                         margin={{
                             top: 30,
                             right: 30,
                             bottom: 30,
                             left: 30,
                         }}
+                        initialDrawDuration={1000}
+                        transitionDuration={1000}
                     />
                 </Dashboard>
             </div>
@@ -132,6 +140,8 @@ export const Main = (props: any) => {
                             bottom: 30,
                             left: 30,
                         }}
+                        initialDrawDuration={1000}
+                        transitionDuration={1000}
                     />
                 </Dashboard>
                 <Dashboard id={style.MapCounter} direction="column">
@@ -152,6 +162,8 @@ export const Main = (props: any) => {
                             bottom: 30,
                             left: 30,
                         }}
+                        initialDrawDuration={1000}
+                        transitionDuration={1000}
                     />
                 </Dashboard>
             </div>
