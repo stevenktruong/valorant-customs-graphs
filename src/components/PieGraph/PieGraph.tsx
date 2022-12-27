@@ -20,6 +20,7 @@ interface Props {
     };
     initialDrawDuration: number;
     transitionDuration: number;
+    percentage?: boolean;
 }
 
 export const PieGraph = (props: Props) => {
@@ -31,7 +32,13 @@ export const PieGraph = (props: Props) => {
 
         const svg = d3.select(svgRef.current);
 
-        const { initialDrawDuration, transitionDuration, data, margin } = props;
+        const {
+            data,
+            margin,
+            initialDrawDuration,
+            transitionDuration,
+            percentage,
+        } = props;
 
         const { width: svgWidth, height: svgHeight } = dimensions;
 
@@ -41,6 +48,7 @@ export const PieGraph = (props: Props) => {
         const center = [margin.left + width / 2, margin.top + height / 2];
         const R = Math.min(width, height) / 3;
 
+        const totalMaps = d3.sum(data.map(d => d.count));
         const pie = d3.pie().value(d => d.count);
         const arc = d3
             .arc()
@@ -61,6 +69,12 @@ export const PieGraph = (props: Props) => {
         const outerPoint = d => labelOuterArc.centroid(d);
         const direction = d =>
             outerPoint(d)[0] - innerPoint(d)[0] > 0 ? 1 : -1;
+
+        const label = d =>
+            `${d.data.label} ` +
+            (percentage
+                ? `${Math.round((100 * d.data.count) / totalMaps)}%`
+                : `${d.data.count}`);
 
         // Begin updating the svg
         svg.attr("width", "100%").attr("height", "100%");
@@ -88,7 +102,7 @@ export const PieGraph = (props: Props) => {
                         )
                         .transition()
                         .ease(d3.easeLinear)
-                        .duration((transitionDuration * 2) / 3)
+                        .duration(initialDrawDuration)
                         .attrTween("d", d => {
                             const startAngle = d3.interpolate(0, d.startAngle);
                             const arcAngle = d3.interpolate(
@@ -104,6 +118,7 @@ export const PieGraph = (props: Props) => {
                     arcs.append("path")
                         .attr("class", "tick")
                         .attr("stroke", "#ffffff")
+                        .attr("fill-opacity", 0)
                         .attr(
                             "transform",
                             `translate(${margin.left + width / 2}, ${
@@ -113,54 +128,39 @@ export const PieGraph = (props: Props) => {
                         .attr(
                             "d",
                             d =>
-                                `M${innerPoint(d).join(",")}` +
+                                `M${innerPoint(d).join(",")},` +
                                 `L${innerPoint(d).join(",")},` +
                                 `L${innerPoint(d).join(",")}`
                         )
                         .transition()
-                        .delay((transitionDuration * 2) / 3)
+                        .delay(initialDrawDuration)
                         .ease(d3.easeLinear)
-                        .duration(transitionDuration / 6)
-                        .attrTween(
-                            "d",
-                            d => t =>
+                        .duration(initialDrawDuration / 2)
+                        .attrTween("d", d =>
+                            d3.piecewise(d3.interpolate, [
                                 `M${innerPoint(d).join(",")},` +
-                                `L${d3
-                                    .interpolate(
-                                        innerPoint(d),
-                                        outerPoint(d)
-                                    )(t)
-                                    .join(",")},` +
-                                `L${d3
-                                    .interpolate(
-                                        innerPoint(d),
-                                        outerPoint(d)
-                                    )(t)
-                                    .join(",")}`
-                        )
-                        .transition()
-                        .ease(d3.easeLinear)
-                        .duration(transitionDuration / 6)
-                        .attrTween(
-                            "d",
-                            d => t =>
+                                    `L${innerPoint(d).join(",")},` +
+                                    `L${innerPoint(d).join(",")},`,
                                 `M${innerPoint(d).join(",")},` +
-                                `L${outerPoint(d).join(",")},` +
-                                `L${d3.interpolate(
-                                    outerPoint(d)[0],
-                                    outerPoint(d)[0] + direction(d) * 10
-                                )(t)},${outerPoint(d)[1]}`
+                                    `L${outerPoint(d).join(",")},` +
+                                    `L${outerPoint(d).join(",")},`,
+                                `M${innerPoint(d).join(",")},` +
+                                    `L${outerPoint(d).join(",")},` +
+                                    `L${outerPoint(d)[0] + direction(d) * 8},${
+                                        outerPoint(d)[1]
+                                    }`,
+                            ])
                         );
                     arcs.append("text")
                         .attr("fill", "#ffffff")
                         .attr("opacity", 0)
-                        .attr("font-size", "12px")
-                        .text(d => `${d.data.label} ${d.data.count}`)
+                        .attr("font-size", "10px")
+                        .text(label)
                         .attr("alignment-baseline", "central")
                         .attr("text-anchor", d =>
                             direction(d) > 0 ? "start" : "end"
                         )
-                        .attr("dx", d => direction(d) * 15)
+                        .attr("dx", d => direction(d) * 12)
                         .attr(
                             "transform",
                             d =>
@@ -169,62 +169,74 @@ export const PieGraph = (props: Props) => {
                                 })`
                         )
                         .transition()
-                        .delay((transitionDuration * 2) / 3)
+                        .delay(initialDrawDuration)
                         .ease(d3.easeLinear)
-                        .duration(transitionDuration / 3)
+                        .duration(initialDrawDuration / 3)
                         .attr("opacity", 1);
                 },
                 update => {
                     update
                         .select(".arc")
-                        .transition()
-                        .ease(d3.easeLinear)
-                        .duration(transitionDuration)
                         .attr(
                             "transform",
                             `translate(${margin.left + width / 2}, ${
                                 margin.top + height / 2
                             })`
                         )
+                        .transition()
+                        .ease(d3.easeLinear)
+                        .duration(transitionDuration)
                         .attr("fill", d => d.data.color)
-                        .attr("d", arc);
+                        .attrTween("d", d => {
+                            const startAngle = d3.interpolate(0, d.startAngle);
+                            const arcAngle = d3.interpolate(
+                                0,
+                                d.endAngle - d.startAngle
+                            );
+                            return t => {
+                                d.startAngle = startAngle(t);
+                                d.endAngle = startAngle(t) + arcAngle(t);
+                                return arc(d);
+                            };
+                        });
                     update
                         .select(".tick")
-                        .transition()
-                        .ease(d3.easeLinear)
-                        .duration(transitionDuration)
                         .attr(
                             "transform",
                             `translate(${margin.left + width / 2}, ${
                                 margin.top + height / 2
                             })`
                         )
+                        .transition()
+                        .ease(d3.easeLinear)
+                        .duration(transitionDuration)
                         .attr(
                             "d",
                             d =>
                                 `M${innerPoint(d).join(",")},` +
                                 `L${outerPoint(d).join(",")},` +
-                                `L${outerPoint(d)[0] + direction(d) * 10},${
+                                `L${outerPoint(d)[0] + direction(d) * 8},${
                                     outerPoint(d)[1]
                                 }`
                         );
                     update
                         .select("text")
-                        .transition()
-                        .ease(d3.easeLinear)
-                        .duration(transitionDuration)
-                        .text(d => `${d.data.label} ${d.data.count}`)
-                        .attr("text-anchor", d =>
-                            direction(d) > 0 ? "start" : "end"
-                        )
-                        .attr("dx", d => direction(d) * 15)
                         .attr(
                             "transform",
                             d =>
                                 `translate(${outerPoint(d).map(
                                     (c, i) => c + center[i]
                                 )})`
-                        );
+                        )
+                        .text(label)
+                        .attr("text-anchor", d =>
+                            direction(d) > 0 ? "start" : "end"
+                        )
+                        .attr("dx", d => direction(d) * 12)
+                        .transition()
+                        .ease(d3.easeLinear)
+                        .duration(transitionDuration)
+                        .attr("opacity", 1);
                 }
             );
     }, [props, dimensions]);

@@ -1,8 +1,9 @@
 .Main {
-    display: flex;
-    overflow: auto;
-    width: 80%;
-    height: 80%;
+    display: grid;
+    width: 100%;
+    height: 100%;
+    grid-template-columns: 25px repeat(6, 1fr 25px);
+    grid-template-rows: 25px repeat(12, 1fr 25px);
 }
 
 .Dashboard {
@@ -12,56 +13,110 @@
     border-radius: 8px;
 }
 
-.IndividualStats {
-    display: grid;
-    grid-template-columns: 1fr 25px 1fr;
-    grid-template-rows: 25px 1fr 25px 1fr 25px;
-    margin-left: 25px;
-    margin-right: 25px;
-    width: 60%;
-}
-
 #RunningWinrateOverTime {
-    grid-column-start: 1;
-    grid-column-end: 4;
+    grid-column-start: 2;
+    grid-column-end: 9;
     grid-row-start: 2;
-    grid-row-end: 2;
+    grid-row-end: 9;
 }
-
 
 #TeammateSynergy {
-    grid-column-start: 1;
-    grid-column-end: 1;
-    grid-row-start: 4;
-    grid-row-end: 4;
+    grid-column-start: 2;
+    grid-column-end: 5;
+    grid-row-start: 10;
+    grid-row-end: 17;
 }
 
 #Matchups {
-    grid-column-start: 3;
-    grid-column-end: 3;
-    grid-row-start: 4;
-    grid-row-end: 4;
-}
-
-.LobbyStats {
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: 25px 2fr 25px 1fr 25px;
-    margin-right: 25px;
-    width: 40%;
+    grid-column-start: 6;
+    grid-column-end: 9;
+    grid-row-start: 10;
+    grid-row-end: 17;
 }
 
 #LobbyWinRates {
-    grid-column-start: 1;
-    grid-column-end: 1;
+    grid-column-start: 10;
+    grid-column-end: 13;
     grid-row-start: 2;
-    grid-row-end: 2;
+    grid-row-end: 13;
 }
-
 
 #MapCounter {
-    grid-column-start: 1;
-    grid-column-end: 1;
-    grid-row-start: 4;
-    grid-row-end: 4;
+    grid-column-start: 10;
+    grid-column-end: 13;
+    grid-row-start: 14;
+    grid-row-end: 19;
 }
+
+#RoleProportions {
+    grid-column-start: 10;
+    grid-column-end: 13;
+    grid-row-start: 20;
+    grid-row-end: 25;
+}
+
+#TopInitiators {
+    grid-column-start: 2;
+    grid-column-end: 3;
+    grid-row-start: 18;
+    grid-row-end: 22;
+}
+
+/* @media (max-width: 1250px) {
+    .Main {
+        flex-direction: column;
+        height: 100%;
+    }
+
+    .IndividualStats {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 25px 1fr 25px 1fr 25px;
+        width: 40%;
+    }
+
+    #RunningWinrateOverTime {
+        grid-column-start: 1;
+        grid-column-end: 1;
+        grid-row-start: 2;
+        grid-row-end: 2;
+    }
+
+    #TeammateSynergy {
+        grid-column-start: 1;
+        grid-column-end: 1;
+        grid-row-start: 4;
+        grid-row-end: 4;
+    }
+
+    #Matchups {
+        grid-column-start: 1;
+        grid-column-end: 1;
+        grid-row-start: 4;
+        grid-row-end: 4;
+        height: 300px;
+    }
+
+    .LobbyStats {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 25px 3fr 25px 2fr 25px;
+        margin-left: 25px;
+        width: 40%;
+    }
+
+    #LobbyWinRates {
+        grid-column-start: 1;
+        grid-column-end: 1;
+        grid-row-start: 2;
+        grid-row-end: 2;
+    }
+
+
+    #MapCounter {
+        grid-column-start: 1;
+        grid-column-end: 1;
+        grid-row-start: 4;
+        grid-row-end: 4;
+    }
+  } */

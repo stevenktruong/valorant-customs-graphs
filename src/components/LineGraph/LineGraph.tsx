@@ -58,7 +58,7 @@ export const LineGraph = (props: Props) => {
                     d3
                         .axisTop(x)
                         .tickValues(data.map(d => d.date))
-                        .tickFormat(d3.timeFormat("%_m/%d/%y"))
+                        .tickFormat(d3.timeFormat("%_m/%d"))
                         .tickSize(height - 40)
                 )
                 .call(g => g.select(".domain").remove())
@@ -69,20 +69,25 @@ export const LineGraph = (props: Props) => {
                         .attr("stroke-dasharray", "2")
                 )
                 .call(g =>
-                    g.selectAll(".tick text").attr("y", 0).attr("dy", 16)
+                    g
+                        .selectAll(".tick text")
+                        .attr("fill", "#c8c8c8")
+                        .attr("alignment-baseline", "central")
+                        .attr("x", 0)
+                        .attr("y", 0)
+                        .attr("transform", `translate(4, 16) rotate(30)`)
                 )
                 .call(g =>
                     g
                         .select(".tick:last-of-type line")
-                        .attr("y1", 16)
+                        // .attr("y1", 16)
                         .attr("stroke-opacity", 1)
                         .attr("stroke-dasharray", "4")
                 )
-                .call(g =>
-                    g
-                        .select(".tick:last-of-type text")
-                        .text("today")
-                        .attr("dy", 32)
+                .call(
+                    g => g.select(".tick:last-of-type text").remove()
+                    // .text("today")
+                    // .attr("dy", 32)
                 );
 
         const yAxis = g =>
@@ -136,7 +141,7 @@ export const LineGraph = (props: Props) => {
                         .transition()
                         .duration(initialDrawDuration)
                         .ease(d3.easeLinear)
-                        .attr("width", x(data[data.length - 1].date) + 20),
+                        .attr("width", svgWidth),
                 update =>
                     update
                         .select("#clip rect")
@@ -214,11 +219,19 @@ export const LineGraph = (props: Props) => {
                         .attr("x", d => x(d.date))
                         .attr("y", d => y(d.value))
                         .attr("dy", -12)
-                        .attr("text-anchor", "middle")
+                        .attr("text-anchor", (d, i) =>
+                            i === data.length - 1 ? "start" : "middle"
+                        )
                         .attr("fill", "#ffffff")
                         .style("font-size", "12px")
                         .text(d => `${d.value}%`)
                         .attr("clip-path", "url(#clip)");
+                    point
+                        .select(".point:last-of-type text")
+                        .attr("dx", 8)
+                        .attr("dy", 0)
+                        .attr("alignment-baseline", "central")
+                        .attr("text-anchor", "start");
                 },
                 update => {
                     update

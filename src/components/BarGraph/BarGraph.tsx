@@ -57,7 +57,7 @@ export const BarGraph = (props: Props) => {
                 .call(
                     d3
                         .axisTop(x)
-                        .tickValues([0, 20, 40, 60, 80, 100])
+                        .tickValues([0, 50, 100])
                         .tickFormat(val => `${val}%`)
                         .tickSize(height)
                 )
@@ -69,7 +69,11 @@ export const BarGraph = (props: Props) => {
                         .attr("stroke-dasharray", "2")
                 )
                 .call(g =>
-                    g.selectAll(".tick text").attr("y", 0).attr("dy", 16)
+                    g
+                        .selectAll(".tick text")
+                        .attr("y", 0)
+                        .attr("dy", 16)
+                        .attr("fill", "#c8c8c8")
                 );
 
         const yAxis = g =>
@@ -143,7 +147,7 @@ export const BarGraph = (props: Props) => {
                         .attr("fill", d =>
                             d.value > 90 ? d.textColor : "#ffffff"
                         )
-                        .style("font-size", "12px")
+                        .style("font-size", "10px")
                         .attr("alignment-baseline", "central")
                         .attr("x", x(0))
                         .attr("y", d => y(d.label) + y.bandwidth() / 2)
