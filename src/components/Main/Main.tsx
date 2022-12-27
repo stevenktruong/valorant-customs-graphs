@@ -53,12 +53,6 @@ export const Main = (props: any) => {
                         }))
                         .filter(d => d.date >= new Date("2022-10-16"))}
                     color={PLAYER_COLORS[currentPlayer]}
-                    margin={{
-                        top: 30,
-                        right: 30,
-                        bottom: 30,
-                        left: 30,
-                    }}
                     initialDrawDuration={1000}
                     transitionDuration={1000}
                 />
@@ -71,7 +65,7 @@ export const Main = (props: any) => {
                 <Caption
                     title="Teammate Synergy"
                     description="Win rate with player on same team"
-                    height="15%"
+                    height="25%"
                 />
                 <BarGraph
                     data={teammateSynergyData[currentPlayer]
@@ -86,12 +80,6 @@ export const Main = (props: any) => {
                         }))
                         .filter(d => d.label !== currentPlayer)
                         .sort((a, b) => a.value - b.value)}
-                    margin={{
-                        top: 30,
-                        right: 30,
-                        bottom: 30,
-                        left: 30,
-                    }}
                     initialDrawDuration={1000}
                     transitionDuration={1000}
                 />
@@ -104,7 +92,7 @@ export const Main = (props: any) => {
                 <Caption
                     title="Matchups"
                     description="Win rate against player on opposing team"
-                    height="15%"
+                    height="25%"
                 />
                 <BarGraph
                     data={matchupData[currentPlayer]
@@ -119,12 +107,6 @@ export const Main = (props: any) => {
                         }))
                         .filter(d => d.label !== currentPlayer)
                         .sort((a, b) => b.value - a.value)}
-                    margin={{
-                        top: 30,
-                        right: 30,
-                        bottom: 30,
-                        left: 30,
-                    }}
                     initialDrawDuration={1000}
                     transitionDuration={1000}
                 />
@@ -147,12 +129,6 @@ export const Main = (props: any) => {
                             value: playerStats.winrate || 0,
                         }))
                         .sort((a, b) => a.value - b.value)}
-                    margin={{
-                        top: 30,
-                        right: 30,
-                        bottom: 30,
-                        left: 30,
-                    }}
                     initialDrawDuration={1000}
                     transitionDuration={1000}
                 />
@@ -173,12 +149,6 @@ export const Main = (props: any) => {
                         color: MAP_COLORS[map],
                         count: Number(count),
                     }))}
-                    margin={{
-                        top: 30,
-                        right: 30,
-                        bottom: 30,
-                        left: 30,
-                    }}
                     initialDrawDuration={1000}
                     transitionDuration={1000}
                 />
@@ -199,23 +169,34 @@ export const Main = (props: any) => {
                         color: "steelblue",
                         count: Number(count),
                     }))}
-                    margin={{
-                        top: 30,
-                        right: 30,
-                        bottom: 30,
-                        left: 30,
-                    }}
                     initialDrawDuration={1000}
                     transitionDuration={1000}
                     percentage={true}
                 />
             </Dashboard>
             <Dashboard
-                id={style.TopInitiators}
-                className={style.Dashboard}
+                id={style.TopDuelists}
+                className={`${style.Dashboard} ${style.Leaderboard}`}
                 direction="column"
             >
-                <Caption title="Top Initiators" height="15%" />
+                <Caption title="Top Duelists" height="40%" />
+                <Leaderboard
+                    data={Object.entries(individualData)
+                        .map(([name, playerStats]) => ({
+                            name,
+                            games: playerStats.roles.Duelist.games,
+                        }))
+                        .sort((a, b) => b.games - a.games)
+                        .map(d => d.name)
+                        .slice(0, 5)}
+                />
+            </Dashboard>
+            <Dashboard
+                id={style.TopInitiators}
+                className={`${style.Dashboard} ${style.Leaderboard}`}
+                direction="column"
+            >
+                <Caption title="Top Initiators" height="40%" />
                 <Leaderboard
                     data={Object.entries(individualData)
                         .map(([name, playerStats]) => ({
@@ -225,12 +206,40 @@ export const Main = (props: any) => {
                         .sort((a, b) => b.games - a.games)
                         .map(d => d.name)
                         .slice(0, 5)}
-                    margin={{
-                        top: 30,
-                        right: 30,
-                        bottom: 30,
-                        left: 30,
-                    }}
+                />
+            </Dashboard>
+            <Dashboard
+                id={style.TopControllers}
+                className={`${style.Dashboard} ${style.Leaderboard}`}
+                direction="column"
+            >
+                <Caption title="Top Controllers" height="40%" />
+                <Leaderboard
+                    data={Object.entries(individualData)
+                        .map(([name, playerStats]) => ({
+                            name,
+                            games: playerStats.roles.Controller.games,
+                        }))
+                        .sort((a, b) => b.games - a.games)
+                        .map(d => d.name)
+                        .slice(0, 5)}
+                />
+            </Dashboard>
+            <Dashboard
+                id={style.TopSentinels}
+                className={`${style.Dashboard} ${style.Leaderboard}`}
+                direction="column"
+            >
+                <Caption title="Top Sentinels" height="40%" />
+                <Leaderboard
+                    data={Object.entries(individualData)
+                        .map(([name, playerStats]) => ({
+                            name,
+                            games: playerStats.roles.Sentinel.games,
+                        }))
+                        .sort((a, b) => b.games - a.games)
+                        .map(d => d.name)
+                        .slice(0, 5)}
                 />
             </Dashboard>
             <PlayerSelector setCurrentPlayer={setCurrentPlayer} />

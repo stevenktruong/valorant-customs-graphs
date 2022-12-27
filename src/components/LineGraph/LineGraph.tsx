@@ -12,12 +12,6 @@ interface Props {
         value: number;
     }[];
     color: string;
-    margin: {
-        top: number;
-        left: number;
-        right: number;
-        bottom: number;
-    };
     initialDrawDuration: number;
     transitionDuration: number;
 }
@@ -31,35 +25,35 @@ export const LineGraph = (props: Props) => {
 
         const svg = d3.select(svgRef.current);
 
-        const { initialDrawDuration, transitionDuration, data, color, margin } =
-            props;
+        const { initialDrawDuration, transitionDuration, data, color } = props;
 
-        const { width: svgWidth, height: svgHeight } = dimensions;
+        const { width, height } = dimensions;
 
-        const width = svgWidth - margin.left - margin.right;
-        const height = svgHeight - margin.top - margin.bottom;
+        const leftPadding = 30;
+        const rightPadding = 40;
+        const bottomPadding = 30;
 
         // Set up scales
         const x = d3
             .scaleTime()
             .domain(d3.extent(data.map(d => d.date)))
-            .range([margin.left + 40, margin.left + width - 40]);
+            .range([leftPadding, width - rightPadding]);
 
         const y = d3
             .scaleLinear()
             .domain([0, 100])
-            .range([margin.top + height - 40, margin.top + 40]);
+            .range([height - 30, 0]);
 
         // Set up axes
         const xAxis = g =>
             g
-                .attr("transform", `translate(0, ${margin.top + height - 40})`)
+                .attr("transform", `translate(0, ${height - bottomPadding})`)
                 .call(
                     d3
                         .axisTop(x)
                         .tickValues(data.map(d => d.date))
                         .tickFormat(d3.timeFormat("%_m/%d"))
-                        .tickSize(height - 40)
+                        .tickSize(height)
                 )
                 .call(g => g.select(".domain").remove())
                 .call(g =>
@@ -92,7 +86,7 @@ export const LineGraph = (props: Props) => {
 
         const yAxis = g =>
             g
-                .attr("transform", `translate(${margin.left}, 0)`)
+                .attr("transform", `translate(0, 0)`)
                 .call(
                     d3
                         .axisRight(y)
@@ -129,7 +123,7 @@ export const LineGraph = (props: Props) => {
         // "Animates" drawing from left to right
         // Draws and updates the clipping rectangle
         svg.selectAll("#clip")
-            .data([{ dimensions, margin }])
+            .data([{ dimensions }])
             .join(
                 enter =>
                     enter
@@ -137,27 +131,27 @@ export const LineGraph = (props: Props) => {
                         .attr("id", "clip")
                         .append("rect")
                         .attr("width", 0)
-                        .attr("height", svgHeight)
+                        .attr("height", height)
                         .transition()
                         .duration(initialDrawDuration)
                         .ease(d3.easeLinear)
-                        .attr("width", svgWidth),
+                        .attr("width", width),
                 update =>
                     update
                         .select("#clip rect")
-                        .attr("height", svgHeight)
-                        .attr("width", svgWidth)
+                        .attr("height", height)
+                        .attr("width", width)
             );
 
         // Draw and update axes
         svg.selectAll(".x-axis")
-            .data([{ dimensions, margin }])
+            .data([{ dimensions }])
             .join(
                 enter => enter.append("g").attr("class", "x-axis").call(xAxis),
                 update => update.call(xAxis)
             );
         svg.selectAll(".y-axis")
-            .data([{ dimensions, margin }])
+            .data([{ dimensions }])
             .join(
                 enter => enter.append("g").attr("class", "y-axis").call(yAxis),
                 update => update.call(yAxis)

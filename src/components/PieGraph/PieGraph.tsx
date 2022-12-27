@@ -12,12 +12,6 @@ interface Props {
         color: string;
         count: number;
     }[];
-    margin: {
-        top: number;
-        left: number;
-        right: number;
-        bottom: number;
-    };
     initialDrawDuration: number;
     transitionDuration: number;
     percentage?: boolean;
@@ -32,21 +26,29 @@ export const PieGraph = (props: Props) => {
 
         const svg = d3.select(svgRef.current);
 
-        const {
-            data,
-            margin,
-            initialDrawDuration,
-            transitionDuration,
-            percentage,
-        } = props;
+        const { data, initialDrawDuration, transitionDuration, percentage } =
+            props;
 
-        const { width: svgWidth, height: svgHeight } = dimensions;
+        const { width, height } = dimensions;
 
-        const width = svgWidth - margin.left - margin.right;
-        const height = svgHeight - margin.top - margin.bottom;
+        // Shift left based on the length of the longest name
+        let longestLabelLength;
+        svg.append("text")
+            .attr("font-size", "10px")
+            .attr("opacity", 0)
+            .text(
+                data.reduce(
+                    (acc, curr) =>
+                        curr.label.length > acc.length ? curr.label : acc,
+                    data[0].label
+                )
+            )
+            .each(function () {
+                longestLabelLength = this.getComputedTextLength();
+                this.remove();
+            });
 
-        const center = [margin.left + width / 2, margin.top + height / 2];
-        const R = Math.min(width, height) / 3;
+        const R = Math.min(width, height) / 2 - longestLabelLength;
 
         const totalMaps = d3.sum(data.map(d => d.count));
         const pie = d3.pie().value(d => d.count);
@@ -56,14 +58,18 @@ export const PieGraph = (props: Props) => {
             .outerRadius(R)
             .padRadius(R)
             .padAngle(8 / 360);
+
+        const tickPadding = 5;
+        const radialTickLength = 5;
+        const horizontalTickLength = 8;
         const labelInnerArc = d3
             .arc()
-            .innerRadius(R + 5)
-            .outerRadius(R + 5);
+            .innerRadius(R + tickPadding)
+            .outerRadius(R + tickPadding);
         const labelOuterArc = d3
             .arc()
-            .innerRadius(R + 10)
-            .outerRadius(R + 10);
+            .innerRadius(R + tickPadding + radialTickLength)
+            .outerRadius(R + tickPadding + radialTickLength);
 
         const innerPoint = d => labelInnerArc.centroid(d);
         const outerPoint = d => labelOuterArc.centroid(d);
@@ -76,6 +82,16 @@ export const PieGraph = (props: Props) => {
                 ? `${Math.round((100 * d.data.count) / totalMaps)}%`
                 : `${d.data.count}`);
 
+        const center = [
+            width -
+                (R +
+                    longestLabelLength +
+                    2 * tickPadding +
+                    radialTickLength +
+                    horizontalTickLength),
+            height / 2,
+        ];
+
         // Begin updating the svg
         svg.attr("width", "100%").attr("height", "100%");
 
@@ -86,12 +102,7 @@ export const PieGraph = (props: Props) => {
                     const arcs = enter.append("g").attr("class", "pieArc");
                     arcs.append("path")
                         .attr("class", "arc")
-                        .attr(
-                            "transform",
-                            `translate(${margin.left + width / 2}, ${
-                                margin.top + height / 2
-                            })`
-                        )
+                        .attr("transform", `translate(${center.join(",")})`)
                         .attr("fill", d => d.data.color)
                         .attr(
                             "d",
@@ -119,12 +130,7 @@ export const PieGraph = (props: Props) => {
                         .attr("class", "tick")
                         .attr("stroke", "#ffffff")
                         .attr("fill-opacity", 0)
-                        .attr(
-                            "transform",
-                            `translate(${margin.left + width / 2}, ${
-                                margin.top + height / 2
-                            })`
-                        )
+                        .attr("transform", `translate(${center.join(",")})`)
                         .attr(
                             "d",
                             d =>
@@ -146,9 +152,10 @@ export const PieGraph = (props: Props) => {
                                     `L${outerPoint(d).join(",")},`,
                                 `M${innerPoint(d).join(",")},` +
                                     `L${outerPoint(d).join(",")},` +
-                                    `L${outerPoint(d)[0] + direction(d) * 8},${
-                                        outerPoint(d)[1]
-                                    }`,
+                                    `L${
+                                        outerPoint(d)[0] +
+                                        direction(d) * horizontalTickLength
+                                    },${outerPoint(d)[1]}`,
                             ])
                         );
                     arcs.append("text")
@@ -177,12 +184,7 @@ export const PieGraph = (props: Props) => {
                 update => {
                     update
                         .select(".arc")
-                        .attr(
-                            "transform",
-                            `translate(${margin.left + width / 2}, ${
-                                margin.top + height / 2
-                            })`
-                        )
+                        .attr("transform", `translate(${center.join(",")})`)
                         .transition()
                         .ease(d3.easeLinear)
                         .duration(transitionDuration)
@@ -201,12 +203,7 @@ export const PieGraph = (props: Props) => {
                         });
                     update
                         .select(".tick")
-                        .attr(
-                            "transform",
-                            `translate(${margin.left + width / 2}, ${
-                                margin.top + height / 2
-                            })`
-                        )
+                        .attr("transform", `translate(${center.join(",")})`)
                         .transition()
                         .ease(d3.easeLinear)
                         .duration(transitionDuration)
@@ -215,9 +212,10 @@ export const PieGraph = (props: Props) => {
                             d =>
                                 `M${innerPoint(d).join(",")},` +
                                 `L${outerPoint(d).join(",")},` +
-                                `L${outerPoint(d)[0] + direction(d) * 8},${
-                                    outerPoint(d)[1]
-                                }`
+                                `L${
+                                    outerPoint(d)[0] +
+                                    direction(d) * horizontalTickLength
+                                },${outerPoint(d)[1]}`
                         );
                     update
                         .select("text")
@@ -232,7 +230,12 @@ export const PieGraph = (props: Props) => {
                         .attr("text-anchor", d =>
                             direction(d) > 0 ? "start" : "end"
                         )
-                        .attr("dx", d => direction(d) * 12)
+                        .attr(
+                            "dx",
+                            d =>
+                                direction(d) *
+                                (horizontalTickLength + tickPadding)
+                        )
                         .transition()
                         .ease(d3.easeLinear)
                         .duration(transitionDuration)

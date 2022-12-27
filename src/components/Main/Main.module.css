@@ -11,6 +11,7 @@
     color: white;
     box-shadow: 0px 0px 16px 4px #3d5569;
     border-radius: 8px;
+    padding: 15px;
 }
 
 #RunningWinrateOverTime {
@@ -55,11 +56,47 @@
     grid-row-end: 25;
 }
 
-#TopInitiators {
+.Leaderboard {
+    background-position: top right;
+    background-repeat: no-repeat;
+    background-size: clamp(60px, 20%, 100px);
+    background-origin: content-box;
+}
+
+#TopDuelists {
     grid-column-start: 2;
     grid-column-end: 3;
     grid-row-start: 18;
     grid-row-end: 22;
+
+    background-image: url("/public/agent-classes/duelist.png");
+}
+
+#TopInitiators {
+    grid-column-start: 4;
+    grid-column-end: 5;
+    grid-row-start: 18;
+    grid-row-end: 22;
+
+    background-image: url("/public/agent-classes/initiator.png");
+}
+
+#TopControllers {
+    grid-column-start: 6;
+    grid-column-end: 7;
+    grid-row-start: 18;
+    grid-row-end: 22;
+
+    background-image: url("/public/agent-classes/controller.png");
+}
+
+#TopSentinels {
+    grid-column-start: 8;
+    grid-column-end: 9;
+    grid-row-start: 18;
+    grid-row-end: 22;
+
+    background-image: url("/public/agent-classes/sentinel.png");
 }
 
 /* @media (max-width: 1250px) {

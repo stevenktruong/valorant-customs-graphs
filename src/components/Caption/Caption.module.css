@@ -1,14 +1,9 @@
-.CaptionContainer {
-    padding-top: 24px;
-    padding-left: 24px;
-}
-
 .Caption {
     border-left: 4px solid #ffffff;
     text-align: left;
     padding-left: 12px;
-    padding-top: 8px;
-    padding-bottom: 8px;
+    padding-top: 4px;
+    padding-bottom: 4px;
 }
 
 .Caption h1 {

@@ -12,12 +12,6 @@ interface Props {
         value: number;
         color: string;
     }[];
-    margin: {
-        top: number;
-        left: number;
-        right: number;
-        bottom: number;
-    };
     initialDrawDuration: number;
     transitionDuration: number;
 }
@@ -31,29 +25,48 @@ export const BarGraph = (props: Props) => {
 
         const svg = d3.select(svgRef.current);
 
-        const { initialDrawDuration, transitionDuration, data, margin } = props;
+        const { initialDrawDuration, transitionDuration, data } = props;
 
-        const { width: svgWidth, height: svgHeight } = dimensions;
+        const { width, height } = dimensions;
 
-        const width = svgWidth - margin.left - margin.right;
-        const height = svgHeight - margin.top - margin.bottom;
+        let leftPadding;
+        const rightPadding = 20;
+        const bottomPadding = 20;
+        const labelHorizontalPadding = 8;
+
+        // Shift left based on the length of the longest name
+        svg.append("text")
+            .attr("font-size", "10px")
+            .attr("opacity", 0)
+            .text(
+                data.reduce(
+                    (acc, curr) =>
+                        curr.label.length > acc.length ? curr.label : acc,
+                    data[0].label
+                )
+            )
+            .each(function () {
+                leftPadding =
+                    this.getComputedTextLength() + labelHorizontalPadding;
+                this.remove();
+            });
 
         // Set up scales
         const x = d3
             .scaleLinear()
             .domain([0, 100])
-            .range([margin.left + 40, margin.left + width]);
+            .range([leftPadding, width - rightPadding]);
 
         const y = d3
             .scaleBand()
             .domain(data.map(d => d.label))
-            .range([margin.top + height, margin.top])
+            .range([height - bottomPadding, 0])
             .padding(0.25);
 
         // Set up axes
         const xAxis = g =>
             g
-                .attr("transform", `translate(0, ${margin.top + height})`)
+                .attr("transform", `translate(0, ${height - bottomPadding})`)
                 .call(
                     d3
                         .axisTop(x)
@@ -78,7 +91,7 @@ export const BarGraph = (props: Props) => {
 
         const yAxis = g =>
             g
-                .attr("transform", `translate(${margin.left + 35}, 0)`)
+                .attr("transform", `translate(${50}, 0)`)
                 .call(d3.axisLeft(y).tickSize(0))
                 .call(g => g.select(".domain").remove());
 
@@ -87,13 +100,13 @@ export const BarGraph = (props: Props) => {
 
         // Draw and update axes
         svg.selectAll(".x-axis")
-            .data([{ dimensions, margin }])
+            .data([{ dimensions }])
             .join(
                 enter => enter.append("g").attr("class", "x-axis").call(xAxis),
                 update => update.call(xAxis)
             );
         svg.selectAll(".y-axis")
-            .data([{ data, dimensions, margin }])
+            .data([{ data, dimensions }])
             .join(
                 enter =>
                     enter
@@ -151,7 +164,7 @@ export const BarGraph = (props: Props) => {
                         .attr("alignment-baseline", "central")
                         .attr("x", x(0))
                         .attr("y", d => y(d.label) + y.bandwidth() / 2)
-                        .attr("dx", 5)
+                        .attr("dx", labelHorizontalPadding)
                         .transition()
                         .duration(initialDrawDuration)
                         .ease(d3.easeLinear)
