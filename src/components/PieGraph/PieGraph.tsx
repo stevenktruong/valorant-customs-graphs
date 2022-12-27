@@ -31,24 +31,48 @@ export const PieGraph = (props: Props) => {
 
         const { width, height } = dimensions;
 
+        const tickPadding = 5;
+        const radialTickLength = 5;
+        const horizontalTickLength = 8;
+
         // Shift left based on the length of the longest name
         let longestLabelLength;
+        let labelHeight;
         svg.append("text")
             .attr("font-size", "10px")
             .attr("opacity", 0)
             .text(
-                data.reduce(
+                `${data.reduce(
                     (acc, curr) =>
                         curr.label.length > acc.length ? curr.label : acc,
                     data[0].label
-                )
+                )}` + (percentage ? " 50%" : "")
             )
             .each(function () {
                 longestLabelLength = this.getComputedTextLength();
+                labelHeight = this.getBBox().height;
                 this.remove();
             });
 
-        const R = Math.min(width, height) / 2 - longestLabelLength;
+        const center = [width / 2, height / 2];
+
+        // R should be the largest number so that
+        //   2R + 2 * (2*tickPadding + radialTickLength + horizontalTickLength + longestLabelLength) <= width
+        //   2R + 2 * (2*tickPadding + radialTickLength + horizontalTickLength + labelHeight)        <= height
+        // This way, R is the largest radius so that all text is still contained on the screen
+        // when the chart is centered in the svg.
+        const R = Math.min(
+            width / 2 -
+                (2 * tickPadding +
+                    radialTickLength +
+                    horizontalTickLength +
+                    longestLabelLength),
+            height / 2 -
+                (2 * tickPadding +
+                    radialTickLength +
+                    horizontalTickLength +
+                    labelHeight)
+        );
 
         const totalMaps = d3.sum(data.map(d => d.count));
         const pie = d3.pie().value(d => d.count);
@@ -59,9 +83,6 @@ export const PieGraph = (props: Props) => {
             .padRadius(R)
             .padAngle(8 / 360);
 
-        const tickPadding = 5;
-        const radialTickLength = 5;
-        const horizontalTickLength = 8;
         const labelInnerArc = d3
             .arc()
             .innerRadius(R + tickPadding)
@@ -81,16 +102,6 @@ export const PieGraph = (props: Props) => {
             (percentage
                 ? `${Math.round((100 * d.data.count) / totalMaps)}%`
                 : `${d.data.count}`);
-
-        const center = [
-            width -
-                (R +
-                    longestLabelLength +
-                    2 * tickPadding +
-                    radialTickLength +
-                    horizontalTickLength),
-            height / 2,
-        ];
 
         // Begin updating the svg
         svg.attr("width", "100%").attr("height", "100%");

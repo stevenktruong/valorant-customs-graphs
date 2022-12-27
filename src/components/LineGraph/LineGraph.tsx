@@ -29,9 +29,37 @@ export const LineGraph = (props: Props) => {
 
         const { width, height } = dimensions;
 
-        const leftPadding = 30;
+        const labelHorizontalPadding = 8;
+
+        let leftPadding; // Shift left based on the length of "100%"
+        let bottomPadding;
+        let rotatedTextHeight; // Shift up based on the diagonal text
+
         const rightPadding = 40;
-        const bottomPadding = 30;
+        const topPadding = 12;
+        const labelPadding = 4;
+
+        svg.append("text")
+            .attr("font-size", "10px")
+            .attr("opacity", 0)
+            .text("100%")
+            .each(function () {
+                leftPadding =
+                    this.getComputedTextLength() + labelHorizontalPadding;
+                this.remove();
+            });
+
+        svg.append("text")
+            .attr("font-size", "10px")
+            .attr("opacity", 0)
+            .text("12/25")
+            .each(function () {
+                rotatedTextHeight =
+                    this.getBBox().width * Math.sin(Math.PI / 6) +
+                    this.getBBox().height * Math.cos(Math.PI / 6);
+                bottomPadding = rotatedTextHeight + labelPadding;
+                this.remove();
+            });
 
         // Set up scales
         const x = d3
@@ -42,7 +70,7 @@ export const LineGraph = (props: Props) => {
         const y = d3
             .scaleLinear()
             .domain([0, 100])
-            .range([height - 30, 0]);
+            .range([height - bottomPadding, topPadding]);
 
         // Set up axes
         const xAxis = g =>
@@ -53,7 +81,7 @@ export const LineGraph = (props: Props) => {
                         .axisTop(x)
                         .tickValues(data.map(d => d.date))
                         .tickFormat(d3.timeFormat("%_m/%d"))
-                        .tickSize(height)
+                        .tickSize(height - 30)
                 )
                 .call(g => g.select(".domain").remove())
                 .call(g =>
@@ -69,7 +97,12 @@ export const LineGraph = (props: Props) => {
                         .attr("alignment-baseline", "central")
                         .attr("x", 0)
                         .attr("y", 0)
-                        .attr("transform", `translate(4, 16) rotate(30)`)
+                        .attr(
+                            "transform",
+                            `translate(4, ${
+                                labelPadding + rotatedTextHeight / 2
+                            }) rotate(30)`
+                        )
                 )
                 .call(g =>
                     g
@@ -102,7 +135,7 @@ export const LineGraph = (props: Props) => {
                         .attr("stroke-dasharray", "2")
                 )
                 .call(g =>
-                    g.selectAll(".tick text").attr("x", 4).attr("dy", -4)
+                    g.selectAll(".tick text").attr("x", 0).attr("dy", -4)
                 );
 
         // Draw data
@@ -206,7 +239,7 @@ export const LineGraph = (props: Props) => {
                         .attr("stroke", "none")
                         .attr("cx", d => x(d.date))
                         .attr("cy", d => y(d.value))
-                        .attr("r", 5)
+                        .attr("r", 4)
                         .attr("clip-path", "url(#clip)");
                     point
                         .append("text")
@@ -217,7 +250,7 @@ export const LineGraph = (props: Props) => {
                             i === data.length - 1 ? "start" : "middle"
                         )
                         .attr("fill", "#ffffff")
-                        .style("font-size", "12px")
+                        .style("font-size", "10px")
                         .text(d => `${d.value}%`)
                         .attr("clip-path", "url(#clip)");
                     point
