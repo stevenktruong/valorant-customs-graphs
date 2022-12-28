@@ -4,7 +4,7 @@ import * as React from "react";
 
 import { useParentDimensions } from "helpers";
 
-import style from "./BarGraph.module.css";
+import style from "./HorizontalBarGraph.module.scss";
 
 interface Props {
     data: {
@@ -16,7 +16,7 @@ interface Props {
     transitionDuration: number;
 }
 
-export const BarGraph = (props: Props) => {
+export const HorizontalBarGraph = (props: Props) => {
     const svgRef = React.useRef();
     let dimensions = useParentDimensions(svgRef);
 
@@ -163,8 +163,9 @@ export const BarGraph = (props: Props) => {
                         .style("font-size", "10px")
                         .attr("alignment-baseline", "central")
                         .attr("x", x(0))
-                        .attr("y", d => y(d.label) + y.bandwidth() / 2)
+                        .attr("y", d => y(d.label))
                         .attr("dx", labelHorizontalPadding)
+                        .attr("dy", y.bandwidth() / 2)
                         .transition()
                         .duration(initialDrawDuration)
                         .ease(d3.easeLinear)
@@ -200,7 +201,8 @@ export const BarGraph = (props: Props) => {
                                 `${d3.interpolateRound(start, d.value)(t)}%`;
                         })
                         .attr("x", d => x(d.value) + (d.value > 90 ? -40 : 0))
-                        .attr("y", d => y(d.label) + y.bandwidth() / 2);
+                        .attr("y", d => y(d.label))
+                        .attr("dy", y.bandwidth() / 2);
                 }
             );
     }, [props, dimensions]);

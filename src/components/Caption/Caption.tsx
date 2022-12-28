@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import style from "./Caption.module.css";
+import style from "./Caption.module.scss";
 
 interface Props {
     title: string;

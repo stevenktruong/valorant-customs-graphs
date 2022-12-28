@@ -4,9 +4,10 @@ module.exports = {
     importOrder: [
         "^config$",
         "^helpers$",
-        "^components/.*$",
+        "^components.*$",
         "^data.*$",
-        "^.*css$",
+        "^assets.*$",
+        "^.*scss$",
     ],
     importOrderSeparation: true,
     importOrderSortSpecifiers: true,

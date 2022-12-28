@@ -4,7 +4,7 @@ import * as React from "react";
 
 import { useParentDimensions } from "helpers";
 
-import style from "./LineGraph.module.css";
+import style from "./LineGraph.module.scss";
 
 interface Props {
     data: {
@@ -36,7 +36,7 @@ export const LineGraph = (props: Props) => {
         let rotatedTextHeight; // Shift up based on the diagonal text
 
         const rightPadding = 40;
-        const topPadding = 12;
+        const topPadding = 20;
         const labelPadding = 4;
 
         svg.append("text")

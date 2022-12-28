@@ -1,7 +1,7 @@
 import { Property } from "csstype";
 import * as React from "react";
 
-import style from "./Dashboard.module.css";
+import style from "./Dashboard.module.scss";
 
 interface Props extends React.PropsWithChildren {
     direction: Property.FlexDirection;

@@ -2,7 +2,7 @@ import * as React from "react";
 
 import { PLAYERS } from "config";
 
-import style from "./PlayerSelector.module.css";
+import style from "./PlayerSelector.module.scss";
 
 interface Props {
     setCurrentPlayer: CallableFunction;

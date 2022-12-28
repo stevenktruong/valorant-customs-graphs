@@ -4,13 +4,15 @@ import { MAP_COLORS, PLAYERS, PLAYER_COLORS } from "config";
 
 import { luminance } from "helpers";
 
-import BarGraph from "components/BarGraph";
 import Caption from "components/Caption";
 import Dashboard from "components/Dashboard";
+import HorizontalBarGraph from "components/HorizontalBarGraph";
 import Leaderboard from "components/Leaderboard";
 import LineGraph from "components/LineGraph";
 import PieGraph from "components/PieGraph";
 import PlayerSelector from "components/PlayerSelector";
+import RoleLeaderboard from "components/RoleLeaderboard";
+import VerticalBarGraph from "components/VerticalBarGraph";
 
 import matchupJson from "data/easiest-matchups.json";
 import individualJson from "data/individual.json";
@@ -19,7 +21,7 @@ import rolesJson from "data/roles.json";
 import runningWinrateOverTimeJson from "data/running-winrate-over-time.json";
 import teammateSynergyJson from "data/teammate-synergy.json";
 
-import style from "./Main.module.css";
+import style from "./Main.module.scss";
 
 const individualData: Record<string, any> = individualJson;
 const runningWinrateOverTimeData: Record<string, any>[] =
@@ -37,7 +39,7 @@ export const Main = (props: any) => {
         <div className={style.Main}>
             <Dashboard
                 id={style.RunningWinrateOverTime}
-                className={style.Dashboard}
+                className="dashboard"
                 direction="column"
             >
                 <Caption
@@ -59,7 +61,7 @@ export const Main = (props: any) => {
             </Dashboard>
             <Dashboard
                 id={style.TeammateSynergy}
-                className={style.Dashboard}
+                className="dashboard"
                 direction="column"
             >
                 <Caption
@@ -67,7 +69,7 @@ export const Main = (props: any) => {
                     description="Win rate with player on same team"
                     height="25%"
                 />
-                <BarGraph
+                <HorizontalBarGraph
                     data={teammateSynergyData[currentPlayer]
                         .map(d => ({
                             label: d.teammate_name,
@@ -86,7 +88,7 @@ export const Main = (props: any) => {
             </Dashboard>
             <Dashboard
                 id={style.Matchups}
-                className={style.Dashboard}
+                className="dashboard"
                 direction="column"
             >
                 <Caption
@@ -94,7 +96,7 @@ export const Main = (props: any) => {
                     description="Win rate against player on opposing team"
                     height="25%"
                 />
-                <BarGraph
+                <HorizontalBarGraph
                     data={matchupData[currentPlayer]
                         .map(d => ({
                             label: d.opponent_name,
@@ -113,7 +115,7 @@ export const Main = (props: any) => {
             </Dashboard>
             <Dashboard
                 id={style.LobbyWinRates}
-                className={style.Dashboard}
+                className="dashboard"
                 direction="column"
             >
                 <Caption
@@ -121,7 +123,7 @@ export const Main = (props: any) => {
                     description="Lifetime performances"
                     height="15%"
                 />
-                <BarGraph
+                <HorizontalBarGraph
                     data={Object.entries(individualData)
                         .map(([name, playerStats]) => ({
                             label: name,
@@ -135,7 +137,7 @@ export const Main = (props: any) => {
             </Dashboard>
             <Dashboard
                 id={style.MapCounter}
-                className={style.Dashboard}
+                className="dashboard"
                 direction="row"
             >
                 <Caption
@@ -155,7 +157,7 @@ export const Main = (props: any) => {
             </Dashboard>
             <Dashboard
                 id={style.RoleProportions}
-                className={style.Dashboard}
+                className="dashboard"
                 direction="row"
             >
                 <Caption
@@ -174,74 +176,7 @@ export const Main = (props: any) => {
                     percentage={true}
                 />
             </Dashboard>
-            <Dashboard
-                id={style.TopDuelists}
-                className={`${style.Dashboard} ${style.Leaderboard}`}
-                direction="column"
-            >
-                <Caption title="Top Duelists" height="40%" />
-                <Leaderboard
-                    data={Object.entries(individualData)
-                        .map(([name, playerStats]) => ({
-                            name,
-                            games: playerStats.roles.Duelist.games,
-                        }))
-                        .sort((a, b) => b.games - a.games)
-                        .map(d => d.name)
-                        .slice(0, 5)}
-                />
-            </Dashboard>
-            <Dashboard
-                id={style.TopInitiators}
-                className={`${style.Dashboard} ${style.Leaderboard}`}
-                direction="column"
-            >
-                <Caption title="Top Initiators" height="40%" />
-                <Leaderboard
-                    data={Object.entries(individualData)
-                        .map(([name, playerStats]) => ({
-                            name,
-                            games: playerStats.roles.Initiator.games,
-                        }))
-                        .sort((a, b) => b.games - a.games)
-                        .map(d => d.name)
-                        .slice(0, 5)}
-                />
-            </Dashboard>
-            <Dashboard
-                id={style.TopControllers}
-                className={`${style.Dashboard} ${style.Leaderboard}`}
-                direction="column"
-            >
-                <Caption title="Top Controllers" height="40%" />
-                <Leaderboard
-                    data={Object.entries(individualData)
-                        .map(([name, playerStats]) => ({
-                            name,
-                            games: playerStats.roles.Controller.games,
-                        }))
-                        .sort((a, b) => b.games - a.games)
-                        .map(d => d.name)
-                        .slice(0, 5)}
-                />
-            </Dashboard>
-            <Dashboard
-                id={style.TopSentinels}
-                className={`${style.Dashboard} ${style.Leaderboard}`}
-                direction="column"
-            >
-                <Caption title="Top Sentinels" height="40%" />
-                <Leaderboard
-                    data={Object.entries(individualData)
-                        .map(([name, playerStats]) => ({
-                            name,
-                            games: playerStats.roles.Sentinel.games,
-                        }))
-                        .sort((a, b) => b.games - a.games)
-                        .map(d => d.name)
-                        .slice(0, 5)}
-                />
-            </Dashboard>
+            <RoleLeaderboard id={style.RoleLeaderboard} />
             <PlayerSelector setCurrentPlayer={setCurrentPlayer} />
         </div>
     );

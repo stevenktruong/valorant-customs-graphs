@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import style from "./Leaderboard.module.css";
+import style from "./Leaderboard.module.scss";
 
 interface Props {
     data: string[];
