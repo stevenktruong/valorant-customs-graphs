@@ -8,101 +8,121 @@
     "games": 45,
     "agents": {
       "Astra": {
+        "role": "Controller",
         "winrate": 100,
         "wins": 1,
         "games": 1
       },
       "Breach": {
+        "role": "Initiator",
         "winrate": 40,
         "wins": 2,
         "games": 5
       },
       "Brimstone": {
+        "role": "Controller",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Chamber": {
+        "role": "Sentinel",
         "winrate": 75,
         "wins": 3,
         "games": 4
       },
       "Cypher": {
+        "role": "Sentinel",
         "winrate": 0,
         "wins": 0,
         "games": 2
       },
       "Fade": {
+        "role": "Initiator",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Harbor": {
+        "role": "Controller",
         "winrate": 33,
         "wins": 1,
         "games": 3
       },
       "Jett": {
+        "role": "Duelist",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "KAY/O": {
+        "role": "Initiator",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Killjoy": {
+        "role": "Sentinel",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Neon": {
+        "role": "Duelist",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Omen": {
+        "role": "Controller",
         "winrate": 50,
         "wins": 1,
         "games": 2
       },
       "Phoenix": {
+        "role": "Duelist",
         "winrate": 50,
         "wins": 6,
         "games": 12
       },
       "Raze": {
+        "role": "Duelist",
         "winrate": 25,
         "wins": 1,
         "games": 4
       },
       "Reyna": {
+        "role": "Duelist",
         "winrate": 75,
         "wins": 3,
         "games": 4
       },
       "Sage": {
+        "role": "Sentinel",
         "winrate": 100,
         "wins": 4,
         "games": 4
       },
       "Skye": {
+        "role": "Initiator",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Sova": {
+        "role": "Initiator",
         "winrate": 33,
         "wins": 1,
         "games": 3
       },
       "Viper": {
+        "role": "Controller",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Yoru": {
+        "role": "Duelist",
         "winrate": 100,
         "wins": 1,
         "games": 1
@@ -157,101 +177,121 @@
     "games": 9,
     "agents": {
       "Astra": {
+        "role": "Controller",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Breach": {
+        "role": "Initiator",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Brimstone": {
+        "role": "Controller",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Chamber": {
+        "role": "Sentinel",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Cypher": {
+        "role": "Sentinel",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Fade": {
+        "role": "Initiator",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Harbor": {
+        "role": "Controller",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Jett": {
+        "role": "Duelist",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "KAY/O": {
+        "role": "Initiator",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Killjoy": {
+        "role": "Sentinel",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Neon": {
+        "role": "Duelist",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Omen": {
+        "role": "Controller",
         "winrate": 33,
         "wins": 3,
         "games": 9
       },
       "Phoenix": {
+        "role": "Duelist",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Raze": {
+        "role": "Duelist",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Reyna": {
+        "role": "Duelist",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Sage": {
+        "role": "Sentinel",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Skye": {
+        "role": "Initiator",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Sova": {
+        "role": "Initiator",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Viper": {
+        "role": "Controller",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Yoru": {
+        "role": "Duelist",
         "winrate": null,
         "wins": 0,
         "games": 0
@@ -306,101 +346,121 @@
     "games": 39,
     "agents": {
       "Astra": {
+        "role": "Controller",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Breach": {
+        "role": "Initiator",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Brimstone": {
+        "role": "Controller",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Chamber": {
+        "role": "Sentinel",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Cypher": {
+        "role": "Sentinel",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Fade": {
+        "role": "Initiator",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Harbor": {
+        "role": "Controller",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Jett": {
+        "role": "Duelist",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "KAY/O": {
+        "role": "Initiator",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Killjoy": {
+        "role": "Sentinel",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Neon": {
+        "role": "Duelist",
         "winrate": 0,
         "wins": 0,
         "games": 1
       },
       "Omen": {
+        "role": "Controller",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Phoenix": {
+        "role": "Duelist",
         "winrate": 100,
         "wins": 1,
         "games": 1
       },
       "Raze": {
+        "role": "Duelist",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Reyna": {
+        "role": "Duelist",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Sage": {
+        "role": "Sentinel",
         "winrate": 42,
         "wins": 15,
         "games": 36
       },
       "Skye": {
+        "role": "Initiator",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Sova": {
+        "role": "Initiator",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Viper": {
+        "role": "Controller",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Yoru": {
+        "role": "Duelist",
         "winrate": 100,
         "wins": 1,
         "games": 1
@@ -455,101 +515,121 @@
     "games": 39,
     "agents": {
       "Astra": {
+        "role": "Controller",
         "winrate": 0,
         "wins": 0,
         "games": 2
       },
       "Breach": {
+        "role": "Initiator",
         "winrate": 0,
         "wins": 0,
         "games": 1
       },
       "Brimstone": {
+        "role": "Controller",
         "winrate": 60,
         "wins": 3,
         "games": 5
       },
       "Chamber": {
+        "role": "Sentinel",
         "winrate": 0,
         "wins": 0,
         "games": 1
       },
       "Cypher": {
+        "role": "Sentinel",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Fade": {
+        "role": "Initiator",
         "winrate": 50,
         "wins": 1,
         "games": 2
       },
       "Harbor": {
+        "role": "Controller",
         "winrate": 14,
         "wins": 1,
         "games": 7
       },
       "Jett": {
+        "role": "Duelist",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "KAY/O": {
+        "role": "Initiator",
         "winrate": 0,
         "wins": 0,
         "games": 2
       },
       "Killjoy": {
+        "role": "Sentinel",
         "winrate": 100,
         "wins": 1,
         "games": 1
       },
       "Neon": {
+        "role": "Duelist",
         "winrate": 100,
         "wins": 2,
         "games": 2
       },
       "Omen": {
+        "role": "Controller",
         "winrate": 50,
         "wins": 2,
         "games": 4
       },
       "Phoenix": {
+        "role": "Duelist",
         "winrate": 50,
         "wins": 1,
         "games": 2
       },
       "Raze": {
+        "role": "Duelist",
         "winrate": 0,
         "wins": 0,
         "games": 2
       },
       "Reyna": {
+        "role": "Duelist",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Sage": {
+        "role": "Sentinel",
         "winrate": 100,
         "wins": 2,
         "games": 2
       },
       "Skye": {
+        "role": "Initiator",
         "winrate": 100,
         "wins": 2,
         "games": 2
       },
       "Sova": {
+        "role": "Initiator",
         "winrate": 100,
         "wins": 1,
         "games": 1
       },
       "Viper": {
+        "role": "Controller",
         "winrate": 33,
         "wins": 1,
         "games": 3
       },
       "Yoru": {
+        "role": "Duelist",
         "winrate": null,
         "wins": 0,
         "games": 0
@@ -604,101 +684,121 @@
     "games": 49,
     "agents": {
       "Astra": {
+        "role": "Controller",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Breach": {
+        "role": "Initiator",
         "winrate": 50,
         "wins": 1,
         "games": 2
       },
       "Brimstone": {
+        "role": "Controller",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Chamber": {
+        "role": "Sentinel",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Cypher": {
+        "role": "Sentinel",
         "winrate": 56,
         "wins": 10,
         "games": 18
       },
       "Fade": {
+        "role": "Initiator",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Harbor": {
+        "role": "Controller",
         "winrate": 100,
         "wins": 3,
         "games": 3
       },
       "Jett": {
+        "role": "Duelist",
         "winrate": 100,
         "wins": 2,
         "games": 2
       },
       "KAY/O": {
+        "role": "Initiator",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Killjoy": {
+        "role": "Sentinel",
         "winrate": 50,
         "wins": 2,
         "games": 4
       },
       "Neon": {
+        "role": "Duelist",
         "winrate": 45,
         "wins": 5,
         "games": 11
       },
       "Omen": {
+        "role": "Controller",
         "winrate": 50,
         "wins": 1,
         "games": 2
       },
       "Phoenix": {
+        "role": "Duelist",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Raze": {
+        "role": "Duelist",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Reyna": {
+        "role": "Duelist",
         "winrate": 50,
         "wins": 1,
         "games": 2
       },
       "Sage": {
+        "role": "Sentinel",
         "winrate": 100,
         "wins": 1,
         "games": 1
       },
       "Skye": {
+        "role": "Initiator",
         "winrate": 100,
         "wins": 1,
         "games": 1
       },
       "Sova": {
+        "role": "Initiator",
         "winrate": 100,
         "wins": 1,
         "games": 1
       },
       "Viper": {
+        "role": "Controller",
         "winrate": 50,
         "wins": 1,
         "games": 2
       },
       "Yoru": {
+        "role": "Duelist",
         "winrate": null,
         "wins": 0,
         "games": 0
@@ -754,101 +854,121 @@
     "games": 42,
     "agents": {
       "Astra": {
+        "role": "Controller",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Breach": {
+        "role": "Initiator",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Brimstone": {
+        "role": "Controller",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Chamber": {
+        "role": "Sentinel",
         "winrate": 50,
         "wins": 3,
         "games": 6
       },
       "Cypher": {
+        "role": "Sentinel",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Fade": {
+        "role": "Initiator",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Harbor": {
+        "role": "Controller",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Jett": {
+        "role": "Duelist",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "KAY/O": {
+        "role": "Initiator",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Killjoy": {
+        "role": "Sentinel",
         "winrate": 100,
         "wins": 1,
         "games": 1
       },
       "Neon": {
+        "role": "Duelist",
         "winrate": 100,
         "wins": 1,
         "games": 1
       },
       "Omen": {
+        "role": "Controller",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Phoenix": {
+        "role": "Duelist",
         "winrate": 100,
         "wins": 1,
         "games": 1
       },
       "Raze": {
+        "role": "Duelist",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Reyna": {
+        "role": "Duelist",
         "winrate": 100,
         "wins": 1,
         "games": 1
       },
       "Sage": {
+        "role": "Sentinel",
         "winrate": 73,
         "wins": 8,
         "games": 11
       },
       "Skye": {
+        "role": "Initiator",
         "winrate": 18,
         "wins": 2,
         "games": 11
       },
       "Sova": {
+        "role": "Initiator",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Viper": {
+        "role": "Controller",
         "winrate": 67,
         "wins": 6,
         "games": 9
       },
       "Yoru": {
+        "role": "Duelist",
         "winrate": 0,
         "wins": 0,
         "games": 1
@@ -903,101 +1023,121 @@
     "games": 47,
     "agents": {
       "Astra": {
+        "role": "Controller",
         "winrate": 20,
         "wins": 2,
         "games": 10
       },
       "Breach": {
+        "role": "Initiator",
         "winrate": 50,
         "wins": 2,
         "games": 4
       },
       "Brimstone": {
+        "role": "Controller",
         "winrate": 50,
         "wins": 1,
         "games": 2
       },
       "Chamber": {
+        "role": "Sentinel",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Cypher": {
+        "role": "Sentinel",
         "winrate": 0,
         "wins": 0,
         "games": 1
       },
       "Fade": {
+        "role": "Initiator",
         "winrate": 83,
         "wins": 5,
         "games": 6
       },
       "Harbor": {
+        "role": "Controller",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Jett": {
+        "role": "Duelist",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "KAY/O": {
+        "role": "Initiator",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Killjoy": {
+        "role": "Sentinel",
         "winrate": 50,
         "wins": 1,
         "games": 2
       },
       "Neon": {
+        "role": "Duelist",
         "winrate": 0,
         "wins": 0,
         "games": 1
       },
       "Omen": {
+        "role": "Controller",
         "winrate": 60,
         "wins": 3,
         "games": 5
       },
       "Phoenix": {
+        "role": "Duelist",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Raze": {
+        "role": "Duelist",
         "winrate": 100,
         "wins": 1,
         "games": 1
       },
       "Reyna": {
+        "role": "Duelist",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Sage": {
+        "role": "Sentinel",
         "winrate": 100,
         "wins": 1,
         "games": 1
       },
       "Skye": {
+        "role": "Initiator",
         "winrate": 43,
         "wins": 3,
         "games": 7
       },
       "Sova": {
+        "role": "Initiator",
         "winrate": 0,
         "wins": 0,
         "games": 1
       },
       "Viper": {
+        "role": "Controller",
         "winrate": 67,
         "wins": 4,
         "games": 6
       },
       "Yoru": {
+        "role": "Duelist",
         "winrate": null,
         "wins": 0,
         "games": 0
@@ -1053,101 +1193,121 @@
     "games": 30,
     "agents": {
       "Astra": {
+        "role": "Controller",
         "winrate": 25,
         "wins": 1,
         "games": 4
       },
       "Breach": {
+        "role": "Initiator",
         "winrate": 100,
         "wins": 2,
         "games": 2
       },
       "Brimstone": {
+        "role": "Controller",
         "winrate": 0,
         "wins": 0,
         "games": 1
       },
       "Chamber": {
+        "role": "Sentinel",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Cypher": {
+        "role": "Sentinel",
         "winrate": 33,
         "wins": 1,
         "games": 3
       },
       "Fade": {
+        "role": "Initiator",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Harbor": {
+        "role": "Controller",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Jett": {
+        "role": "Duelist",
         "winrate": 50,
         "wins": 1,
         "games": 2
       },
       "KAY/O": {
+        "role": "Initiator",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Killjoy": {
+        "role": "Sentinel",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Neon": {
+        "role": "Duelist",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Omen": {
+        "role": "Controller",
         "winrate": 100,
         "wins": 1,
         "games": 1
       },
       "Phoenix": {
+        "role": "Duelist",
         "winrate": 50,
         "wins": 2,
         "games": 4
       },
       "Raze": {
+        "role": "Duelist",
         "winrate": 25,
         "wins": 1,
         "games": 4
       },
       "Reyna": {
+        "role": "Duelist",
         "winrate": 75,
         "wins": 6,
         "games": 8
       },
       "Sage": {
+        "role": "Sentinel",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Skye": {
+        "role": "Initiator",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Sova": {
+        "role": "Initiator",
         "winrate": 0,
         "wins": 0,
         "games": 1
       },
       "Viper": {
+        "role": "Controller",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Yoru": {
+        "role": "Duelist",
         "winrate": null,
         "wins": 0,
         "games": 0
@@ -1202,101 +1362,121 @@
     "games": 49,
     "agents": {
       "Astra": {
+        "role": "Controller",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Breach": {
+        "role": "Initiator",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Brimstone": {
+        "role": "Controller",
         "winrate": 50,
         "wins": 1,
         "games": 2
       },
       "Chamber": {
+        "role": "Sentinel",
         "winrate": 0,
         "wins": 0,
         "games": 1
       },
       "Cypher": {
+        "role": "Sentinel",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Fade": {
+        "role": "Initiator",
         "winrate": 100,
         "wins": 2,
         "games": 2
       },
       "Harbor": {
+        "role": "Controller",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Jett": {
+        "role": "Duelist",
         "winrate": 54,
         "wins": 22,
         "games": 41
       },
       "KAY/O": {
+        "role": "Initiator",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Killjoy": {
+        "role": "Sentinel",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Neon": {
+        "role": "Duelist",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Omen": {
+        "role": "Controller",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Phoenix": {
+        "role": "Duelist",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Raze": {
+        "role": "Duelist",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Reyna": {
+        "role": "Duelist",
         "winrate": 0,
         "wins": 0,
         "games": 1
       },
       "Sage": {
+        "role": "Sentinel",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Skye": {
+        "role": "Initiator",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Sova": {
+        "role": "Initiator",
         "winrate": 0,
         "wins": 0,
         "games": 1
       },
       "Viper": {
+        "role": "Controller",
         "winrate": 0,
         "wins": 0,
         "games": 1
       },
       "Yoru": {
+        "role": "Duelist",
         "winrate": null,
         "wins": 0,
         "games": 0
@@ -1351,101 +1531,121 @@
     "games": 29,
     "agents": {
       "Astra": {
+        "role": "Controller",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Breach": {
+        "role": "Initiator",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Brimstone": {
+        "role": "Controller",
         "winrate": 100,
         "wins": 1,
         "games": 1
       },
       "Chamber": {
+        "role": "Sentinel",
         "winrate": 33,
         "wins": 1,
         "games": 3
       },
       "Cypher": {
+        "role": "Sentinel",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Fade": {
+        "role": "Initiator",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Harbor": {
+        "role": "Controller",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Jett": {
+        "role": "Duelist",
         "winrate": 50,
         "wins": 2,
         "games": 4
       },
       "KAY/O": {
+        "role": "Initiator",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Killjoy": {
+        "role": "Sentinel",
         "winrate": 50,
         "wins": 1,
         "games": 2
       },
       "Neon": {
+        "role": "Duelist",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Omen": {
+        "role": "Controller",
         "winrate": 0,
         "wins": 0,
         "games": 1
       },
       "Phoenix": {
+        "role": "Duelist",
         "winrate": 0,
         "wins": 0,
         "games": 1
       },
       "Raze": {
+        "role": "Duelist",
         "winrate": 100,
         "wins": 1,
         "games": 1
       },
       "Reyna": {
+        "role": "Duelist",
         "winrate": 57,
         "wins": 4,
         "games": 7
       },
       "Sage": {
+        "role": "Sentinel",
         "winrate": 80,
         "wins": 4,
         "games": 5
       },
       "Skye": {
+        "role": "Initiator",
         "winrate": 0,
         "wins": 0,
         "games": 2
       },
       "Sova": {
+        "role": "Initiator",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Viper": {
+        "role": "Controller",
         "winrate": 0,
         "wins": 0,
         "games": 2
       },
       "Yoru": {
+        "role": "Duelist",
         "winrate": null,
         "wins": 0,
         "games": 0
@@ -1501,101 +1701,121 @@
     "games": 26,
     "agents": {
       "Astra": {
+        "role": "Controller",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Breach": {
+        "role": "Initiator",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Brimstone": {
+        "role": "Controller",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Chamber": {
+        "role": "Sentinel",
         "winrate": 50,
         "wins": 1,
         "games": 2
       },
       "Cypher": {
+        "role": "Sentinel",
         "winrate": 0,
         "wins": 0,
         "games": 1
       },
       "Fade": {
+        "role": "Initiator",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Harbor": {
+        "role": "Controller",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Jett": {
+        "role": "Duelist",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "KAY/O": {
+        "role": "Initiator",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Killjoy": {
+        "role": "Sentinel",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Neon": {
+        "role": "Duelist",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Omen": {
+        "role": "Controller",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Phoenix": {
+        "role": "Duelist",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Raze": {
+        "role": "Duelist",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Reyna": {
+        "role": "Duelist",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Sage": {
+        "role": "Sentinel",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Skye": {
+        "role": "Initiator",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Sova": {
+        "role": "Initiator",
         "winrate": 61,
         "wins": 14,
         "games": 23
       },
       "Viper": {
+        "role": "Controller",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Yoru": {
+        "role": "Duelist",
         "winrate": null,
         "wins": 0,
         "games": 0
@@ -1650,101 +1870,121 @@
     "games": 24,
     "agents": {
       "Astra": {
+        "role": "Controller",
         "winrate": 0,
         "wins": 0,
         "games": 1
       },
       "Breach": {
+        "role": "Initiator",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Brimstone": {
+        "role": "Controller",
         "winrate": 0,
         "wins": 0,
         "games": 1
       },
       "Chamber": {
+        "role": "Sentinel",
         "winrate": 0,
         "wins": 0,
         "games": 1
       },
       "Cypher": {
+        "role": "Sentinel",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Fade": {
+        "role": "Initiator",
         "winrate": 50,
         "wins": 1,
         "games": 2
       },
       "Harbor": {
+        "role": "Controller",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Jett": {
+        "role": "Duelist",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "KAY/O": {
+        "role": "Initiator",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Killjoy": {
+        "role": "Sentinel",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Neon": {
+        "role": "Duelist",
         "winrate": 0,
         "wins": 0,
         "games": 1
       },
       "Omen": {
+        "role": "Controller",
         "winrate": 0,
         "wins": 0,
         "games": 1
       },
       "Phoenix": {
+        "role": "Duelist",
         "winrate": 0,
         "wins": 0,
         "games": 2
       },
       "Raze": {
+        "role": "Duelist",
         "winrate": 25,
         "wins": 2,
         "games": 8
       },
       "Reyna": {
+        "role": "Duelist",
         "winrate": 50,
         "wins": 1,
         "games": 2
       },
       "Sage": {
+        "role": "Sentinel",
         "winrate": 100,
         "wins": 2,
         "games": 2
       },
       "Skye": {
+        "role": "Initiator",
         "winrate": 100,
         "wins": 1,
         "games": 1
       },
       "Sova": {
+        "role": "Initiator",
         "winrate": 50,
         "wins": 1,
         "games": 2
       },
       "Viper": {
+        "role": "Controller",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Yoru": {
+        "role": "Duelist",
         "winrate": null,
         "wins": 0,
         "games": 0
@@ -1799,101 +2039,121 @@
     "games": 19,
     "agents": {
       "Astra": {
+        "role": "Controller",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Breach": {
+        "role": "Initiator",
         "winrate": 50,
         "wins": 1,
         "games": 2
       },
       "Brimstone": {
+        "role": "Controller",
         "winrate": 50,
         "wins": 1,
         "games": 2
       },
       "Chamber": {
+        "role": "Sentinel",
         "winrate": 0,
         "wins": 0,
         "games": 1
       },
       "Cypher": {
+        "role": "Sentinel",
         "winrate": 0,
         "wins": 0,
         "games": 1
       },
       "Fade": {
+        "role": "Initiator",
         "winrate": 100,
         "wins": 1,
         "games": 1
       },
       "Harbor": {
+        "role": "Controller",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Jett": {
+        "role": "Duelist",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "KAY/O": {
+        "role": "Initiator",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Killjoy": {
+        "role": "Sentinel",
         "winrate": 100,
         "wins": 1,
         "games": 1
       },
       "Neon": {
+        "role": "Duelist",
         "winrate": 0,
         "wins": 0,
         "games": 1
       },
       "Omen": {
+        "role": "Controller",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Phoenix": {
+        "role": "Duelist",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Raze": {
+        "role": "Duelist",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Reyna": {
+        "role": "Duelist",
         "winrate": 0,
         "wins": 0,
         "games": 2
       },
       "Sage": {
+        "role": "Sentinel",
         "winrate": 40,
         "wins": 2,
         "games": 5
       },
       "Skye": {
+        "role": "Initiator",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Sova": {
+        "role": "Initiator",
         "winrate": 67,
         "wins": 2,
         "games": 3
       },
       "Viper": {
+        "role": "Controller",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Yoru": {
+        "role": "Duelist",
         "winrate": null,
         "wins": 0,
         "games": 0
@@ -1949,101 +2209,121 @@
     "games": 7,
     "agents": {
       "Astra": {
+        "role": "Controller",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Breach": {
+        "role": "Initiator",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Brimstone": {
+        "role": "Controller",
         "winrate": 67,
         "wins": 2,
         "games": 3
       },
       "Chamber": {
+        "role": "Sentinel",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Cypher": {
+        "role": "Sentinel",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Fade": {
+        "role": "Initiator",
         "winrate": 50,
         "wins": 1,
         "games": 2
       },
       "Harbor": {
+        "role": "Controller",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Jett": {
+        "role": "Duelist",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "KAY/O": {
+        "role": "Initiator",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Killjoy": {
+        "role": "Sentinel",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Neon": {
+        "role": "Duelist",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Omen": {
+        "role": "Controller",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Phoenix": {
+        "role": "Duelist",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Raze": {
+        "role": "Duelist",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Reyna": {
+        "role": "Duelist",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Sage": {
+        "role": "Sentinel",
         "winrate": 0,
         "wins": 0,
         "games": 1
       },
       "Skye": {
+        "role": "Initiator",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Sova": {
+        "role": "Initiator",
         "winrate": 0,
         "wins": 0,
         "games": 1
       },
       "Viper": {
+        "role": "Controller",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Yoru": {
+        "role": "Duelist",
         "winrate": null,
         "wins": 0,
         "games": 0
@@ -2099,101 +2379,121 @@
     "games": 34,
     "agents": {
       "Astra": {
+        "role": "Controller",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Breach": {
+        "role": "Initiator",
         "winrate": 100,
         "wins": 1,
         "games": 1
       },
       "Brimstone": {
+        "role": "Controller",
         "winrate": 88,
         "wins": 7,
         "games": 8
       },
       "Chamber": {
+        "role": "Sentinel",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Cypher": {
+        "role": "Sentinel",
         "winrate": 100,
         "wins": 1,
         "games": 1
       },
       "Fade": {
+        "role": "Initiator",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Harbor": {
+        "role": "Controller",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Jett": {
+        "role": "Duelist",
         "winrate": 50,
         "wins": 1,
         "games": 2
       },
       "KAY/O": {
+        "role": "Initiator",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Killjoy": {
+        "role": "Sentinel",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Neon": {
+        "role": "Duelist",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Omen": {
+        "role": "Controller",
         "winrate": 70,
         "wins": 7,
         "games": 10
       },
       "Phoenix": {
+        "role": "Duelist",
         "winrate": 67,
         "wins": 2,
         "games": 3
       },
       "Raze": {
+        "role": "Duelist",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Reyna": {
+        "role": "Duelist",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Sage": {
+        "role": "Sentinel",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Skye": {
+        "role": "Initiator",
         "winrate": 0,
         "wins": 0,
         "games": 1
       },
       "Sova": {
+        "role": "Initiator",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Viper": {
+        "role": "Controller",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Yoru": {
+        "role": "Duelist",
         "winrate": 75,
         "wins": 6,
         "games": 8
@@ -2249,101 +2549,121 @@
     "games": 4,
     "agents": {
       "Astra": {
+        "role": "Controller",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Breach": {
+        "role": "Initiator",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Brimstone": {
+        "role": "Controller",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Chamber": {
+        "role": "Sentinel",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Cypher": {
+        "role": "Sentinel",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Fade": {
+        "role": "Initiator",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Harbor": {
+        "role": "Controller",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Jett": {
+        "role": "Duelist",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "KAY/O": {
+        "role": "Initiator",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Killjoy": {
+        "role": "Sentinel",
         "winrate": 50,
         "wins": 1,
         "games": 2
       },
       "Neon": {
+        "role": "Duelist",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Omen": {
+        "role": "Controller",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Phoenix": {
+        "role": "Duelist",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Raze": {
+        "role": "Duelist",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Reyna": {
+        "role": "Duelist",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Sage": {
+        "role": "Sentinel",
         "winrate": 0,
         "wins": 0,
         "games": 1
       },
       "Skye": {
+        "role": "Initiator",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Sova": {
+        "role": "Initiator",
         "winrate": 0,
         "wins": 0,
         "games": 1
       },
       "Viper": {
+        "role": "Controller",
         "winrate": null,
         "wins": 0,
         "games": 0
       },
       "Yoru": {
+        "role": "Duelist",
         "winrate": null,
         "wins": 0,
         "games": 0

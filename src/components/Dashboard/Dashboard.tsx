@@ -5,16 +5,10 @@ import style from "./Dashboard.module.scss";
 
 interface Props extends React.PropsWithChildren {
     direction: Property.FlexDirection;
-    id?: string;
-    className?: string;
 }
 
 export const Dashboard = (props: Props) => (
-    <div
-        className={`${style.Dashboard} ${props.className}`}
-        id={props.id}
-        style={{ flexDirection: props.direction }}
-    >
+    <div className={style.Dashboard} style={{ flexDirection: props.direction }}>
         {props.children}
     </div>
 );

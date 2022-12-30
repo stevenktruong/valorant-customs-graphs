@@ -15,7 +15,7 @@ export const Caption = (props: Props) => (
         style={{ width: props.width, height: props.height }}
     >
         <div className={style.Caption}>
-            <h1>{props.title}</h1>
+            <h2>{props.title}</h2>
             {props.description ? <p>{props.description}</p> : null}
         </div>
     </div>

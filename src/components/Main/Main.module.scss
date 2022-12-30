@@ -1,58 +1,73 @@
 .Main {
+    display: flex;
+    flex-direction: row;
+}
+
+.Left {
+    width: 250px;
+}
+
+.Right {
+    flex: 1;
+    padding-top: 100px;
+}
+
+.Stats {
     display: grid;
-    width: 100%;
-    height: 100%;
-    grid-template-columns: 25px repeat(6, 1fr 25px);
-    grid-template-rows: 25px repeat(12, 1fr 25px);
+    padding: 25px;
+    grid-template-columns: repeat(10, 1fr);
+    grid-auto-rows: 25px;
+    column-gap: 25px;
+    row-gap: 25px;
 }
 
-#RunningWinrateOverTime {
-    grid-column-start: 2;
-    grid-column-end: 9;
-    grid-row-start: 2;
-    grid-row-end: 9;
+.WinRateOverTimeDashboardContainer {
+    grid-column-start: 1;
+    grid-column-end: 7;
+    grid-row-start: 1;
+    grid-row-end: 8;
 }
 
-#TeammateSynergy {
-    grid-column-start: 2;
-    grid-column-end: 5;
+.LobbyWinRateDashboardContainer {
+    grid-column-start: 7;
+    grid-column-end: -1;
+    grid-row-start: 1;
+    grid-row-end: 10;
+}
+
+.TeammateSynergyDashboardContainer {
+    grid-column-start: 1;
+    grid-column-end: 4;
+    grid-row-start: 8;
+    grid-row-end: 17;
+}
+
+.MatchupsDashboardContainer {
+    grid-column-start: 4;
+    grid-column-end: 7;
+    grid-row-start: 8;
+    grid-row-end: 17;
+}
+
+.MapCountDashboardContainer {
+    grid-column-start: 7;
+    grid-column-end: -1;
     grid-row-start: 10;
     grid-row-end: 17;
 }
 
-#Matchups {
-    grid-column-start: 6;
-    grid-column-end: 9;
-    grid-row-start: 10;
-    grid-row-end: 17;
-}
-
-#LobbyWinRates {
-    grid-column-start: 10;
-    grid-column-end: 13;
-    grid-row-start: 2;
-    grid-row-end: 13;
-}
-
-#MapCounter {
-    grid-column-start: 10;
-    grid-column-end: 13;
-    grid-row-start: 14;
-    grid-row-end: 19;
-}
-
-#RoleProportions {
-    grid-column-start: 10;
-    grid-column-end: 13;
-    grid-row-start: 20;
-    grid-row-end: 25;
-}
-
-#RoleLeaderboard {
-    grid-column-start: 2;
-    grid-column-end: 9;
-    grid-row-start: 18;
+.RoleLeaderboardDashboardContainer {
+    grid-column-start: 1;
+    grid-column-end: -1;
+    grid-row-start: 17;
     grid-row-end: 21;
+}
+
+.AgentCountDashboardContainer {
+    grid-column-start: 1;
+    grid-column-end: 6;
+    grid-row-start: 21;
+    grid-row-end: 32;
 }
 
 /* @media (max-width: 1250px) {

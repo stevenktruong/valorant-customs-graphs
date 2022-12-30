@@ -2,6 +2,8 @@
 
 .Dashboard {
     display: flex;
+    width: 100%;
+    height: 100%;
     background-color: colors.$dashboard-color;
     color: white;
     box-shadow: 0px 0px 16px 4px #3d5569;

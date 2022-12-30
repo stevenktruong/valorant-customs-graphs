@@ -11,6 +11,10 @@ body,
     width: 100vw;
 }
 
+html {
+    overflow-x: hidden;
+}
+
 body {
     background-color: #1a242c;
     font-family: "Segoe UI", sans-serif;
