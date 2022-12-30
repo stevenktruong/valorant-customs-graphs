@@ -75,7 +75,10 @@ export const PieGraph = (props: Props) => {
         );
 
         const totalMaps = d3.sum(data.map(d => d.count));
-        const pie = d3.pie().value(d => d.count);
+        const pie = d3
+            .pie()
+            .value(d => d.count)
+            .sort(null);
         const arc = d3
             .arc()
             .innerRadius(R / 2)
@@ -96,6 +99,24 @@ export const PieGraph = (props: Props) => {
         const outerPoint = d => labelOuterArc.centroid(d);
         const direction = d =>
             outerPoint(d)[0] - innerPoint(d)[0] > 0 ? 1 : -1;
+        const tweenAngle = callback =>
+            function (d) {
+                const { previousStartAngle, previousArcAngle } =
+                    this.parentNode;
+                const startAngle = d3.interpolate(
+                    previousStartAngle,
+                    d.startAngle
+                );
+                const arcAngle = d3.interpolate(
+                    previousArcAngle,
+                    d.endAngle - d.startAngle
+                );
+                return t => {
+                    d.startAngle = startAngle(t);
+                    d.endAngle = startAngle(t) + arcAngle(t);
+                    return callback(d);
+                };
+            };
 
         const label = d =>
             `${d.data.label} ` +
@@ -110,18 +131,18 @@ export const PieGraph = (props: Props) => {
             .data(pie(data))
             .join(
                 enter => {
-                    const arcs = enter.append("g").attr("class", "pieArc");
+                    const arcs = enter
+                        .append("g")
+                        .attr("class", "pieArc")
+                        .property("previousStartAngle", d => d.startAngle)
+                        .property(
+                            "previousArcAngle",
+                            d => d.endAngle - d.startAngle
+                        );
                     arcs.append("path")
                         .attr("class", "arc")
                         .attr("transform", `translate(${center.join(",")})`)
                         .attr("fill", d => d.data.color)
-                        .attr(
-                            "d",
-                            arc({
-                                startAngle: 0,
-                                endAngle: 0,
-                            })
-                        )
                         .transition()
                         .ease(d3.easeLinear)
                         .duration(initialDrawDuration)
@@ -138,6 +159,11 @@ export const PieGraph = (props: Props) => {
                             };
                         });
                     arcs.append("path")
+                        .property("previousStartAngle", d => d.startAngle)
+                        .property(
+                            "previousArcAngle",
+                            d => d.endAngle - d.startAngle
+                        )
                         .attr("class", "tick")
                         .attr("stroke", "#ffffff")
                         .attr("fill-opacity", 0)
@@ -200,43 +226,27 @@ export const PieGraph = (props: Props) => {
                         .ease(d3.easeLinear)
                         .duration(transitionDuration)
                         .attr("fill", d => d.data.color)
-                        .attrTween("d", d => {
-                            const startAngle = d3.interpolate(0, d.startAngle);
-                            const arcAngle = d3.interpolate(
-                                0,
-                                d.endAngle - d.startAngle
-                            );
-                            return t => {
-                                d.startAngle = startAngle(t);
-                                d.endAngle = startAngle(t) + arcAngle(t);
-                                return arc(d);
-                            };
-                        });
+                        .attrTween("d", tweenAngle(arc));
                     update
                         .select(".tick")
                         .attr("transform", `translate(${center.join(",")})`)
                         .transition()
                         .ease(d3.easeLinear)
                         .duration(transitionDuration)
-                        .attr(
+                        .attrTween(
                             "d",
-                            d =>
-                                `M${innerPoint(d).join(",")},` +
-                                `L${outerPoint(d).join(",")},` +
-                                `L${
-                                    outerPoint(d)[0] +
-                                    direction(d) * horizontalTickLength
-                                },${outerPoint(d)[1]}`
+                            tweenAngle(
+                                d =>
+                                    `M${innerPoint(d).join(",")},` +
+                                    `L${outerPoint(d).join(",")},` +
+                                    `L${
+                                        outerPoint(d)[0] +
+                                        direction(d) * horizontalTickLength
+                                    },${outerPoint(d)[1]}`
+                            )
                         );
                     update
                         .select("text")
-                        .attr(
-                            "transform",
-                            d =>
-                                `translate(${outerPoint(d).map(
-                                    (c, i) => c + center[i]
-                                )})`
-                        )
                         .text(label)
                         .attr("text-anchor", d =>
                             direction(d) > 0 ? "start" : "end"
@@ -250,7 +260,16 @@ export const PieGraph = (props: Props) => {
                         .transition()
                         .ease(d3.easeLinear)
                         .duration(transitionDuration)
-                        .attr("opacity", 1);
+                        .attr("opacity", 1)
+                        .attrTween(
+                            "transform",
+                            tweenAngle(
+                                d =>
+                                    `translate(${outerPoint(d).map(
+                                        (c, i) => c + center[i]
+                                    )})`
+                            )
+                        );
                 }
             );
     }, [props, dimensions]);

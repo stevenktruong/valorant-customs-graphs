@@ -118,12 +118,12 @@ export const StratifiedPieGraph = (props: Props) => {
         const strataArc = d3
             .arc()
             .innerRadius((2 / 5) * R)
-            .outerRadius((4 / 5) * R - radialPadding)
+            .outerRadius((4 / 5) * R)
             .padRadius((4 / 5) * R)
             .padAngle(8 / 360);
         const populationArc = d3
             .arc()
-            .innerRadius((4 / 5) * R)
+            .innerRadius((4 / 5) * R + radialPadding)
             .outerRadius(R)
             .padRadius(R)
             .padAngle(8 / 360);
@@ -151,25 +151,17 @@ export const StratifiedPieGraph = (props: Props) => {
         // Begin updating the svg
         svg.attr("width", "100%").attr("height", "100%");
 
-        const pie = strataPie(data);
-        svg.selectAll(".strataPieArc")
-            .data(pie)
+        svg.selectAll(".stratumPieArc")
+            .data(strataPie(data))
             .join(
                 enter => {
                     const arcs = enter
                         .append("g")
-                        .attr("class", "strataPieArc");
+                        .attr("class", "stratumPieArc");
                     arcs.append("path")
-                        .attr("class", "arc")
+                        .attr("class", "stratumArc")
                         .attr("transform", `translate(${center.join(",")})`)
                         .attr("fill", d => d.data.color)
-                        .attr(
-                            "d",
-                            strataArc({
-                                startAngle: 0,
-                                endAngle: 0,
-                            })
-                        )
                         .transition()
                         .ease(d3.easeLinear)
                         .duration(initialDrawDuration)
@@ -185,6 +177,41 @@ export const StratifiedPieGraph = (props: Props) => {
                                 return strataArc(d);
                             };
                         });
+                    enter.each(p => {
+                        arcs.append("g").attr(
+                            "class",
+                            `.${p.data.stratumLabel}PieArc`
+                        );
+                        arcs.append("path")
+                            .attr("class", `.${p.data.stratumLabel}PieArc`)
+                            .attr("transform", `translate(${center.join(",")})`)
+                            .attr("fill", p.data.color)
+                            .attr(
+                                "d",
+                                strataArc({
+                                    startAngle: 0,
+                                    endAngle: 0,
+                                })
+                            )
+                            .transition()
+                            .ease(d3.easeLinear)
+                            .duration(initialDrawDuration)
+                            .attrTween("d", d => {
+                                const startAngle = d3.interpolate(
+                                    0,
+                                    d.startAngle
+                                );
+                                const arcAngle = d3.interpolate(
+                                    0,
+                                    d.endAngle - d.startAngle
+                                );
+                                return t => {
+                                    d.startAngle = startAngle(t);
+                                    d.endAngle = startAngle(t) + arcAngle(t);
+                                    return populationArc(d);
+                                };
+                            });
+                    });
                     // arcs.append("path")
                     //     .attr("class", "tick")
                     //     .attr("stroke", "#ffffff")
@@ -242,25 +269,6 @@ export const StratifiedPieGraph = (props: Props) => {
                 },
                 update => {
                     // update
-                    //     .select(".arc")
-                    //     .attr("transform", `translate(${center.join(",")})`)
-                    //     .transition()
-                    //     .ease(d3.easeLinear)
-                    //     .duration(transitionDuration)
-                    //     .attr("fill", d => d.data.color)
-                    //     .attrTween("d", d => {
-                    //         const startAngle = d3.interpolate(0, d.startAngle);
-                    //         const arcAngle = d3.interpolate(
-                    //             0,
-                    //             d.endAngle - d.startAngle
-                    //         );
-                    //         return t => {
-                    //             d.startAngle = startAngle(t);
-                    //             d.endAngle = startAngle(t) + arcAngle(t);
-                    //             return arc(d);
-                    //         };
-                    //     });
-                    // update
                     //     .select(".tick")
                     //     .attr("transform", `translate(${center.join(",")})`)
                     //     .transition()
@@ -301,20 +309,6 @@ export const StratifiedPieGraph = (props: Props) => {
                     //     .attr("opacity", 1);
                 }
             );
-        pie.forEach(p => {
-            svg.selectAll(`.${p.data.stratumLabel}PieArc`)
-                .data(p.stratumPie)
-                .join(enter => {
-                    const arcs = enter
-                        .append("g")
-                        .attr("class", `.${p.data.stratumLabel}PieArc`);
-                    arcs.append("path")
-                        .attr("class", "arc")
-                        .attr("transform", `translate(${center.join(",")})`)
-                        .attr("fill", p.data.color)
-                        .attr("d", populationArc);
-                });
-        });
     }, [props, dimensions]);
 
     return (
