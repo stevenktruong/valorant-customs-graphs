@@ -46,7 +46,7 @@ export const PieGraph = (props: Props) => {
                     (acc, curr) =>
                         curr.label.length > acc.length ? curr.label : acc,
                     data[0].label
-                )}` + (percentage ? " 50%" : "")
+                )}` + (percentage ? " 50%" : "10")
             )
             .each(function () {
                 longestLabelLength = this.getComputedTextLength();
@@ -55,6 +55,8 @@ export const PieGraph = (props: Props) => {
             });
 
         const center = [width / 2, height / 2];
+        const translateToCenter = g =>
+            g.attr("transform", `translate(${center.join(",")})`);
 
         // R should be the largest number so that
         //   2R + 2 * (2*tickPadding + radialTickLength + horizontalTickLength + longestLabelLength) <= width
@@ -74,7 +76,7 @@ export const PieGraph = (props: Props) => {
                     labelHeight)
         );
 
-        const totalMaps = d3.sum(data.map(d => d.count));
+        const total = d3.sum(data.map(d => d.count));
         const pie = d3
             .pie()
             .value(d => d.count)
@@ -86,6 +88,7 @@ export const PieGraph = (props: Props) => {
             .padRadius(R)
             .padAngle(8 / 360);
 
+        // Used to compute the radial portion of the tick marks
         const labelInnerArc = d3
             .arc()
             .innerRadius(R + tickPadding)
@@ -94,21 +97,32 @@ export const PieGraph = (props: Props) => {
             .arc()
             .innerRadius(R + tickPadding + radialTickLength)
             .outerRadius(R + tickPadding + radialTickLength);
-
         const innerPoint = d => labelInnerArc.centroid(d);
         const outerPoint = d => labelOuterArc.centroid(d);
         const direction = d =>
             outerPoint(d)[0] - innerPoint(d)[0] > 0 ? 1 : -1;
-        const tweenAngle = callback =>
+
+        // Label is either raw count or percentage
+        const label = d =>
+            `${d.data.label} ` +
+            (percentage
+                ? `${Math.round((100 * d.data.count) / total)}%`
+                : `${d.data.count}`);
+
+        // Cache angles for the transition animation
+        const stash = function (d) {
+            this.previousStartAngle = d.startAngle;
+            this.previousArcAngle = d.endAngle - d.startAngle;
+        };
+
+        const angleTween = callback =>
             function (d) {
-                const { previousStartAngle, previousArcAngle } =
-                    this.parentNode;
                 const startAngle = d3.interpolate(
-                    previousStartAngle,
+                    this.previousStartAngle,
                     d.startAngle
                 );
                 const arcAngle = d3.interpolate(
-                    previousArcAngle,
+                    this.previousArcAngle,
                     d.endAngle - d.startAngle
                 );
                 return t => {
@@ -117,13 +131,6 @@ export const PieGraph = (props: Props) => {
                     return callback(d);
                 };
             };
-
-        const label = d =>
-            `${d.data.label} ` +
-            (percentage
-                ? `${Math.round((100 * d.data.count) / totalMaps)}%`
-                : `${d.data.count}`);
-
         // Begin updating the svg
         svg.attr("width", "100%").attr("height", "100%");
 
@@ -131,43 +138,19 @@ export const PieGraph = (props: Props) => {
             .data(pie(data))
             .join(
                 enter => {
-                    const arcs = enter
-                        .append("g")
-                        .attr("class", "pieArc")
-                        .property("previousStartAngle", d => d.startAngle)
-                        .property(
-                            "previousArcAngle",
-                            d => d.endAngle - d.startAngle
-                        );
-                    arcs.append("path")
+                    const pieArc = enter.append("g").attr("class", "pieArc");
+                    pieArc
+                        .append("path")
                         .attr("class", "arc")
-                        .attr("transform", `translate(${center.join(",")})`)
+                        .call(translateToCenter)
                         .attr("fill", d => d.data.color)
-                        .transition()
-                        .ease(d3.easeLinear)
-                        .duration(initialDrawDuration)
-                        .attrTween("d", d => {
-                            const startAngle = d3.interpolate(0, d.startAngle);
-                            const arcAngle = d3.interpolate(
-                                0,
-                                d.endAngle - d.startAngle
-                            );
-                            return t => {
-                                d.startAngle = startAngle(t);
-                                d.endAngle = startAngle(t) + arcAngle(t);
-                                return arc(d);
-                            };
-                        });
-                    arcs.append("path")
-                        .property("previousStartAngle", d => d.startAngle)
-                        .property(
-                            "previousArcAngle",
-                            d => d.endAngle - d.startAngle
-                        )
+                        .each(stash);
+                    pieArc
+                        .append("path")
                         .attr("class", "tick")
                         .attr("stroke", "#ffffff")
                         .attr("fill-opacity", 0)
-                        .attr("transform", `translate(${center.join(",")})`)
+                        .call(translateToCenter)
                         .attr(
                             "d",
                             d =>
@@ -175,27 +158,9 @@ export const PieGraph = (props: Props) => {
                                 `L${innerPoint(d).join(",")},` +
                                 `L${innerPoint(d).join(",")}`
                         )
-                        .transition()
-                        .delay(initialDrawDuration)
-                        .ease(d3.easeLinear)
-                        .duration(initialDrawDuration / 2)
-                        .attrTween("d", d =>
-                            d3.piecewise(d3.interpolate, [
-                                `M${innerPoint(d).join(",")},` +
-                                    `L${innerPoint(d).join(",")},` +
-                                    `L${innerPoint(d).join(",")},`,
-                                `M${innerPoint(d).join(",")},` +
-                                    `L${outerPoint(d).join(",")},` +
-                                    `L${outerPoint(d).join(",")},`,
-                                `M${innerPoint(d).join(",")},` +
-                                    `L${outerPoint(d).join(",")},` +
-                                    `L${
-                                        outerPoint(d)[0] +
-                                        direction(d) * horizontalTickLength
-                                    },${outerPoint(d)[1]}`,
-                            ])
-                        );
-                    arcs.append("text")
+                        .each(stash);
+                    pieArc
+                        .append("text")
                         .attr("fill", "#ffffff")
                         .attr("opacity", 0)
                         .attr("font-size", "10px")
@@ -212,39 +177,48 @@ export const PieGraph = (props: Props) => {
                                     outerPoint(d)[1] + center[1]
                                 })`
                         )
+                        .each(stash);
+
+                    // Draw animations
+                    const draw = pieArc
                         .transition()
+                        .ease(d3.easeLinear)
+                        .duration(initialDrawDuration);
+                    draw.select(".arc").attrTween("d", d => {
+                        const startAngle = d3.interpolate(0, d.startAngle);
+                        const arcAngle = d3.interpolate(
+                            0,
+                            d.endAngle - d.startAngle
+                        );
+                        return t => {
+                            d.startAngle = startAngle(t);
+                            d.endAngle = startAngle(t) + arcAngle(t);
+                            return arc(d);
+                        };
+                    });
+                    draw.select(".tick")
                         .delay(initialDrawDuration)
-                        .ease(d3.easeLinear)
-                        .duration(initialDrawDuration / 3)
-                        .attr("opacity", 1);
-                },
-                update => {
-                    update
-                        .select(".arc")
-                        .attr("transform", `translate(${center.join(",")})`)
-                        .transition()
-                        .ease(d3.easeLinear)
-                        .duration(transitionDuration)
-                        .attr("fill", d => d.data.color)
-                        .attrTween("d", tweenAngle(arc));
-                    update
-                        .select(".tick")
-                        .attr("transform", `translate(${center.join(",")})`)
-                        .transition()
-                        .ease(d3.easeLinear)
-                        .duration(transitionDuration)
-                        .attrTween(
-                            "d",
-                            tweenAngle(
-                                d =>
-                                    `M${innerPoint(d).join(",")},` +
+                        .attrTween("d", d =>
+                            d3.piecewise(d3.interpolate, [
+                                `M${innerPoint(d).join(",")},` +
+                                    `L${innerPoint(d).join(",")},` +
+                                    `L${innerPoint(d).join(",")},`,
+                                `M${innerPoint(d).join(",")},` +
+                                    `L${outerPoint(d).join(",")},` +
+                                    `L${outerPoint(d).join(",")},`,
+                                `M${innerPoint(d).join(",")},` +
                                     `L${outerPoint(d).join(",")},` +
                                     `L${
                                         outerPoint(d)[0] +
                                         direction(d) * horizontalTickLength
-                                    },${outerPoint(d)[1]}`
-                            )
+                                    },${outerPoint(d)[1]}`,
+                            ])
                         );
+                    draw.select("text").attr("opacity", 1);
+                },
+                update => {
+                    update.select(".arc").call(translateToCenter);
+                    update.select(".tick").call(translateToCenter);
                     update
                         .select("text")
                         .text(label)
@@ -256,20 +230,48 @@ export const PieGraph = (props: Props) => {
                             d =>
                                 direction(d) *
                                 (horizontalTickLength + tickPadding)
-                        )
+                        );
+
+                    const transition = update
                         .transition()
                         .ease(d3.easeLinear)
-                        .duration(transitionDuration)
-                        .attr("opacity", 1)
+                        .duration(transitionDuration);
+                    transition
+                        .select(".arc")
+                        .attr("fill", d => d.data.color)
+                        .attrTween("d", angleTween(arc));
+                    transition.select(".tick").attrTween(
+                        "d",
+                        angleTween(
+                            d =>
+                                `M${innerPoint(d).join(",")},` +
+                                `L${outerPoint(d).join(",")},` +
+                                `L${
+                                    outerPoint(d)[0] +
+                                    direction(d) * horizontalTickLength
+                                },${outerPoint(d)[1]}`
+                        )
+                    );
+                    transition
+                        .select("text")
                         .attrTween(
                             "transform",
-                            tweenAngle(
+                            angleTween(
                                 d =>
-                                    `translate(${outerPoint(d).map(
-                                        (c, i) => c + center[i]
-                                    )})`
+                                    `translate(${outerPoint(d)
+                                        .map((c, i) => c + center[i])
+                                        .join(",")})`
                             )
-                        );
+                        )
+                        .attr("opacity", 1);
+                    transition
+                        .end()
+                        .then(() => {
+                            update.select(".arc").each(stash);
+                            update.select(".tick").each(stash);
+                            update.select("text").each(stash);
+                        })
+                        .catch(() => {});
                 }
             );
     }, [props, dimensions]);
