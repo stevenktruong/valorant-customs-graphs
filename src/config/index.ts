@@ -36,6 +36,25 @@ export const PLAYER_COLORS: Record<string, string> = {
     yang: "#c62c38",
 };
 
+export const PLAYER_ROLE_COLORS: Record<string, string[]> = {
+    andy: ["#F6DE64", "#2F5C81", "#4E95C3", "#CFD0CC"],
+    brandon: ["#9192BE", "#AA3824", "#EAD67D", "#C8A592"],
+    brian: ["#757E8A", "#447E8A", "#5C9DA4", "#FFFFFF"],
+    cade: ["#DBFF9E", "#0F793E", "#479D56", "#91CB9E"],
+    darwin: ["#CDDBFF", "#7F8CEB", "#FFC561", "#FFFD8F"],
+    josh: ["#FAA61A", "#FEAD5B", "#FDE7C1", "#FFFFFF"],
+    lindsey: ["#92CED5", "#D1988D", "#EBD5CA", "#FFFFFF"],
+    sequential: ["#A6735D", "#4E6B32", "#7B8769", "#DCE1CC"],
+    sophie: ["#B15C5D", "#DAA379", "#DAB79A", "#FFFFFF"],
+    steve: ["#2180BA", "#43815F", "#7CA7A0", "#A3CDD9"],
+    steven: ["#F8F4A6", "#E69470", "#8BBECE", "#EEC6C7"],
+    sun: ["#DCCDCA", "#20878C", "#58BFC4", "#85D3E8"],
+    susi: ["#556371", "#BF8D68", "#E7B897", "#F7C1D6"],
+    susu: ["#CB759C", "#987D68", "#AFA392", "#FFFFFF"],
+    tang: ["#CEA891", "#998E91", "#F2D5CF", "#FFFFFF"],
+    yang: ["#C62C38", "#C64049", "#E86f68", "#FFFFFF"],
+};
+
 export const MAP_COLORS: Record<string, string> = {
     Ascent: "#D5B7BE",
     Bind: "#B9835D",

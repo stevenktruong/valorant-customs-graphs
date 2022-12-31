@@ -1,4 +1,7 @@
+import { stringify } from "querystring";
 import * as React from "react";
+
+import { PLAYER_ROLE_COLORS } from "config";
 
 import Caption from "components/Caption";
 import Dashboard from "components/Dashboard";
@@ -12,30 +15,41 @@ interface Props {
 }
 
 export const AgentCountDashboard = (props: Props) => {
-    const data = ["Duelist", "Initiator", "Controller", "Sentinel"].map(
-        role => ({
-            stratumLabel: role,
-            color: "green",
-            stratumData: Object.entries(
-                props.individualData[props.player].agents
-            )
-                .filter(
-                    ([agent, playerAgentStats]: [
-                        string,
-                        Record<string, any>
-                    ]) => playerAgentStats.role === role
-                )
-                .map(
-                    ([agent, playerAgentStats]: [
-                        string,
-                        Record<string, any>
-                    ]) => ({
-                        label: agent,
-                        count: Number(playerAgentStats.games),
-                    })
-                ),
-        })
-    );
+    const playerColors = PLAYER_ROLE_COLORS[props.player];
+
+    // Pick hex colors based on which roles are played the most
+    const orderedRoles: Record<string, number> = {};
+    Object.entries(props.individualData[props.player].roles)
+        .map(([role, playerRoleStats]: [string, Record<string, any>]) => ({
+            label: role,
+            count: Number(playerRoleStats.games),
+        }))
+        .sort((a, b) => a.count - b.count)
+        .forEach((d, i) => {
+            orderedRoles[d.label] = i;
+        });
+
+    const roleData = Object.entries(
+        props.individualData[props.player].roles
+    ).map(([role, playerRoleStats]: [string, Record<string, any>]) => ({
+        label: role,
+        count: 0, // d3 will compute this again for us
+        parent: "root",
+        color: playerColors[orderedRoles[role]],
+    }));
+
+    const data = Object.entries(props.individualData[props.player].agents)
+        .map(([agent, playerAgentStats]: [string, Record<string, any>]) => ({
+            label: agent,
+            parent: String(playerAgentStats.role),
+            color: PLAYER_ROLE_COLORS[props.player][
+                orderedRoles[playerAgentStats.role]
+            ],
+            count: Number(playerAgentStats.games),
+        }))
+        // d3.stratify() requires entries for parents and the root
+        .concat(roleData)
+        .concat({ label: "root", parent: "", color: "", count: 0 });
 
     return (
         <Dashboard direction="column">
