@@ -1,6 +1,6 @@
 // @ts-nocheck
 import * as d3 from "d3";
-import { debugPort } from "process";
+import { debugPort, off } from "process";
 import * as React from "react";
 
 import { useParentDimensions } from "helpers";
@@ -18,6 +18,82 @@ interface Props {
     transitionDuration: number;
     percentage?: boolean;
 }
+
+// Helper function to compute shifts needed to avoid overlapping labels
+const optimizeArcLabels = (labelCoordinates, labelHeight) => {
+    // A misnomer; boxA should be above boxB also
+    const intersecting = (boxA, boxB) =>
+        !(!boxA.handle || !boxB.handle || boxA.maxY <= boxB.minY);
+
+    const boxes = labelCoordinates
+        .map((d, i) => ({
+            handle: d.handle,
+            left: d.left,
+            minY: d.y - labelHeight / 2,
+            maxY: d.y + labelHeight / 2,
+            index: i,
+            shift: 0,
+        }))
+        .sort((a, b) => b.minY - a.minY);
+
+    const aboveLeftBoxes = boxes.filter(
+        box => box.minY <= 0 && box.handle && box.left
+    );
+    for (let i = 1; i < aboveLeftBoxes.length; i++) {
+        let shift = 0;
+        while (intersecting(aboveLeftBoxes[i], aboveLeftBoxes[i - 1])) {
+            shift += 1;
+            if (shift > 10) break;
+            aboveLeftBoxes[i].minY -= labelHeight;
+            aboveLeftBoxes[i].maxY -= labelHeight;
+        }
+        aboveLeftBoxes[i].shift = shift;
+    }
+
+    const aboveRightBoxes = boxes.filter(
+        box => box.minY <= 0 && box.handle && !box.left
+    );
+    for (let i = 1; i < aboveRightBoxes.length; i++) {
+        let shift = 0;
+        while (intersecting(aboveRightBoxes[i], aboveRightBoxes[i - 1])) {
+            shift += 1;
+            if (shift > 10) break;
+            aboveRightBoxes[i].minY -= labelHeight;
+            aboveRightBoxes[i].maxY -= labelHeight;
+        }
+        aboveRightBoxes[i].shift = shift;
+    }
+
+    const belowLeftBoxes = boxes.filter(
+        box => box.maxY >= 0 && box.handle && box.left
+    );
+    for (let i = belowLeftBoxes.length - 2; i >= 0; i--) {
+        let shift = 0;
+        while (intersecting(belowLeftBoxes[i + 1], belowLeftBoxes[i])) {
+            shift += 1;
+            if (shift > 10) break;
+            belowLeftBoxes[i].minY += labelHeight;
+            belowLeftBoxes[i].maxY += labelHeight;
+        }
+        belowLeftBoxes[i].shift = shift;
+    }
+
+    const belowRightBoxes = boxes.filter(
+        box => box.maxY >= 0 && box.handle && !box.left
+    );
+    for (let i = belowRightBoxes.length - 2; i >= 0; i--) {
+        let shift = 0;
+        while (intersecting(belowRightBoxes[i + 1], belowRightBoxes[i])) {
+            shift += 1;
+            if (shift > 10) break;
+            belowRightBoxes[i].minY += labelHeight;
+            belowRightBoxes[i].maxY += labelHeight;
+        }
+        belowRightBoxes[i].shift = shift;
+    }
+
+    return boxes.sort((a, b) => a.index - b.index).map(box => box.shift);
+};
 
 export const StratifiedPieGraph = (props: Props) => {
     const svgRef = React.useRef();
@@ -41,7 +117,7 @@ export const StratifiedPieGraph = (props: Props) => {
         // Shift left based on the length of the longest name
         let longestLabelLength;
         let labelHeight;
-        let stratumLabelDistance = 0;
+        let stratumLabelDistance;
         svg.append("text")
             .attr("font-size", "10px")
             .attr("opacity", 0)
@@ -55,7 +131,7 @@ export const StratifiedPieGraph = (props: Props) => {
             .each(function () {
                 longestLabelLength = this.getComputedTextLength();
                 labelHeight = this.getBBox().height;
-                // stratumLabelDistance = longestLabelLength + radialPadding;
+                stratumLabelDistance = longestLabelLength + radialPadding;
                 this.remove();
             });
 
@@ -129,8 +205,20 @@ export const StratifiedPieGraph = (props: Props) => {
             .arc()
             .startAngle(d => d.x0)
             .endAngle(d => d.x1)
-            .innerRadius(R + tickPadding + radialTickLength)
-            .outerRadius(R + tickPadding + radialTickLength);
+            .innerRadius(
+                d =>
+                    R +
+                    tickPadding +
+                    radialTickLength +
+                    (d.shift || 0) * labelHeight
+            )
+            .outerRadius(
+                d =>
+                    R +
+                    tickPadding +
+                    radialTickLength +
+                    (d.shift || 0) * labelHeight
+            );
         const stratumLabelArc = d3
             .arc()
             .startAngle(d => d.x0)
@@ -155,11 +243,13 @@ export const StratifiedPieGraph = (props: Props) => {
                 : `${d.value}`);
 
         // Used to only show labels with a large enough count
+        const showLabel = d => d.x1 - d.x0 > 0;
+        const hideLabel = d => !showLabel(d);
         const updateLabelVisibility = transition => {
-            const hideLabels = transition.filter(d => !(d.x1 - d.x0 > 0));
+            const hideLabels = transition.filter(hideLabel);
             hideLabels.select(".tick").attr("opacity", 0);
             hideLabels.select("text").attr("opacity", 0);
-            const showLabels = transition.filter(d => d.x1 - d.x0 > 0);
+            const showLabels = transition.filter(showLabel);
             showLabels.select(".tick").attr("opacity", 1);
             showLabels.select("text").attr("opacity", 1);
         };
@@ -168,6 +258,7 @@ export const StratifiedPieGraph = (props: Props) => {
         const stash = function (d) {
             this.previousStartAngle = d.x0;
             this.previousArcAngle = d.x1 - d.x0;
+            this.previousShift = d.shift;
         };
 
         const angleTween = callback =>
@@ -180,9 +271,11 @@ export const StratifiedPieGraph = (props: Props) => {
                     this.previousArcAngle,
                     d.x1 - d.x0
                 );
+                const shift = d3.interpolate(this.previousShift, d.shift);
                 return t => {
                     d.x0 = startAngle(t);
                     d.x1 = startAngle(t) + arcAngle(t);
+                    d.shift = shift(t);
                     return callback(d);
                 };
             };
@@ -194,6 +287,17 @@ export const StratifiedPieGraph = (props: Props) => {
             .data(root.descendants().slice(1))
             .join(
                 enter => {
+                    // Compute offsets to avoid overlapping labels
+                    const offsets = optimizeArcLabels(
+                        enter.data().map(d => ({
+                            handle: d.depth === 2 && showLabel(d),
+                            left: direction(d) < 0,
+                            y: outerPoint(d)[1],
+                        })),
+                        labelHeight
+                    );
+                    enter.each((d, i) => (d.shift = offsets[i]));
+
                     const pieArc = enter.append("g").attr("class", "pieArc");
                     pieArc
                         .append("path")
@@ -231,30 +335,30 @@ export const StratifiedPieGraph = (props: Props) => {
                         .attr(
                             "transform",
                             d =>
-                                `translate(${outerPoint(d)[0] + center[0]}, ${
-                                    outerPoint(d)[1] + center[1]
-                                })`
+                                `translate(${outerPoint(d)
+                                    .map((c, i) => c + center[i])
+                                    .join(",")})`
                         )
                         .each(stash);
-                    // pieArc
-                    //     .filter(d => d.depth === 1)
-                    //     .append("text")
-                    //     .attr("fill", d => d.data.color)
-                    //     .attr("opacity", 0)
-                    //     .attr("font-size", "18px")
-                    //     .text(label)
-                    //     .attr("alignment-baseline", "central")
-                    //     .attr("text-anchor", d =>
-                    //         direction(d) > 0 ? "start" : "end"
-                    //     )
-                    //     .attr(
-                    //         "transform",
-                    //         d =>
-                    //             `translate(${stratumPoint(d)
-                    //                 .map((c, i) => c + center[i])
-                    //                 .join(",")})`
-                    //     )
-                    //     .each(stash);
+                    pieArc
+                        .filter(d => d.depth === 1)
+                        .append("text")
+                        .attr("fill", d => d.data.color)
+                        .attr("opacity", 0)
+                        .attr("font-size", "18px")
+                        .text(label)
+                        .attr("alignment-baseline", "central")
+                        .attr("text-anchor", d =>
+                            direction(d) > 0 ? "start" : "end"
+                        )
+                        .attr(
+                            "transform",
+                            d =>
+                                `translate(${stratumPoint(d)
+                                    .map((c, i) => c + center[i])
+                                    .join(",")})`
+                        )
+                        .each(stash);
 
                     const draw = pieArc
                         .transition()
@@ -291,6 +395,16 @@ export const StratifiedPieGraph = (props: Props) => {
                     draw.call(updateLabelVisibility);
                 },
                 update => {
+                    const offsets = optimizeArcLabels(
+                        update.data().map(d => ({
+                            handle: d.depth === 2 && showLabel(d),
+                            left: direction(d) < 0,
+                            y: outerPoint(d)[1],
+                        })),
+                        labelHeight
+                    );
+                    update.each((d, i) => (d.shift = offsets[i]));
+
                     update.select(".arc").call(translateToCenter);
                     update.select(".tick").call(translateToCenter);
                     update
@@ -306,14 +420,14 @@ export const StratifiedPieGraph = (props: Props) => {
                                 direction(d) *
                                 (horizontalTickLength + tickPadding)
                         );
-                    // update
-                    //     .filter(d => d.depth === 1)
-                    //     .select("text")
-                    //     .text(label)
-                    //     .attr("text-anchor", d =>
-                    //         direction(d) > 0 ? "start" : "end"
-                    //     )
-                    //     .each(stash);
+                    update
+                        .filter(d => d.depth === 1)
+                        .select("text")
+                        .text(label)
+                        .attr("text-anchor", d =>
+                            direction(d) > 0 ? "start" : "end"
+                        )
+                        .each(stash);
 
                     const transition = update
                         .transition()
@@ -346,22 +460,20 @@ export const StratifiedPieGraph = (props: Props) => {
                                         .map((c, i) => c + center[i])
                                         .join(",")})`
                             )
-                        )
-                        .select("text");
-                    // transition
-                    //     .filter(d => d.depth === 1)
-                    //     .select("text")
-                    //     .attr("fill", d => d.data.color)
-                    //     .attrTween(
-                    //         "transform",
-                    //         angleTween(
-                    //             d =>
-                    //                 `translate(${stratumPoint(d)
-                    //                     .map((c, i) => c + center[i])
-                    //                     .join(",")})`
-                    //         )
-                    //     )
-                    //     .select("text");
+                        );
+                    transition
+                        .filter(d => d.depth === 1)
+                        .select("text")
+                        .attr("fill", d => d.data.color)
+                        .attrTween(
+                            "transform",
+                            angleTween(
+                                d =>
+                                    `translate(${stratumPoint(d)
+                                        .map((c, i) => c + center[i])
+                                        .join(",")})`
+                            )
+                        );
                     transition.call(updateLabelVisibility);
                     transition
                         .end()

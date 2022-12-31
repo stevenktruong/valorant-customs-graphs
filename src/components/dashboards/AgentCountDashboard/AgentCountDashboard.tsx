@@ -24,7 +24,7 @@ export const AgentCountDashboard = (props: Props) => {
             label: role,
             count: Number(playerRoleStats.games),
         }))
-        .sort((a, b) => a.count - b.count)
+        .sort((a, b) => b.count - a.count)
         .forEach((d, i) => {
             orderedRoles[d.label] = i;
         });
