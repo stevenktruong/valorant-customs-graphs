@@ -1,6 +1,5 @@
 // @ts-nocheck
 import * as d3 from "d3";
-import { debugPort, off } from "process";
 import * as React from "react";
 
 import { useParentDimensions } from "helpers";
@@ -19,16 +18,149 @@ interface Props {
     percentage?: boolean;
 }
 
-// Helper function to compute shifts needed to avoid overlapping labels
-const optimizeArcLabels = (labelCoordinates, labelHeight) => {
+// TODO: Helper function to avoid overlapping stratum label
+// Simulated annealing
+// Energy should penalize distance from the desired position and overlaps with labels
+const computeStratumLabelShifts = (
+    stratumLabelBoxes,
+    labelBoxes,
+    width,
+    height
+) => {
+    // Each box should look like
+    // {
+    //     x0: initial left x-coordinate
+    //     x1: initial right x-coordinate
+    //     y0: initial top y-coordinate
+    //     y1: initial bottom y-coordinate
+    //
+    //     Will add the following fields:
+    //     dx: horizontal shifts
+    //     dy: vertical shifts
+    // }
+    const randomSign = () => (Math.random() < 0.5 ? -1 : 1);
+
+    const shiftDistance2 = box => {
+        return Math.pow(box.dx || 0, 2) + Math.pow(box.dy || 0, 2);
+    };
+
+    const overlapArea = (boxA, boxB) => {
+        // Intersection of boxA.x0 <= x <= boxA.x1 and boxB.x0 <= x <= boxB.x1
+        // If x1 <= x0 then they don't intersect
+        const x0 = Math.max(boxA.x0, boxB.x0);
+        const x1 = Math.min(boxA.x1, boxB.x1);
+        if (x1 <= x0) return 0;
+
+        const y0 = Math.max(boxA.y0, boxB.y0);
+        const y1 = Math.min(boxA.y1, boxB.y1);
+        if (y1 <= y0) return 0;
+
+        const A = (y1 - y0) * (x1 - x0);
+        // console.group();
+        // console.table(boxA);
+        // console.table(boxB);
+        // console.table({ x0, x1, y0, y1 });
+        // console.log(A);
+        // console.groupEnd();
+        return A;
+    };
+
+    const E = stratumLabelBox => {
+        let energy = 0;
+        energy += shiftDistance2(stratumLabelBox);
+        energy += 0.25 * Math.max(-stratumLabelBox.x0, 0);
+        energy += 0.25 * Math.max(width - stratumLabelBox.x0, 0);
+        energy += 0.25 * Math.max(-stratumLabelBox.y0, 0);
+        energy += 0.25 * Math.max(height - stratumLabelBox.y1, 0);
+        for (let labelBox of labelBoxes) {
+            if (stratumLabelBox.label === labelBox.label) continue;
+            energy += 10 * overlapArea(stratumLabelBox, labelBox);
+        }
+        return energy;
+    };
+
+    const pAccept = (oldE, newE, T) =>
+        newE < oldE ? 1 : Math.exp((oldE - newE) / T);
+
+    // Ensure that all labels are inside to begin with
+    for (let stratumLabelBox of stratumLabelBoxes) {
+        while (stratumLabelBox.x0 < 0) {
+            stratumLabelBox.x0 += 5;
+            stratumLabelBox.x1 += 5;
+            stratumLabelBox.dx += 5;
+        }
+
+        while (stratumLabelBox.x1 > width) {
+            stratumLabelBox.x0 -= 5;
+            stratumLabelBox.x1 -= 5;
+            stratumLabelBox.dx -= 5;
+        }
+
+        while (stratumLabelBox.y0 < 0) {
+            stratumLabelBox.y0 -= 5;
+            stratumLabelBox.y1 -= 5;
+            stratumLabelBox.dy -= 5;
+        }
+
+        while (stratumLabelBox.y1 > height) {
+            stratumLabelBox.y0 -= 5;
+            stratumLabelBox.y1 -= 5;
+            stratumLabelBox.dy -= 5;
+        }
+    }
+
+    const nItr = 1000;
+    for (let n = 0; n < nItr; n++) {
+        const T = 1000 * (1 - (n + 1) / nItr);
+        const i = Math.floor(Math.random() * stratumLabelBoxes.length);
+        const stratumLabelBoxNew = {
+            ...stratumLabelBoxes[i],
+        };
+
+        const dx = 5 * randomSign();
+        const dy = 5 * randomSign();
+
+        if (
+            stratumLabelBoxNew.x0 + dx >= 0 &&
+            stratumLabelBoxNew.x1 + dx <= width
+        ) {
+            stratumLabelBoxNew.x0 += dx;
+            stratumLabelBoxNew.x1 += dx;
+            stratumLabelBoxNew.dx += dx;
+        }
+
+        if (
+            stratumLabelBoxNew.y0 + dy >= 0 &&
+            stratumLabelBoxNew.y1 + dy <= height
+        ) {
+            stratumLabelBoxNew.y0 += dy;
+            stratumLabelBoxNew.y1 += dy;
+            stratumLabelBoxNew.dy += dy;
+        }
+
+        const oldE = E(stratumLabelBoxes[i]);
+        const newE = E(stratumLabelBoxNew);
+        if (Math.random() < pAccept(oldE, newE, T)) {
+            stratumLabelBoxes[i] = stratumLabelBoxNew;
+        }
+    }
+
+    return stratumLabelBoxes.map(stratumLabelBox => ({
+        dx: stratumLabelBox.dx,
+        dy: stratumLabelBox.dy,
+    }));
+};
+
+// Helper function to compute shifts needed to avoid overlapping labels via a greedy algorithm
+const computeArcLabelShifts = (labelCoordinates, labelHeight) => {
     // A misnomer; boxA should be above boxB also
     const intersecting = (boxA, boxB) =>
-        !(!boxA.handle || !boxB.handle || boxA.maxY <= boxB.minY);
+        boxA.handle && boxB.handle && boxA.maxY > boxB.minY;
 
     const boxes = labelCoordinates
         .map((d, i) => ({
-            handle: d.handle,
-            left: d.left,
+            handle: d.handle, // false if the label isn't visible or is an outer label
+            left: d.left, // left labels can only intersect with left ones and vice versa
             minY: d.y - labelHeight / 2,
             maxY: d.y + labelHeight / 2,
             index: i,
@@ -36,60 +168,39 @@ const optimizeArcLabels = (labelCoordinates, labelHeight) => {
         }))
         .sort((a, b) => b.minY - a.minY);
 
-    const aboveLeftBoxes = boxes.filter(
-        box => box.minY <= 0 && box.handle && box.left
-    );
-    for (let i = 1; i < aboveLeftBoxes.length; i++) {
-        let shift = 0;
-        while (intersecting(aboveLeftBoxes[i], aboveLeftBoxes[i - 1])) {
-            shift += 1;
-            if (shift > 10) break;
-            aboveLeftBoxes[i].minY -= labelHeight;
-            aboveLeftBoxes[i].maxY -= labelHeight;
-        }
-        aboveLeftBoxes[i].shift = shift;
+    const aboveBoxes = { left: [], right: [] };
+    const belowBoxes = { left: [], right: [] };
+
+    for (let box of boxes) {
+        if (!box.handle) continue;
+        if (box.minY <= 0) aboveBoxes[box.left ? "left" : "right"].push(box);
+        if (box.maxY >= 0) belowBoxes[box.left ? "left" : "right"].push(box);
     }
 
-    const aboveRightBoxes = boxes.filter(
-        box => box.minY <= 0 && box.handle && !box.left
-    );
-    for (let i = 1; i < aboveRightBoxes.length; i++) {
-        let shift = 0;
-        while (intersecting(aboveRightBoxes[i], aboveRightBoxes[i - 1])) {
-            shift += 1;
-            if (shift > 10) break;
-            aboveRightBoxes[i].minY -= labelHeight;
-            aboveRightBoxes[i].maxY -= labelHeight;
+    for (let direction of ["left", "right"]) {
+        const currAboveBoxes = aboveBoxes[direction];
+        for (let i = 1; i < currAboveBoxes.length; i++) {
+            let shift = 0;
+            while (intersecting(currAboveBoxes[i], currAboveBoxes[i - 1])) {
+                shift += 1;
+                if (shift > 10) break;
+                currAboveBoxes[i].minY -= labelHeight;
+                currAboveBoxes[i].maxY -= labelHeight;
+            }
+            currAboveBoxes[i].shift = shift;
         }
-        aboveRightBoxes[i].shift = shift;
-    }
 
-    const belowLeftBoxes = boxes.filter(
-        box => box.maxY >= 0 && box.handle && box.left
-    );
-    for (let i = belowLeftBoxes.length - 2; i >= 0; i--) {
-        let shift = 0;
-        while (intersecting(belowLeftBoxes[i + 1], belowLeftBoxes[i])) {
-            shift += 1;
-            if (shift > 10) break;
-            belowLeftBoxes[i].minY += labelHeight;
-            belowLeftBoxes[i].maxY += labelHeight;
+        const currBelowBoxes = belowBoxes[direction];
+        for (let i = currBelowBoxes.length - 2; i >= 0; i--) {
+            let shift = 0;
+            while (intersecting(currBelowBoxes[i + 1], currBelowBoxes[i])) {
+                shift += 1;
+                if (shift > 10) break;
+                currBelowBoxes[i].minY += labelHeight;
+                currBelowBoxes[i].maxY += labelHeight;
+            }
+            currBelowBoxes[i].shift = shift;
         }
-        belowLeftBoxes[i].shift = shift;
-    }
-
-    const belowRightBoxes = boxes.filter(
-        box => box.maxY >= 0 && box.handle && !box.left
-    );
-    for (let i = belowRightBoxes.length - 2; i >= 0; i--) {
-        let shift = 0;
-        while (intersecting(belowRightBoxes[i + 1], belowRightBoxes[i])) {
-            shift += 1;
-            if (shift > 10) break;
-            belowRightBoxes[i].minY += labelHeight;
-            belowRightBoxes[i].maxY += labelHeight;
-        }
-        belowRightBoxes[i].shift = shift;
     }
 
     return boxes.sort((a, b) => a.index - b.index).map(box => box.shift);
@@ -131,7 +242,8 @@ export const StratifiedPieGraph = (props: Props) => {
             .each(function () {
                 longestLabelLength = this.getComputedTextLength();
                 labelHeight = this.getBBox().height;
-                stratumLabelDistance = longestLabelLength + radialPadding;
+                stratumLabelDistance =
+                    longestLabelLength * 0.75 + radialPadding;
                 this.remove();
             });
 
@@ -254,6 +366,86 @@ export const StratifiedPieGraph = (props: Props) => {
             showLabels.select("text").attr("opacity", 1);
         };
 
+        // Shift arc labels to avoid overlaps
+        const cacheArcLabelShifts = selection => {
+            const shifts = computeArcLabelShifts(
+                selection.data().map(d => ({
+                    handle: d.depth === 2 && showLabel(d),
+                    left: direction(d) < 0,
+                    y: outerPoint(d)[1],
+                })),
+                labelHeight
+            );
+            selection.each((d, i) => (d.shift = shifts[i]));
+        };
+
+        const nStrata = root.children.length;
+        const cacheStratumLabelShifts = selection => {
+            if (selection.empty()) return;
+
+            const labelBoxes = [];
+
+            selection
+                .filter(d => d.depth === 1)
+                .selectAll("text")
+                .each(d => {
+                    const boxCenterY = stratumPoint(d).map(
+                        (c, i) => c + center[i]
+                    );
+                    labelBoxes.push({
+                        label: d.id,
+                        handle: true,
+                        x0: boxCenterY[0],
+                        y0: boxCenterY[1],
+                    });
+                });
+
+            selection
+                .selectAll("text")
+                .filter(d => d.depth === 2)
+                .each(d => {
+                    const boxCenterY = [
+                        outerPoint(d)[0] + center[0] + direction(d) * 12,
+                        outerPoint(d)[1] + center[1],
+                    ];
+                    labelBoxes.push({
+                        label: d.id,
+                        handle: showLabel(d),
+                        x0: boxCenterY[0],
+                        y0: boxCenterY[1],
+                    });
+                });
+
+            selection
+                .selectAll("text")
+                .nodes()
+                .forEach((text, i) => {
+                    const box = text.getBBox();
+                    labelBoxes[i].x0 +=
+                        (text.getAttribute("text-anchor") === "end" ? -1 : 0) *
+                        box.width;
+                    labelBoxes[i].x1 = labelBoxes[i].x0 + box.width;
+                    labelBoxes[i].y0 -= box.height / 2;
+                    labelBoxes[i].y1 = labelBoxes[i].y0 + box.height;
+                    labelBoxes[i].dx = 0;
+                    labelBoxes[i].dy = 0;
+                });
+
+            const shifts = computeStratumLabelShifts(
+                labelBoxes.slice(0, nStrata),
+                labelBoxes.filter(box => box.handle),
+                width,
+                height
+            );
+
+            selection
+                .filter(d => d.depth === 1)
+                .each((d, i) => {
+                    d.dx = shifts[i].dx;
+                    d.dy = shifts[i].dy;
+                });
+        };
+
         // Cache angles for the transition animation
         const stash = function (d) {
             this.previousStartAngle = d.x0;
@@ -287,16 +479,7 @@ export const StratifiedPieGraph = (props: Props) => {
             .data(root.descendants().slice(1))
             .join(
                 enter => {
-                    // Compute offsets to avoid overlapping labels
-                    const offsets = optimizeArcLabels(
-                        enter.data().map(d => ({
-                            handle: d.depth === 2 && showLabel(d),
-                            left: direction(d) < 0,
-                            y: outerPoint(d)[1],
-                        })),
-                        labelHeight
-                    );
-                    enter.each((d, i) => (d.shift = offsets[i]));
+                    enter.call(cacheArcLabelShifts);
 
                     const pieArc = enter.append("g").attr("class", "pieArc");
                     pieArc
@@ -343,6 +526,7 @@ export const StratifiedPieGraph = (props: Props) => {
                     pieArc
                         .filter(d => d.depth === 1)
                         .append("text")
+                        .attr("class", "stratumLabel")
                         .attr("fill", d => d.data.color)
                         .attr("opacity", 0)
                         .attr("font-size", "18px")
@@ -359,6 +543,12 @@ export const StratifiedPieGraph = (props: Props) => {
                                     .join(",")})`
                         )
                         .each(stash);
+                    enter.call(cacheStratumLabelShifts);
+                    pieArc
+                        .filter(d => d.depth === 1)
+                        .select("text")
+                        .attr("dx", d => d.dx)
+                        .attr("dy", d => d.dy);
 
                     const draw = pieArc
                         .transition()
@@ -395,15 +585,7 @@ export const StratifiedPieGraph = (props: Props) => {
                     draw.call(updateLabelVisibility);
                 },
                 update => {
-                    const offsets = optimizeArcLabels(
-                        update.data().map(d => ({
-                            handle: d.depth === 2 && showLabel(d),
-                            left: direction(d) < 0,
-                            y: outerPoint(d)[1],
-                        })),
-                        labelHeight
-                    );
-                    update.each((d, i) => (d.shift = offsets[i]));
+                    update.call(cacheArcLabelShifts);
 
                     update.select(".arc").call(translateToCenter);
                     update.select(".tick").call(translateToCenter);
@@ -426,13 +608,14 @@ export const StratifiedPieGraph = (props: Props) => {
                         .text(label)
                         .attr("text-anchor", d =>
                             direction(d) > 0 ? "start" : "end"
-                        )
-                        .each(stash);
+                        );
+
+                    update.call(cacheStratumLabelShifts);
 
                     const transition = update
                         .transition()
                         .ease(d3.easeLinear)
-                        .duration(initialDrawDuration);
+                        .duration(transitionDuration);
                     transition
                         .select(".arc")
                         .attr("fill", d => d.data.color)
@@ -465,6 +648,8 @@ export const StratifiedPieGraph = (props: Props) => {
                         .filter(d => d.depth === 1)
                         .select("text")
                         .attr("fill", d => d.data.color)
+                        .attr("dx", d => d.dx)
+                        .attr("dy", d => d.dy)
                         .attrTween(
                             "transform",
                             angleTween(
