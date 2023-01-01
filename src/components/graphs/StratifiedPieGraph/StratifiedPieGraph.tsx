@@ -18,9 +18,7 @@ interface Props {
     percentage?: boolean;
 }
 
-// TODO: Helper function to avoid overlapping stratum label
-// Simulated annealing
-// Energy should penalize distance from the desired position and overlaps with labels
+// Avoid the stratum labels for overlapping with the inner arc labels via simulated annealing
 const computeStratumLabelShifts = (
     stratumLabelBoxes,
     labelBoxes,
@@ -62,16 +60,19 @@ const computeStratumLabelShifts = (
         return A;
     };
 
+    // Energy should penalize distance from the desired position and overlaps with labels
     const E = stratumLabelBox => {
         let energy = 0;
-        energy += shiftDistance2(stratumLabelBox);
+        energy += 2 * shiftDistance2(stratumLabelBox);
         energy += 0.125 * Math.max(-stratumLabelBox.x0, 0);
         energy += 0.125 * Math.max(width - stratumLabelBox.x0, 0);
         energy += 0.125 * Math.max(-stratumLabelBox.y0, 0);
         energy += 0.125 * Math.max(height - stratumLabelBox.y1, 0);
         for (let labelBox of labelBoxes) {
             if (stratumLabelBox.label === labelBox.label) continue;
-            energy += 10 * overlapPaddedArea(stratumLabelBox, labelBox);
+            energy +=
+                (labelBox.stratumLabel ? 50 : 10) *
+                overlapPaddedArea(stratumLabelBox, labelBox);
         }
         return energy;
     };
@@ -390,6 +391,7 @@ export const StratifiedPieGraph = (props: Props) => {
                     );
                     labelBoxes.push({
                         label: d.id,
+                        stratumLabel: true,
                         handle: true,
                         x0: boxCenterY[0],
                         y0: boxCenterY[1],
@@ -406,6 +408,7 @@ export const StratifiedPieGraph = (props: Props) => {
                     ];
                     labelBoxes.push({
                         label: d.id,
+                        stratumLabel: false,
                         handle: showLabel(d),
                         x0: boxCenterY[0],
                         y0: boxCenterY[1],
