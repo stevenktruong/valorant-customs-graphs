@@ -41,40 +41,37 @@ const computeStratumLabelShifts = (
     const randomSign = () => (Math.random() < 0.5 ? -1 : 1);
 
     const shiftDistance2 = box => {
-        return Math.pow(box.dx || 0, 2) + Math.pow(box.dy || 0, 2);
+        return Math.pow(box.dx, 2) + Math.pow(box.dy, 2);
     };
 
-    const overlapArea = (boxA, boxB) => {
+    const overlapPaddedArea = (boxA, boxB) => {
+        // Avoid scenarios where labels are flush against each other
+        const padding = 5;
+
         // Intersection of boxA.x0 <= x <= boxA.x1 and boxB.x0 <= x <= boxB.x1
         // If x1 <= x0 then they don't intersect
-        const x0 = Math.max(boxA.x0, boxB.x0);
-        const x1 = Math.min(boxA.x1, boxB.x1);
+        const x0 = Math.max(boxA.x0, boxB.x0) - padding;
+        const x1 = Math.min(boxA.x1, boxB.x1) + padding;
         if (x1 <= x0) return 0;
 
-        const y0 = Math.max(boxA.y0, boxB.y0);
-        const y1 = Math.min(boxA.y1, boxB.y1);
+        const y0 = Math.max(boxA.y0, boxB.y0) - padding;
+        const y1 = Math.min(boxA.y1, boxB.y1) + padding;
         if (y1 <= y0) return 0;
 
         const A = (y1 - y0) * (x1 - x0);
-        // console.group();
-        // console.table(boxA);
-        // console.table(boxB);
-        // console.table({ x0, x1, y0, y1 });
-        // console.log(A);
-        // console.groupEnd();
         return A;
     };
 
     const E = stratumLabelBox => {
         let energy = 0;
         energy += shiftDistance2(stratumLabelBox);
-        energy += 0.25 * Math.max(-stratumLabelBox.x0, 0);
-        energy += 0.25 * Math.max(width - stratumLabelBox.x0, 0);
-        energy += 0.25 * Math.max(-stratumLabelBox.y0, 0);
-        energy += 0.25 * Math.max(height - stratumLabelBox.y1, 0);
+        energy += 0.125 * Math.max(-stratumLabelBox.x0, 0);
+        energy += 0.125 * Math.max(width - stratumLabelBox.x0, 0);
+        energy += 0.125 * Math.max(-stratumLabelBox.y0, 0);
+        energy += 0.125 * Math.max(height - stratumLabelBox.y1, 0);
         for (let labelBox of labelBoxes) {
             if (stratumLabelBox.label === labelBox.label) continue;
-            energy += 10 * overlapArea(stratumLabelBox, labelBox);
+            energy += 10 * overlapPaddedArea(stratumLabelBox, labelBox);
         }
         return energy;
     };
@@ -109,7 +106,7 @@ const computeStratumLabelShifts = (
         }
     }
 
-    const nItr = 1000;
+    const nItr = 5000;
     for (let n = 0; n < nItr; n++) {
         const T = 1000 * (1 - (n + 1) / nItr);
         const i = Math.floor(Math.random() * stratumLabelBoxes.length);
