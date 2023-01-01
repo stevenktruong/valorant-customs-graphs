@@ -94,6 +94,10 @@ export const VerticalBarGraph = (props: Props) => {
                     g.selectAll(".tick text").attr("x", 0).attr("dy", -4)
                 );
 
+        const stash = function (d) {
+            this.previousValue = d.value;
+        };
+
         // Begin updating the svg
         svg.attr("width", "100%").attr("height", "100%");
 
@@ -118,8 +122,7 @@ export const VerticalBarGraph = (props: Props) => {
                             .transition()
                             .duration(transitionDuration / 2)
                             .ease(d3.easeLinear)
-                            .attr("opacity", 0);
-                        update
+                            .attr("opacity", 0)
                             .transition()
                             .duration(0)
                             .delay(transitionDuration / 2)
@@ -149,12 +152,7 @@ export const VerticalBarGraph = (props: Props) => {
                         .attr("x", d => x(d.label))
                         .attr("y", y(0))
                         .attr("width", x.bandwidth())
-                        .attr("height", 0)
-                        .transition()
-                        .duration(initialDrawDuration)
-                        .ease(d3.easeLinear)
-                        .attr("y", d => y(d.value))
-                        .attr("height", d => y(0) - y(d.value));
+                        .attr("height", 0);
                     bars.append("text")
                         .text("0%")
                         .attr("fill", d =>
@@ -166,45 +164,61 @@ export const VerticalBarGraph = (props: Props) => {
                         .attr("x", d => x(d.label))
                         .attr("y", d => y(0))
                         .attr("dx", x.bandwidth() / 2)
-                        .attr("dy", -labelVerticalPadding)
+                        .attr(
+                            "dy",
+                            d => (d.value > 90 ? 1 : -1) * labelVerticalPadding
+                        )
+                        .each(stash);
+
+                    const draw = bars
                         .transition()
                         .duration(initialDrawDuration)
-                        .ease(d3.easeLinear)
+                        .ease(d3.easeLinear);
+                    draw.select("rect")
+                        .attr("y", d => y(d.value))
+                        .attr("height", d => y(0) - y(d.value));
+                    draw.select("text")
                         .textTween(function (d) {
-                            const start = d3.select(this).text().split("%")[0];
                             return t =>
-                                `${d3.interpolateRound(start, d.value)(t)}%`;
+                                `${d3.interpolateRound(0, d.value)(t)}%`;
                         })
                         .attr("y", d => y(d.value));
                 },
                 update => {
-                    update
-                        .select("rect")
+                    const transition = update
                         .transition()
                         .duration(transitionDuration)
-                        .ease(d3.easeLinear)
+                        .ease(d3.easeLinear);
+                    transition
+                        .select("rect")
                         .attr("fill", d => d.color)
                         .attr("x", d => x(d.label))
                         .attr("y", d => y(d.value))
                         .attr("width", x.bandwidth())
                         .attr("height", d => y(0) - y(d.value));
-                    update
+                    transition
                         .select("text")
-                        .transition()
-                        .duration(transitionDuration)
-                        .ease(d3.easeLinear)
                         .attr("fill", d =>
                             d.value > 90 ? d.textColor : "#ffffff"
                         )
                         .textTween(function (d) {
-                            const start = d3.select(this).text().split("%")[0];
                             return t =>
-                                `${d3.interpolateRound(start, d.value)(t)}%`;
+                                `${d3.interpolateRound(
+                                    this.previousValue,
+                                    d.value
+                                )(t)}%`;
                         })
                         .attr("x", d => x(d.label))
                         .attr("y", d => y(d.value))
                         .attr("dx", x.bandwidth() / 2)
-                        .attr("dy", -labelVerticalPadding);
+                        .attr(
+                            "dy",
+                            d => (d.value > 90 ? 1 : -1) * labelVerticalPadding
+                        );
+                    transition
+                        .end()
+                        .then(() => update.select("text").call(stash))
+                        .catch(() => {});
                 }
             );
     }, [props, dimensions]);

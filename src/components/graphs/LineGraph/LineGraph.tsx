@@ -138,6 +138,10 @@ export const LineGraph = (props: Props) => {
                     g.selectAll(".tick text").attr("x", 0).attr("dy", -4)
                 );
 
+        const stash = function (d) {
+            this.previousValue = d.value;
+        };
+
         // Draw data
         const area = d3
             .area()
@@ -206,6 +210,7 @@ export const LineGraph = (props: Props) => {
                     update
                         .transition()
                         .duration(transitionDuration)
+                        .ease(d3.easeLinear)
                         .attr("fill", color)
                         .attr("d", area(data))
             );
@@ -225,6 +230,7 @@ export const LineGraph = (props: Props) => {
                     update
                         .transition()
                         .duration(transitionDuration)
+                        .ease(d3.easeLinear)
                         .attr("stroke", color)
                         .attr("d", line(data))
             );
@@ -252,7 +258,8 @@ export const LineGraph = (props: Props) => {
                         .attr("fill", "#ffffff")
                         .style("font-size", "10px")
                         .text(d => `${d.value}%`)
-                        .attr("clip-path", "url(#clip)");
+                        .attr("clip-path", "url(#clip)")
+                        .each(stash);
                     point
                         .select(".point:last-of-type text")
                         .attr("dx", 8)
@@ -261,21 +268,23 @@ export const LineGraph = (props: Props) => {
                         .attr("text-anchor", "start");
                 },
                 update => {
-                    update
-                        .select("circle")
+                    const transition = update
                         .transition()
                         .duration(transitionDuration)
+                        .ease(d3.easeLinear);
+                    transition
+                        .select("circle")
                         .attr("fill", color)
                         .attr("cx", d => x(d.date))
                         .attr("cy", d => y(d.value));
-                    update
+                    transition
                         .select("text")
-                        .transition()
-                        .duration(transitionDuration)
                         .textTween(function (d) {
-                            const start = d3.select(this).text().split("%")[0];
                             return t =>
-                                `${d3.interpolateRound(start, d.value)(t)}%`;
+                                `${d3.interpolateRound(
+                                    this.previousValue,
+                                    d.value
+                                )(t)}%`;
                         })
                         .attr("x", d => x(d.date))
                         .attr("y", d => y(d.value));

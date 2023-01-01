@@ -95,6 +95,10 @@ export const HorizontalBarGraph = (props: Props) => {
                 .call(d3.axisLeft(y).tickSize(0))
                 .call(g => g.select(".domain").remove());
 
+        const stash = function (d) {
+            this.previousValue = d.value;
+        };
+
         // Begin updating the svg
         svg.attr("width", "100%").attr("height", "100%");
 
@@ -150,11 +154,7 @@ export const HorizontalBarGraph = (props: Props) => {
                         .attr("x", x(0))
                         .attr("y", d => y(d.label))
                         .attr("width", 0)
-                        .attr("height", y.bandwidth())
-                        .transition()
-                        .duration(initialDrawDuration)
-                        .ease(d3.easeLinear)
-                        .attr("width", d => x(d.value) - x(0));
+                        .attr("height", y.bandwidth());
                     bars.append("text")
                         .text("0%")
                         .attr("fill", d =>
@@ -166,43 +166,53 @@ export const HorizontalBarGraph = (props: Props) => {
                         .attr("y", d => y(d.label))
                         .attr("dx", labelHorizontalPadding)
                         .attr("dy", y.bandwidth() / 2)
+                        .each(stash);
+
+                    const draw = bars
                         .transition()
                         .duration(initialDrawDuration)
-                        .ease(d3.easeLinear)
-                        .textTween(function (d) {
-                            const start = d3.select(this).text().split("%")[0];
+                        .ease(d3.easeLinear);
+                    draw.select("rect").attr("width", d => x(d.value) - x(0));
+                    draw.select("text")
+                        .textTween(d => {
                             return t =>
-                                `${d3.interpolateRound(start, d.value)(t)}%`;
+                                `${d3.interpolateRound(0, d.value)(t)}%`;
                         })
                         .attr("x", d => x(d.value) + (d.value > 90 ? -40 : 0));
                 },
                 update => {
-                    update
-                        .select("rect")
+                    const transition = update
                         .transition()
                         .duration(transitionDuration)
-                        .ease(d3.easeLinear)
+                        .ease(d3.easeLinear);
+                    transition
+                        .select("rect")
                         .attr("fill", d => d.color)
                         .attr("x", x(0))
                         .attr("y", d => y(d.label))
                         .attr("width", d => x(d.value) - x(0))
                         .attr("height", y.bandwidth());
-                    update
+                    transition
                         .select("text")
-                        .transition()
-                        .duration(transitionDuration)
-                        .ease(d3.easeLinear)
                         .attr("fill", d =>
                             d.value > 90 ? d.textColor : "#ffffff"
                         )
                         .textTween(function (d) {
-                            const start = d3.select(this).text().split("%")[0];
                             return t =>
-                                `${d3.interpolateRound(start, d.value)(t)}%`;
+                                `${d3.interpolateRound(
+                                    this.previousValue,
+                                    d.value
+                                )(t)}%`;
                         })
                         .attr("x", d => x(d.value) + (d.value > 90 ? -40 : 0))
                         .attr("y", d => y(d.label))
                         .attr("dy", y.bandwidth() / 2);
+                    transition
+                        .end()
+                        .then(() => {
+                            update.select("text").each(stash);
+                        })
+                        .catch(() => {});
                 }
             );
     }, [props, dimensions]);

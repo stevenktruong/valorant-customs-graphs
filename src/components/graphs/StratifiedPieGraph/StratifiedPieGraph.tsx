@@ -381,7 +381,6 @@ export const StratifiedPieGraph = (props: Props) => {
             if (selection.empty()) return;
 
             const labelBoxes = [];
-
             selection
                 .filter(d => d.depth === 1)
                 .selectAll("text")
@@ -450,7 +449,7 @@ export const StratifiedPieGraph = (props: Props) => {
             this.previousShift = d.shift;
         };
 
-        const angleTween = callback =>
+        const arcTween = callback =>
             function (d) {
                 const startAngle = d3.interpolate(
                     this.previousStartAngle,
@@ -616,10 +615,10 @@ export const StratifiedPieGraph = (props: Props) => {
                     transition
                         .select(".arc")
                         .attr("fill", d => d.data.color)
-                        .attrTween("d", angleTween(arc));
+                        .attrTween("d", arcTween(arc));
                     transition.select(".tick").attrTween(
                         "d",
-                        angleTween(
+                        arcTween(
                             d =>
                                 `M${innerPoint(d).join(",")},` +
                                 `L${outerPoint(d).join(",")},` +
@@ -634,7 +633,7 @@ export const StratifiedPieGraph = (props: Props) => {
                         .select("text")
                         .attrTween(
                             "transform",
-                            angleTween(
+                            arcTween(
                                 d =>
                                     `translate(${outerPoint(d)
                                         .map((c, i) => c + center[i])
@@ -649,7 +648,7 @@ export const StratifiedPieGraph = (props: Props) => {
                         .attr("dy", d => d.dy)
                         .attrTween(
                             "transform",
-                            angleTween(
+                            arcTween(
                                 d =>
                                     `translate(${stratumPoint(d)
                                         .map((c, i) => c + center[i])
