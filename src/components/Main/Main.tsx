@@ -6,6 +6,7 @@ import { luminance } from "helpers";
 
 import Caption from "components/Caption";
 import Dashboard from "components/Dashboard";
+import Header from "components/Header";
 import PlayerSelector from "components/PlayerSelector";
 import AgentCountDashboard from "components/dashboards/AgentCountDashboard";
 import LobbyWinRateDashboard from "components/dashboards/LobbyWinRateDashboard";
@@ -34,11 +35,13 @@ export const Main = () => {
         <div className={style.Main}>
             <div className={style.Left} />
             <div className={style.Right}>
-                <PlayerSelector
-                    id={style.Selector}
-                    setCurrentPlayer={setCurrentPlayer}
-                    names={PLAYERS}
-                />
+                <div className={style.HeaderContainer}>
+                    <Header
+                        title="VALORANT Customs"
+                        description="Statistics tracking of DARWIN Discord custom games - starting October 2022"
+                        setCurrentPlayer={setCurrentPlayer}
+                    />
+                </div>
                 <div className={style.Stats}>
                     <div className={style.WinRateOverTimeDashboardContainer}>
                         <WinRateOverTimeDashboard

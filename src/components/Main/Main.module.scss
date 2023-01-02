@@ -1,3 +1,5 @@
+@use "styles/colors";
+
 .Main {
     display: flex;
     flex-direction: row;
@@ -9,7 +11,14 @@
 
 .Right {
     flex: 1;
-    padding-top: 100px;
+}
+
+.HeaderContainer {
+    display: flex;
+    position: sticky;
+    top: 0;
+    padding: 25px;
+    background-color: colors.$background-color;
 }
 
 .Stats {

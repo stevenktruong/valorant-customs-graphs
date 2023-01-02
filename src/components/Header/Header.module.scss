@@ -1,0 +1,29 @@
+.Header {
+    display: flex;
+    flex-direction: row;
+    padding-left: 12px;
+    color: #ffffff;
+    width: 100%;
+
+    .TextContainer {
+        flex: 1;
+        h1 {
+            font-size: 40px;
+        }
+
+        p {
+            font-size: 12px;
+        }
+    }
+
+    .SelectorContainer {
+        margin-right: 40px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        h2 {
+            padding-right: 10px;
+        }
+    }
+}

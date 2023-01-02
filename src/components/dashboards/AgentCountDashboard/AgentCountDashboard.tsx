@@ -54,14 +54,15 @@ export const AgentCountDashboard = (props: Props) => {
     return (
         <Dashboard direction="column">
             <Caption
-                title="Map Counter"
-                description="Lobby map pick frequency"
+                title="Agent Counter"
+                description="Agent pick frequency"
                 height="10%"
             />
             <StratifiedPieGraph
                 data={data}
                 initialDrawDuration={1000}
                 transitionDuration={1000}
+                percentage={true}
             />
         </Dashboard>
     );
