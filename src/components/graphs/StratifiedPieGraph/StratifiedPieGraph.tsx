@@ -18,7 +18,7 @@ interface Props {
     percentage?: boolean;
 }
 
-// Avoid the stratum labels for overlapping with the inner arc labels via simulated annealing
+// Avoid the stratum labels overlapping with the inner arc labels via simulated annealing
 const computeStratumLabelShifts = (
     stratumLabelBoxes,
     labelBoxes,
@@ -32,7 +32,6 @@ const computeStratumLabelShifts = (
     //     y0: initial top y-coordinate
     //     y1: initial bottom y-coordinate
     //
-    //     Will add the following fields:
     //     dx: horizontal shifts
     //     dy: vertical shifts
     // }
@@ -60,7 +59,11 @@ const computeStratumLabelShifts = (
         return A;
     };
 
-    // Energy should penalize distance from the desired position and overlaps with labels
+    // Energy penalizes:
+    // - Distance from the desired position
+    // - Getting too close to the boundary
+    // - Getting too close to inner labels
+    // - Getting too close to other stratum labels (weighted more)
     const E = stratumLabelBox => {
         let energy = 0;
         energy += 2 * shiftDistance2(stratumLabelBox);
@@ -351,6 +354,18 @@ export const StratifiedPieGraph = (props: Props) => {
             (percentage
                 ? `${Math.round((100 * d.value) / root.value)}%`
                 : `${d.value}`);
+        const labelTween = function (d) {
+            if (percentage) {
+                const value = d3.interpolateRound(
+                    Math.round((100 * this.previousValue) / root.value),
+                    Math.round((100 * d.value) / root.value)
+                );
+                return t => `${d.data.label} ${value(t)}%`;
+            } else {
+                const value = d3.interpolateRound(this.previousValue, d.value);
+                return t => `${d.data.label} ${value(t)}`;
+            }
+        };
 
         // Used to only show labels with a large enough count
         const showLabel = d => d.x1 - d.x0 > 0;
@@ -450,6 +465,7 @@ export const StratifiedPieGraph = (props: Props) => {
             this.previousStartAngle = d.x0;
             this.previousArcAngle = d.x1 - d.x0;
             this.previousShift = d.shift;
+            this.previousValue = d.data.count;
         };
 
         const arcTween = callback =>
@@ -508,12 +524,19 @@ export const StratifiedPieGraph = (props: Props) => {
                         .attr("fill", "#ffffff")
                         .attr("opacity", 0)
                         .attr("font-size", "10px")
-                        .text(label)
+                        .text(
+                            d => `${d.data.label} ` + (percentage ? "0%" : "0")
+                        )
                         .attr("alignment-baseline", "central")
                         .attr("text-anchor", d =>
                             direction(d) > 0 ? "start" : "end"
                         )
-                        .attr("dx", d => direction(d) * 12)
+                        .attr(
+                            "dx",
+                            d =>
+                                direction(d) *
+                                (horizontalTickLength + tickPadding)
+                        )
                         .attr(
                             "transform",
                             d =>
@@ -525,11 +548,10 @@ export const StratifiedPieGraph = (props: Props) => {
                     pieArc
                         .filter(d => d.depth === 1)
                         .append("text")
-                        .attr("class", "stratumLabel")
                         .attr("fill", d => d.data.color)
                         .attr("opacity", 0)
                         .attr("font-size", "18px")
-                        .text(label)
+                        .text(percentage ? "0%" : "0")
                         .attr("alignment-baseline", "central")
                         .attr("text-anchor", d =>
                             direction(d) > 0 ? "start" : "end"
@@ -542,12 +564,6 @@ export const StratifiedPieGraph = (props: Props) => {
                                     .join(",")})`
                         )
                         .each(stash);
-                    enter.call(cacheStratumLabelShifts);
-                    pieArc
-                        .filter(d => d.depth === 1)
-                        .select("text")
-                        .attr("dx", d => d.dx)
-                        .attr("dy", d => d.dy);
 
                     const draw = pieArc
                         .transition()
@@ -563,6 +579,7 @@ export const StratifiedPieGraph = (props: Props) => {
                         };
                     });
                     draw.select(".tick")
+                        .duration(initialDrawDuration / 4)
                         .delay(initialDrawDuration)
                         .attrTween("d", d =>
                             d3.piecewise(d3.interpolate, [
@@ -580,7 +597,25 @@ export const StratifiedPieGraph = (props: Props) => {
                                     },${outerPoint(d)[1]}`,
                             ])
                         );
-                    draw.select("text").attr("opacity", 1);
+                    draw.select("text")
+                        .textTween(d => {
+                            if (percentage) {
+                                const value = d3.interpolateRound(
+                                    0,
+                                    Math.round((100 * d.value) / root.value)
+                                );
+                                return t => `${d.data.label} ${value(t)}%`;
+                            } else {
+                                const value = d3.interpolateRound(0, d.value);
+                                return t => `${d.data.label} ${value(t)}`;
+                            }
+                        })
+                        .attr("opacity", 1);
+                    enter.call(cacheStratumLabelShifts);
+                    draw.filter(d => d.depth === 1)
+                        .select("text")
+                        .attr("dx", d => d.dx)
+                        .attr("dy", d => d.dy);
                     draw.call(updateLabelVisibility);
                 },
                 update => {
@@ -591,7 +626,6 @@ export const StratifiedPieGraph = (props: Props) => {
                     update
                         .filter(d => d.depth === 2)
                         .select("text")
-                        .text(label)
                         .attr("text-anchor", d =>
                             direction(d) > 0 ? "start" : "end"
                         )
@@ -604,12 +638,9 @@ export const StratifiedPieGraph = (props: Props) => {
                     update
                         .filter(d => d.depth === 1)
                         .select("text")
-                        .text(label)
                         .attr("text-anchor", d =>
                             direction(d) > 0 ? "start" : "end"
                         );
-
-                    update.call(cacheStratumLabelShifts);
 
                     const transition = update
                         .transition()
@@ -634,6 +665,7 @@ export const StratifiedPieGraph = (props: Props) => {
                     transition
                         .filter(d => d.depth === 2)
                         .select("text")
+                        .textTween(labelTween)
                         .attrTween(
                             "transform",
                             arcTween(
@@ -643,6 +675,11 @@ export const StratifiedPieGraph = (props: Props) => {
                                         .join(",")})`
                             )
                         );
+                    transition
+                        .filter(d => d.depth === 1)
+                        .select("text")
+                        .textTween(labelTween);
+                    update.call(cacheStratumLabelShifts);
                     transition
                         .filter(d => d.depth === 1)
                         .select("text")
