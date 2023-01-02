@@ -355,14 +355,15 @@ export const StratifiedPieGraph = (props: Props) => {
                 ? `${Math.round((100 * d.value) / root.value)}%`
                 : `${d.value}`);
         const labelTween = function (d) {
+            if (d.depth === 1) console.log(this.previousLabel);
             if (percentage) {
                 const value = d3.interpolateRound(
-                    Math.round((100 * this.previousValue) / root.value),
+                    Math.round(this.previousLabel),
                     Math.round((100 * d.value) / root.value)
                 );
                 return t => `${d.data.label} ${value(t)}%`;
             } else {
-                const value = d3.interpolateRound(this.previousValue, d.value);
+                const value = d3.interpolateRound(this.previousLabel, d.value);
                 return t => `${d.data.label} ${value(t)}`;
             }
         };
@@ -395,6 +396,15 @@ export const StratifiedPieGraph = (props: Props) => {
         const nStrata = root.children.length;
         const cacheStratumLabelShifts = selection => {
             if (selection.empty()) return;
+            console.log("Caching");
+
+            // We want to compute the values for the final label
+            // Because of the animation, if we don't do this, the algorithm
+            // will only fit the starting label
+            selection
+                .filter(d => d.depth === 1)
+                .selectAll("text")
+                .text(label);
 
             const labelBoxes = [];
             selection
@@ -411,6 +421,22 @@ export const StratifiedPieGraph = (props: Props) => {
                         x0: boxCenterY[0],
                         y0: boxCenterY[1],
                     });
+                });
+
+            selection
+                .filter(d => d.depth === 1)
+                .selectAll("text")
+                .text(function (d) {
+                    if (percentage) {
+                        return `${d.data.label} ${
+                            this.previousLabel ||
+                            Math.round((100 * d.value) / root.count)
+                        }%`;
+                    } else {
+                        return `${d.data.label} ${
+                            this.previousLabel || d.value
+                        }`;
+                    }
                 });
 
             selection
@@ -452,6 +478,8 @@ export const StratifiedPieGraph = (props: Props) => {
                 height
             );
 
+            console.table(shifts);
+
             selection
                 .filter(d => d.depth === 1)
                 .each((d, i) => {
@@ -465,7 +493,9 @@ export const StratifiedPieGraph = (props: Props) => {
             this.previousStartAngle = d.x0;
             this.previousArcAngle = d.x1 - d.x0;
             this.previousShift = d.shift;
-            this.previousValue = d.data.count;
+            this.previousLabel = percentage
+                ? Math.round((100 * d.value) / root.value)
+                : d.value;
         };
 
         const arcTween = callback =>
@@ -675,10 +705,6 @@ export const StratifiedPieGraph = (props: Props) => {
                                         .join(",")})`
                             )
                         );
-                    transition
-                        .filter(d => d.depth === 1)
-                        .select("text")
-                        .textTween(labelTween);
                     update.call(cacheStratumLabelShifts);
                     transition
                         .filter(d => d.depth === 1)
@@ -686,6 +712,7 @@ export const StratifiedPieGraph = (props: Props) => {
                         .attr("fill", d => d.data.color)
                         .attr("dx", d => d.dx)
                         .attr("dy", d => d.dy)
+                        .textTween(labelTween)
                         .attrTween(
                             "transform",
                             arcTween(
