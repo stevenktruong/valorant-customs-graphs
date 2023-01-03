@@ -1,139 +1,156 @@
+@use "styles/breakpoints";
 @use "styles/colors";
 
 .Main {
     display: flex;
     flex-direction: row;
-}
+    width: 100%;
 
-.Left {
-    width: 400px;
-}
+    .Left {
+        background-color: colors.$playercard-color;
+        width: 400px;
+    }
 
-.Right {
-    flex: 1;
-}
+    .Right {
+        flex: 1;
+    }
 
-.HeaderContainer {
-    display: flex;
-    position: sticky;
-    top: 0;
-    padding: 25px;
-    background-color: colors.$background-color;
-}
+    .PlayerCardContainer {
+        position: sticky;
+        top: 0;
+    }
 
-.Stats {
-    display: grid;
-    padding: 25px;
-    grid-template-columns: repeat(10, 1fr);
-    grid-auto-rows: 25px;
-    column-gap: 25px;
-    row-gap: 25px;
-}
+    .HeaderContainer {
+        display: flex;
+        position: sticky;
+        z-index: 10;
+        top: 0;
+        padding: 25px;
+        background-color: colors.$background-color;
+    }
 
-.WinRateOverTimeDashboardContainer {
-    grid-column-start: 1;
-    grid-column-end: 7;
-    grid-row-start: 1;
-    grid-row-end: 8;
-}
+    .Stats {
+        display: grid;
+        padding: 25px;
+        grid-template-columns: repeat(10, 1fr);
+        grid-auto-rows: 25px;
+        column-gap: 25px;
+        row-gap: 25px;
+    }
 
-.LobbyWinRateDashboardContainer {
-    grid-column-start: 7;
-    grid-column-end: -1;
-    grid-row-start: 1;
-    grid-row-end: 10;
-}
+    .WinRateOverTimeDashboardContainer {
+        grid-column-start: 1;
+        grid-column-end: 7;
+        grid-row-start: 1;
+        grid-row-end: 8;
+    }
 
-.TeammateSynergyDashboardContainer {
-    grid-column-start: 1;
-    grid-column-end: 4;
-    grid-row-start: 8;
-    grid-row-end: 17;
-}
+    .LobbyWinRateDashboardContainer {
+        grid-column-start: 7;
+        grid-column-end: -1;
+        grid-row-start: 1;
+        grid-row-end: 10;
+    }
 
-.MatchupsDashboardContainer {
-    grid-column-start: 4;
-    grid-column-end: 7;
-    grid-row-start: 8;
-    grid-row-end: 17;
-}
+    .TeammateSynergyDashboardContainer {
+        grid-column-start: 1;
+        grid-column-end: 4;
+        grid-row-start: 8;
+        grid-row-end: 17;
+    }
 
-.MapCountDashboardContainer {
-    grid-column-start: 7;
-    grid-column-end: -1;
-    grid-row-start: 10;
-    grid-row-end: 17;
-}
+    .MatchupsDashboardContainer {
+        grid-column-start: 4;
+        grid-column-end: 7;
+        grid-row-start: 8;
+        grid-row-end: 17;
+    }
 
-.RoleLeaderboardDashboardContainer {
-    grid-column-start: 1;
-    grid-column-end: -1;
-    grid-row-start: 17;
-    grid-row-end: 21;
-}
+    .MapCountDashboardContainer {
+        grid-column-start: 7;
+        grid-column-end: -1;
+        grid-row-start: 10;
+        grid-row-end: 17;
+    }
 
-.AgentCountDashboardContainer {
-    grid-column-start: 1;
-    grid-column-end: 6;
-    grid-row-start: 21;
-    grid-row-end: 32;
-}
+    .RoleLeaderboardDashboardContainer {
+        grid-column-start: 1;
+        grid-column-end: -1;
+        grid-row-start: 17;
+        grid-row-end: 21;
+    }
 
-/* @media (max-width: 1250px) {
-    .Main {
+    .AgentCountDashboardContainer {
+        grid-column-start: 1;
+        grid-column-end: 6;
+        grid-row-start: 21;
+        grid-row-end: 32;
+    }
+
+    @media (max-width: breakpoints.$medium-break) {
         flex-direction: column;
-        height: 100%;
+
+        .Left {
+            width: 100%;
+            padding-top: 100px;
+        }
+
+        .HeaderContainer {
+            width: 100vw;
+            height: 100px;
+            position: fixed;
+        }
+
+        .Right {
+            flex: 1;
+        }
+
+        .PlayerCardContainer {
+            position: relative;
+            width: 100%;
+        }
+
+        .AgentCountDashboardContainer {
+            grid-column-start: 1;
+            grid-column-end: -1;
+            grid-row-start: 21;
+            grid-row-end: 32;
+        }
     }
 
-    .IndividualStats {
-        display: grid;
-        grid-template-columns: 1fr;
-        grid-template-rows: 25px 1fr 25px 1fr 25px;
-        width: 40%;
-    }
+    @media (max-width: breakpoints.$mobile-break) {
+        .Stats {
+            display: flex;
+            flex-direction: column;
+        }
 
-    #RunningWinrateOverTime {
-        grid-column-start: 1;
-        grid-column-end: 1;
-        grid-row-start: 2;
-        grid-row-end: 2;
-    }
+        .WinRateOverTimeDashboardContainer {
+            height: 300px;
+        }
 
-    #TeammateSynergy {
-        grid-column-start: 1;
-        grid-column-end: 1;
-        grid-row-start: 4;
-        grid-row-end: 4;
-    }
+        .TeammateSynergyDashboardContainer {
+            height: 400px;
+        }
 
-    #Matchups {
-        grid-column-start: 1;
-        grid-column-end: 1;
-        grid-row-start: 4;
-        grid-row-end: 4;
-        height: 300px;
-    }
+        .MatchupsDashboardContainer {
+            height: 400px;
+        }
 
-    .LobbyStats {
-        display: grid;
-        grid-template-columns: 1fr;
-        grid-template-rows: 25px 3fr 25px 2fr 25px;
-        margin-left: 25px;
-        width: 40%;
-    }
+        .LobbyWinRateDashboardContainer {
+            height: 400px;
+        }
 
-    #LobbyWinRates {
-        grid-column-start: 1;
-        grid-column-end: 1;
-        grid-row-start: 2;
-        grid-row-end: 2;
-    }
+        .MapCountDashboardContainer {
+            height: 400px;
+        }
 
+        .RoleLeaderboardDashboardContainer {
+            flex: 1;
+        }
 
-    #MapCounter {
-        grid-column-start: 1;
-        grid-column-end: 1;
-        grid-row-start: 4;
-        grid-row-end: 4;
+        .AgentCountDashboardContainer {
+            height: 400px;
+        }
     }
-  } */
+}
+

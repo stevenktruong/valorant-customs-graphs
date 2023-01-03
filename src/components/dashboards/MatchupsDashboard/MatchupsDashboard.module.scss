@@ -1,0 +1,6 @@
+@use "styles/mixins";
+
+.MatchupsDashboard {
+    @include mixins.dashboard;
+    flex-direction: column;
+}

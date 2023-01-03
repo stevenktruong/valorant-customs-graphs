@@ -1,0 +1,6 @@
+@use "styles/mixins";
+
+.RoleChoiceDashboard {
+    @include mixins.dashboard;
+    flex-direction: column;
+}

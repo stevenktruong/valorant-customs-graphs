@@ -1,32 +1,73 @@
+@use "styles/breakpoints";
 @use "styles/colors";
+@use "styles/mixins";
 
-.LeaderboardContainer {
+.RoleLeaderboardDashboard {
+    @include mixins.dashboard;
+
     display: flex;
-    position: relative;
-    flex-direction: column;
-    flex: 1;
-    margin-left: 24px;
-    border-right: 1px solid white;
+    flex-direction: row;
 
-    &:last-of-type { border-right: none; }
-
-    h2 {
-        height: 20%;
-        font-size: 16px;
+    .CaptionContainer {
+        width: 20%;
     }
 
-    h2, div {
-        z-index: 1;
+    .LeaderboardContainer {
+        flex: 1;
+        display: flex;
+        flex-direction: row;
     }
 
-    .IconContainer {
-        display: block;
-        position: absolute;
-        top: 0;
-        right: 20px;
-        width: 80px;
-        // opacity: 50%;
-        fill: colors.$background-color;
-        z-index: 0;
+    .Leaderboard {
+        display: flex;
+        position: relative;
+        flex-direction: column;
+        flex: 1;
+        margin-left: 24px;
+        border-right: 1px solid white;
+
+        &:last-of-type { border-right: none; }
+
+        h2 {
+            height: 20%;
+            font-size: 16px;
+        }
+
+        h2, div {
+            z-index: 1;
+        }
+
+        .IconContainer {
+            display: block;
+            position: absolute;
+            top: 0px;
+            right: 20px;
+            width: 80px;
+            fill: colors.$background-color;
+            z-index: 0;
+        }
+    }
+
+    @media (max-width: breakpoints.$mobile-break) {
+        display: flex;
+        flex-direction: column;
+
+        .CaptionContainer {
+            width: 100%;
+        }
+
+        .LeaderboardContainer {
+            flex-direction: column;
+
+            .Leaderboard {
+                border: none;
+                margin-left: 12px;
+                margin-top: 24px;
+
+                .IconContainer {
+                    top: 5px;
+                }
+            }
+        }
     }
 }

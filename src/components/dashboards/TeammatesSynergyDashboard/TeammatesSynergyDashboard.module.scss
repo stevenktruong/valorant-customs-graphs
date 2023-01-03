@@ -1,0 +1,6 @@
+@use "styles/mixins";
+
+.TeammatesSynergyDashboard {
+    @include mixins.dashboard;
+    flex-direction: column;
+}

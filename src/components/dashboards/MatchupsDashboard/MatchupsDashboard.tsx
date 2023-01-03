@@ -5,7 +5,6 @@ import { PLAYER_COLORS } from "config";
 import { luminance } from "helpers";
 
 import Caption from "components/Caption";
-import Dashboard from "components/Dashboard";
 import HorizontalBarGraph from "components/graphs/HorizontalBarGraph";
 
 import style from "./MatchupsDashboard.module.scss";
@@ -17,12 +16,13 @@ interface Props {
 
 export const MatchupsDashboard = (props: Props) => {
     return (
-        <Dashboard direction="column">
-            <Caption
-                title="Matchups"
-                description="Win rate against player on opposing team"
-                height="15%"
-            />
+        <div className={style.MatchupsDashboard}>
+            <div className={style.CaptionContainer}>
+                <Caption
+                    title="Matchups"
+                    description="Win rate against player on opposing team"
+                />
+            </div>
             <HorizontalBarGraph
                 data={props.matchupsData[props.player]
                     .map(d => ({
@@ -39,6 +39,6 @@ export const MatchupsDashboard = (props: Props) => {
                 initialDrawDuration={1000}
                 transitionDuration={1000}
             />
-        </Dashboard>
+        </div>
     );
 };

@@ -1,3 +1,5 @@
+@use "styles/breakpoints";
+
 .Header {
     display: flex;
     flex-direction: row;
@@ -7,7 +9,9 @@
 
     .TextContainer {
         flex: 1;
+
         h1 {
+            line-height: 100%;
             font-size: 40px;
         }
 
@@ -24,6 +28,34 @@
 
         h2 {
             padding-right: 10px;
+        }
+    }
+
+    @media (max-width: breakpoints.$mobile-break) {
+        align-items: center;
+
+        .TextContainer {
+            flex: 2;
+
+            h1 {
+                font-size: 20px;
+            }
+
+            p {
+                font-size: 12px;
+            }
+        }
+
+        .SelectorContainer {
+            flex-direction: column;
+            margin-right: 0;
+            flex: 1;
+            justify-content: center;
+
+            h2 {
+                font-size: 14px;
+                margin-bottom: 12px;
+            }
         }
     }
 }

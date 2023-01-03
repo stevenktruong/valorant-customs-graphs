@@ -1,13 +1,11 @@
 import * as React from "react";
 
-import { MAP_COLORS, PLAYERS, PLAYER_COLORS } from "config";
+import { PLAYERS } from "config";
 
 import { luminance } from "helpers";
 
-import Caption from "components/Caption";
-import Dashboard from "components/Dashboard";
 import Header from "components/Header";
-import PlayerSelector from "components/PlayerSelector";
+import PlayerCard from "components/PlayerCard";
 import AgentCountDashboard from "components/dashboards/AgentCountDashboard";
 import LobbyWinRateDashboard from "components/dashboards/LobbyWinRateDashboard";
 import MapCountDashboard from "components/dashboards/MapCountDashboard";
@@ -15,7 +13,6 @@ import MatchupsDashboard from "components/dashboards/MatchupsDashboard";
 import RoleLeaderboardDashboard from "components/dashboards/RoleLeaderboardDashboard";
 import TeammatesSynergyDashboard from "components/dashboards/TeammatesSynergyDashboard";
 import WinRateOverTimeDashboard from "components/dashboards/WinRateOverTimeDashboard";
-import LineGraph from "components/graphs/LineGraph";
 
 import matchupsJson from "data/easiest-matchups.json";
 import individualJson from "data/individual.json";
@@ -33,7 +30,14 @@ export const Main = () => {
 
     return (
         <div className={style.Main}>
-            <div className={style.Left} />
+            <div className={style.Left}>
+                <div className={style.PlayerCardContainer}>
+                    <PlayerCard
+                        player={currentPlayer}
+                        individualData={individualJson}
+                    />
+                </div>
+            </div>
             <div className={style.Right}>
                 <div className={style.HeaderContainer}>
                     <Header
@@ -43,6 +47,14 @@ export const Main = () => {
                     />
                 </div>
                 <div className={style.Stats}>
+                    <div className={style.LobbyWinRateDashboardContainer}>
+                        <LobbyWinRateDashboard
+                            individualData={individualJson}
+                        />
+                    </div>
+                    <div className={style.MapCountDashboardContainer}>
+                        <MapCountDashboard mapsData={mapsJson} />
+                    </div>
                     <div className={style.WinRateOverTimeDashboardContainer}>
                         <WinRateOverTimeDashboard
                             player={currentPlayer}
@@ -60,14 +72,6 @@ export const Main = () => {
                             player={currentPlayer}
                             matchupsData={matchupsJson}
                         />
-                    </div>
-                    <div className={style.LobbyWinRateDashboardContainer}>
-                        <LobbyWinRateDashboard
-                            individualData={individualJson}
-                        />
-                    </div>
-                    <div className={style.MapCountDashboardContainer}>
-                        <MapCountDashboard mapsData={mapsJson} />
                     </div>
                     <div className={style.RoleLeaderboardDashboardContainer}>
                         <RoleLeaderboardDashboard

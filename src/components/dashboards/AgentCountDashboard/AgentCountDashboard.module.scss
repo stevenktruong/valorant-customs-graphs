@@ -1,0 +1,6 @@
+@use "styles/mixins";
+
+.AgentCountDashboard {
+    @include mixins.dashboard;
+    flex-direction: column;
+}

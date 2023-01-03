@@ -1,0 +1,6 @@
+@use "styles/mixins";
+
+.LobbyWinRateDashboard {
+    @include mixins.dashboard;
+    flex-direction: column;
+}

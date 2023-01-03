@@ -3,7 +3,6 @@ import * as React from "react";
 import { PLAYER_COLORS } from "config";
 
 import Caption from "components/Caption";
-import Dashboard from "components/Dashboard";
 import LineGraph from "components/graphs/LineGraph";
 
 import style from "./WinRateOverTimeDashboard.module.scss";
@@ -15,12 +14,13 @@ interface Props {
 
 export const WinRateOverTimeDashboard = (props: Props) => {
     return (
-        <Dashboard direction="column">
-            <Caption
-                title="Win Rate Over Time"
-                description="Individiual performance since October 2022"
-                height="20%"
-            />
+        <div className={style.WinRateOverTimeDashboard}>
+            <div className={style.CaptionContainer}>
+                <Caption
+                    title="Win Rate Over Time"
+                    description="Individiual performance since October 2022"
+                />
+            </div>
             <LineGraph
                 data={props.winrateOverTimeData
                     .map(d => ({
@@ -32,6 +32,6 @@ export const WinRateOverTimeDashboard = (props: Props) => {
                 initialDrawDuration={1000}
                 transitionDuration={1000}
             />
-        </Dashboard>
+        </div>
     );
 };

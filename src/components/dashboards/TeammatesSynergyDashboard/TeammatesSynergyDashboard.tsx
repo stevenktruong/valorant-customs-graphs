@@ -5,7 +5,6 @@ import { PLAYER_COLORS } from "config";
 import { luminance } from "helpers";
 
 import Caption from "components/Caption";
-import Dashboard from "components/Dashboard";
 import HorizontalBarGraph from "components/graphs/HorizontalBarGraph";
 
 import style from "./TeammatesSynergyDashboard.module.scss";
@@ -17,12 +16,13 @@ interface Props {
 
 export const TeammatesSynergyDashboard = (props: Props) => {
     return (
-        <Dashboard direction="column">
-            <Caption
-                title="Teammate Synergy"
-                description="Win rate with player on same team"
-                height="15%"
-            />
+        <div className={style.TeammatesSynergyDashboard}>
+            <div className={style.CaptionContainer}>
+                <Caption
+                    title="Teammate Synergy"
+                    description="Win rate with player on same team"
+                />
+            </div>
             <HorizontalBarGraph
                 data={props.teammatesSynergyData[props.player]
                     .map(d => ({
@@ -39,6 +39,6 @@ export const TeammatesSynergyDashboard = (props: Props) => {
                 initialDrawDuration={1000}
                 transitionDuration={1000}
             />
-        </Dashboard>
+        </div>
     );
 };

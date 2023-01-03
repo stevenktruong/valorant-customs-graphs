@@ -4,7 +4,6 @@ import * as React from "react";
 import { PLAYER_ROLE_COLORS } from "config";
 
 import Caption from "components/Caption";
-import Dashboard from "components/Dashboard";
 import StratifiedPieGraph from "components/graphs/StratifiedPieGraph";
 
 import style from "./AgentCountDashboard.module.scss";
@@ -52,18 +51,19 @@ export const AgentCountDashboard = (props: Props) => {
         .concat({ label: "root", parent: "", color: "", count: 0 });
 
     return (
-        <Dashboard direction="column">
-            <Caption
-                title="Agent Counter"
-                description="Agent pick frequency"
-                height="10%"
-            />
+        <div className={style.AgentCountDashboard}>
+            <div className={style.CaptionContainer}>
+                <Caption
+                    title="Agent Counter"
+                    description="Agent pick frequency"
+                />
+            </div>
             <StratifiedPieGraph
                 data={data}
                 initialDrawDuration={1000}
                 transitionDuration={1000}
                 percentage={true}
             />
-        </Dashboard>
+        </div>
     );
 };
