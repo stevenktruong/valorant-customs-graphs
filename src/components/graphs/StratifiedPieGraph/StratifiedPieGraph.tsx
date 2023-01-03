@@ -23,7 +23,9 @@ const computeStratumLabelShifts = (
     stratumLabelBoxes,
     labelBoxes,
     width,
-    height
+    height,
+    R,
+    center
 ) => {
     // Each box should look like
     // {
@@ -36,6 +38,90 @@ const computeStratumLabelShifts = (
     //     dy: vertical shifts
     // }
     const randomSign = () => (Math.random() < 0.5 ? -1 : 1);
+
+    const roughDistanceToPie2 = box => {
+        if (
+            box.x0 < center[0] &&
+            center[0] < box.x1 &&
+            box.y0 < center[1] &&
+            center[1] < box.y1
+        ) {
+            return 0;
+        }
+
+        if (box.x0 < center[0] && center[0] < box.x1 && box.y1 <= center[1]) {
+            return Math.pow(Math.max(center[1] - box.y1 - R, 0), 2);
+        }
+
+        if (box.x0 < center[0] && center[0] < box.x1 && box.y0 >= center[1]) {
+            return Math.pow(Math.max(box.y0 - center[1] - R, 0), 2);
+        }
+
+        if (box.y0 < center[1] && center[1] < box.y1 && box.x1 <= center[0]) {
+            return Math.pow(Math.max(center[0] - box.x1 - R, 0), 2);
+        }
+
+        if (box.y0 < center[1] && center[1] < box.y1 && box.x0 >= center[0]) {
+            return Math.pow(Math.max(box.x0 - center[0] - R, 0), 2);
+        }
+
+        let distance;
+        if (box.x0 >= center[0] && box.y1 <= center[1]) {
+            // Box in quadrant 1
+            return Math.pow(
+                Math.max(
+                    Math.sqrt(
+                        Math.pow(box.x0 - center[0], 2) +
+                            Math.pow(box.y1 - center[1], 2)
+                    ) - R,
+                    0
+                ),
+                2
+            );
+        }
+
+        if (box.x1 <= center[0] && box.y1 <= center[1]) {
+            // Box in quadrant 2
+            return Math.pow(
+                Math.max(
+                    Math.sqrt(
+                        Math.pow(box.x1 - center[0], 2) +
+                            Math.pow(box.y1 - center[1], 2)
+                    ) - R,
+                    0
+                ),
+                2
+            );
+        }
+
+        if (box.x1 <= center[0] && box.y0 >= center[1]) {
+            // Box in quadrant 3
+            return Math.pow(
+                Math.max(
+                    Math.sqrt(
+                        Math.pow(box.x1 - center[0], 2) +
+                            Math.pow(box.y0 - center[1], 2)
+                    ) - R,
+                    0
+                ),
+                2
+            );
+        }
+
+        if (box.x0 >= center[0] && box.y0 >= center[1]) {
+            // Box in quadrant 4
+            return Math.pow(
+                Math.max(
+                    Math.sqrt(
+                        Math.pow(box.x0 - center[0], 2) +
+                            Math.pow(box.y0 - center[1], 2)
+                    ) - R,
+                    0
+                ),
+                2
+            );
+        }
+    };
 
     const shiftDistance2 = box => {
         return Math.pow(box.dx, 2) + Math.pow(box.dy, 2);
@@ -55,26 +141,27 @@ const computeStratumLabelShifts = (
         const y1 = Math.min(boxA.y1, boxB.y1) + padding;
         if (y1 <= y0) return 0;
 
-        const A = (y1 - y0) * (x1 - x0);
-        return A;
+        return (y1 - y0) * (x1 - x0);
     };
 
     // Energy penalizes:
     // - Distance from the desired position
+    // - Getting too close to the pie
     // - Getting too close to the boundary
     // - Getting too close to inner labels
     // - Getting too close to other stratum labels (weighted more)
     const E = stratumLabelBox => {
         let energy = 0;
-        energy += 2 * shiftDistance2(stratumLabelBox);
-        energy += 0.125 * Math.max(-stratumLabelBox.x0, 0);
-        energy += 0.125 * Math.max(width - stratumLabelBox.x0, 0);
-        energy += 0.125 * Math.max(-stratumLabelBox.y0, 0);
-        energy += 0.125 * Math.max(height - stratumLabelBox.y1, 0);
+        energy += shiftDistance2(stratumLabelBox);
+        energy += 5000 * Math.exp(-roughDistanceToPie2(stratumLabelBox));
+        // energy += 0.125 * Math.max(-stratumLabelBox.x0, 0);
+        // energy += 0.125 * Math.max(width - stratumLabelBox.x0, 0);
+        // energy += 0.125 * Math.max(-stratumLabelBox.y0, 0);
+        // energy += 0.125 * Math.max(height - stratumLabelBox.y1, 0);
         for (let labelBox of labelBoxes) {
             if (stratumLabelBox.label === labelBox.label) continue;
             energy +=
-                (labelBox.stratumLabel ? 50 : 10) *
+                (labelBox.stratumLabel ? 10 : 5) *
                 overlapPaddedArea(stratumLabelBox, labelBox);
         }
         return energy;
@@ -143,6 +230,7 @@ const computeStratumLabelShifts = (
         const newE = E(stratumLabelBoxNew);
         if (Math.random() < pAccept(oldE, newE, T)) {
             stratumLabelBoxes[i] = stratumLabelBoxNew;
+            labelBoxes[i] = stratumLabelBoxNew;
         }
     }
 
@@ -226,12 +314,15 @@ export const StratifiedPieGraph = (props: Props) => {
         const radialTickLength = 5;
         const horizontalTickLength = 8;
 
+        const innerLabelFontSize = width > 600 ? "10px" : "8px";
+        const stratumLabelFontSize = width > 600 ? "18px" : "10px";
+
         // Shift left based on the length of the longest name
         let longestLabelLength;
         let labelHeight;
         let stratumLabelDistance;
         svg.append("text")
-            .attr("font-size", "10px")
+            .attr("font-size", innerLabelFontSize)
             .attr("opacity", 0)
             .text(
                 `${data.reduce(
@@ -244,7 +335,8 @@ export const StratifiedPieGraph = (props: Props) => {
                 longestLabelLength = this.getComputedTextLength();
                 labelHeight = this.getBBox().height;
                 stratumLabelDistance =
-                    longestLabelLength * 0.75 + radialPadding;
+                    longestLabelLength * (width > 600 ? 0.75 : 0.5) +
+                    radialPadding;
                 this.remove();
             });
 
@@ -355,7 +447,6 @@ export const StratifiedPieGraph = (props: Props) => {
                 ? `${Math.round((100 * d.value) / root.value)}%`
                 : `${d.value}`);
         const labelTween = function (d) {
-            if (d.depth === 1) console.log(this.previousLabel);
             if (percentage) {
                 const value = d3.interpolateRound(
                     Math.round(this.previousLabel),
@@ -396,7 +487,6 @@ export const StratifiedPieGraph = (props: Props) => {
         const nStrata = root.children.length;
         const cacheStratumLabelShifts = selection => {
             if (selection.empty()) return;
-            console.log("Caching");
 
             // We want to compute the values for the final label
             // Because of the animation, if we don't do this, the algorithm
@@ -475,10 +565,10 @@ export const StratifiedPieGraph = (props: Props) => {
                 labelBoxes.slice(0, nStrata),
                 labelBoxes.filter(box => box.handle),
                 width,
-                height
+                height,
+                R,
+                center
             );
-
-            console.table(shifts);
 
             selection
                 .filter(d => d.depth === 1)
@@ -553,7 +643,7 @@ export const StratifiedPieGraph = (props: Props) => {
                         .append("text")
                         .attr("fill", "#ffffff")
                         .attr("opacity", 0)
-                        .attr("font-size", "10px")
+                        .attr("font-size", innerLabelFontSize)
                         .text(
                             d => `${d.data.label} ` + (percentage ? "0%" : "0")
                         )
@@ -580,7 +670,7 @@ export const StratifiedPieGraph = (props: Props) => {
                         .append("text")
                         .attr("fill", d => d.data.color)
                         .attr("opacity", 0)
-                        .attr("font-size", "18px")
+                        .attr("font-size", stratumLabelFontSize)
                         .text(percentage ? "0%" : "0")
                         .attr("alignment-baseline", "central")
                         .attr("text-anchor", d =>
@@ -656,6 +746,7 @@ export const StratifiedPieGraph = (props: Props) => {
                     update
                         .filter(d => d.depth === 2)
                         .select("text")
+                        .attr("font-size", innerLabelFontSize)
                         .attr("text-anchor", d =>
                             direction(d) > 0 ? "start" : "end"
                         )
@@ -668,6 +759,7 @@ export const StratifiedPieGraph = (props: Props) => {
                     update
                         .filter(d => d.depth === 1)
                         .select("text")
+                        .attr("font-size", stratumLabelFontSize)
                         .attr("text-anchor", d =>
                             direction(d) > 0 ? "start" : "end"
                         );
