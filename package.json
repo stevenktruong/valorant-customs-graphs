@@ -45,6 +45,7 @@
     },
     "devDependencies": {
         "@trivago/prettier-plugin-sort-imports": "^4.0.0",
+        "@types/d3": "^7.4.0",
         "sass": "^1.57.1"
     }
 }
