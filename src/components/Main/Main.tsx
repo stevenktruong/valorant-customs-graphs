@@ -20,6 +20,7 @@ import assistsReceivedJson from "data/assists-received-per-standard-game.json";
 import matchupsJson from "data/easiest-matchups.json";
 import individualJson from "data/individual.json";
 import mapsJson from "data/maps.json";
+import metaJson from "data/meta.json";
 import winrateOverTimeJson from "data/running-winrate-over-time.json";
 import teammatesSynergyJson from "data/teammate-synergy.json";
 
@@ -114,6 +115,24 @@ export const Main = () => {
                             assistsGivenData={assistsGivenJson}
                             assistsReceivedData={assistsReceivedJson}
                         />
+                    </div>
+                    <div className={style.FooterContainer}>
+                        <div className={style.Footer}>
+                            <p>
+                                Last updated: {new Date().toLocaleDateString()}{" "}
+                                (
+                                <a
+                                    href={
+                                        metaJson["most_recent_url"].split(
+                                            "?"
+                                        )[0]
+                                    }
+                                >
+                                    most recent game included
+                                </a>
+                                )
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>

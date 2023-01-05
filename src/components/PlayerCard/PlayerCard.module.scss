@@ -48,6 +48,29 @@
         }
     }
 
+    .FullBodyAgentImageContainer {
+        img {
+            position: absolute;
+            width: 200px;
+            height: auto;
+            opacity: 25%;
+            pointer-events: none;
+        }
+
+        img:nth-child(1) {
+            right: 0;
+        }
+
+        img:nth-child(2) {
+            bottom: -500px;
+            left: 0px;
+        }
+
+        img:nth-child(3) {
+            bottom: -650px;
+        }
+    }
+
     @media (max-width: breakpoints.$medium-break) {
         flex-direction: row;
         justify-content: center;
@@ -59,6 +82,10 @@
         .PlayerDescription {
             width: auto;
             margin-left: 50px;
+        }
+
+        .FullBodyAgentImageContainer {
+            display: none;
         }
     }
 

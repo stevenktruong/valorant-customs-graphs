@@ -48,6 +48,20 @@ export const PlayerCard = (props: Props) => {
                     <h2>Top Agents</h2>
                 </div>
             </div>
+            <div className={style.FullBodyAgentImageContainer}>
+                {props.individualData[props.player].top_agents.map(
+                    (agent: string) => (
+                        <img
+                            // KAY/O -> KAYO
+                            src={`/agents/full-body/${agent
+                                .split("/")
+                                .join("")}.png`}
+                            alt={`${agent} full body image`}
+                            key={agent}
+                        />
+                    )
+                )}
+            </div>
         </div>
     );
 };

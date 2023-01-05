@@ -120,6 +120,29 @@
         grid-row-end: 32;
     }
 
+    .FooterContainer {
+        grid-column-start: 1;
+        grid-column-end: -1;
+        grid-row-start: 32;
+        grid-row-end: 33;
+
+        display: flex;
+        color: #ffffff;
+
+        .Footer {
+            width: 100%;
+            opacity: 50%;
+
+            p {
+                font-style: italic;
+
+                a, a:link, a:visited, a:hover, a:active {
+                        color: #ffffff;
+                }
+            }
+        }
+    }
+
     @media (max-width: breakpoints.$medium-break) {
         flex-direction: column;
 
