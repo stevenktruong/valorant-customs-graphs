@@ -6,12 +6,12 @@ import { PLAYERS } from "config";
 import Header from "components/Header";
 import PlayerCard from "components/PlayerCard";
 import AgentCountDashboard from "components/dashboards/AgentCountDashboard";
-import AssistsDashboard from "components/dashboards/AssistsDashboard";
 import LobbyWinRateDashboard from "components/dashboards/LobbyWinRateDashboard";
 import MapCountDashboard from "components/dashboards/MapCountDashboard";
 import MapPerformanceDashboard from "components/dashboards/MapPerformanceDashboard";
 import MatchupsDashboard from "components/dashboards/MatchupsDashboard";
 import RoleLeaderboardDashboard from "components/dashboards/RoleLeaderboardDashboard";
+import SupportSynergyDashboard from "components/dashboards/SupportSynergyDashboard";
 import TeammatesSynergyDashboard from "components/dashboards/TeammatesSynergyDashboard";
 import WinRateOverTimeDashboard from "components/dashboards/WinRateOverTimeDashboard";
 
@@ -109,8 +109,8 @@ export const Main = () => {
                             individualData={individualJson}
                         />
                     </div>
-                    <div className={style.AssistsDashboardContainer}>
-                        <AssistsDashboard
+                    <div className={style.SupportSynergyDashboardContainer}>
+                        <SupportSynergyDashboard
                             player={currentPlayer}
                             assistsGivenData={assistsGivenJson}
                             assistsReceivedData={assistsReceivedJson}
