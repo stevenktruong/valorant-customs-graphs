@@ -7,44 +7,44 @@
     "games": 48,
     "maps": {
       "Ascent": {
-        "winrate": 71,
-        "wins": 5,
-        "games": 7
+        "acs": 277,
+        "score": 41273,
+        "rounds": 149
       },
       "Bind": {
-        "winrate": 57,
-        "wins": 4,
-        "games": 7
+        "acs": 323,
+        "score": 57190,
+        "rounds": 177
       },
       "Breeze": {
-        "winrate": 75,
-        "wins": 3,
-        "games": 4
+        "acs": 356,
+        "score": 30957,
+        "rounds": 87
       },
       "Fracture": {
-        "winrate": 20,
-        "wins": 1,
-        "games": 5
+        "acs": 301,
+        "score": 32506,
+        "rounds": 108
       },
       "Haven": {
-        "winrate": 71,
-        "wins": 5,
-        "games": 7
+        "acs": 322,
+        "score": 46350,
+        "rounds": 144
       },
       "Icebox": {
-        "winrate": 40,
-        "wins": 2,
-        "games": 5
+        "acs": 278,
+        "score": 25823,
+        "rounds": 93
       },
       "Pearl": {
-        "winrate": 50,
-        "wins": 3,
-        "games": 6
+        "acs": 314,
+        "score": 41154,
+        "rounds": 131
       },
       "Split": {
-        "winrate": 57,
-        "wins": 4,
-        "games": 7
+        "acs": 299,
+        "score": 46023,
+        "rounds": 154
       }
     },
     "agents": {
@@ -208,44 +208,44 @@
     "games": 10,
     "maps": {
       "Ascent": {
-        "winrate": 100,
-        "wins": 1,
-        "games": 1
+        "acs": 119,
+        "score": 2856,
+        "rounds": 24
       },
       "Bind": {
-        "winrate": 33,
-        "wins": 1,
-        "games": 3
+        "acs": 125,
+        "score": 9278,
+        "rounds": 74
       },
       "Breeze": {
-        "winrate": 50,
-        "wins": 2,
-        "games": 4
+        "acs": 97,
+        "score": 8410,
+        "rounds": 87
       },
       "Fracture": {
-        "winrate": 0,
-        "wins": 0,
-        "games": 1
+        "acs": 46,
+        "score": 736,
+        "rounds": 16
       },
       "Haven": {
-        "winrate": null,
-        "wins": 0,
-        "games": 0
+        "acs": null,
+        "score": 0,
+        "rounds": 0
       },
       "Icebox": {
-        "winrate": null,
-        "wins": 0,
-        "games": 0
+        "acs": null,
+        "score": 0,
+        "rounds": 0
       },
       "Pearl": {
-        "winrate": null,
-        "wins": 0,
-        "games": 0
+        "acs": null,
+        "score": 0,
+        "rounds": 0
       },
       "Split": {
-        "winrate": 0,
-        "wins": 0,
-        "games": 1
+        "acs": 153,
+        "score": 3519,
+        "rounds": 23
       }
     },
     "agents": {
@@ -409,44 +409,44 @@
     "games": 42,
     "maps": {
       "Ascent": {
-        "winrate": 20,
-        "wins": 1,
-        "games": 5
+        "acs": 124,
+        "score": 12914,
+        "rounds": 104
       },
       "Bind": {
-        "winrate": 71,
-        "wins": 5,
-        "games": 7
+        "acs": 146,
+        "score": 26024,
+        "rounds": 178
       },
       "Breeze": {
-        "winrate": 50,
-        "wins": 2,
-        "games": 4
+        "acs": 138,
+        "score": 11980,
+        "rounds": 87
       },
       "Fracture": {
-        "winrate": 17,
-        "wins": 1,
-        "games": 6
+        "acs": 116,
+        "score": 14234,
+        "rounds": 123
       },
       "Haven": {
-        "winrate": 60,
-        "wins": 3,
-        "games": 5
+        "acs": 141,
+        "score": 15471,
+        "rounds": 110
       },
       "Icebox": {
-        "winrate": 25,
-        "wins": 1,
-        "games": 4
+        "acs": 111,
+        "score": 8521,
+        "rounds": 77
       },
       "Pearl": {
-        "winrate": 25,
-        "wins": 1,
-        "games": 4
+        "acs": 167,
+        "score": 15006,
+        "rounds": 90
       },
       "Split": {
-        "winrate": 43,
-        "wins": 3,
-        "games": 7
+        "acs": 94,
+        "score": 13861,
+        "rounds": 147
       }
     },
     "agents": {
@@ -610,44 +610,44 @@
     "games": 42,
     "maps": {
       "Ascent": {
-        "winrate": 40,
-        "wins": 2,
-        "games": 5
+        "acs": 183,
+        "score": 18501,
+        "rounds": 101
       },
       "Bind": {
-        "winrate": 50,
-        "wins": 3,
-        "games": 6
+        "acs": 243,
+        "score": 36495,
+        "rounds": 150
       },
       "Breeze": {
-        "winrate": 0,
-        "wins": 0,
-        "games": 4
+        "acs": 259,
+        "score": 22490,
+        "rounds": 87
       },
       "Fracture": {
-        "winrate": 50,
-        "wins": 2,
-        "games": 4
+        "acs": 260,
+        "score": 19003,
+        "rounds": 73
       },
       "Haven": {
-        "winrate": 40,
-        "wins": 2,
-        "games": 5
+        "acs": 274,
+        "score": 30381,
+        "rounds": 111
       },
       "Icebox": {
-        "winrate": 67,
-        "wins": 4,
-        "games": 6
+        "acs": 217,
+        "score": 24116,
+        "rounds": 111
       },
       "Pearl": {
-        "winrate": 60,
-        "wins": 3,
-        "games": 5
+        "acs": 274,
+        "score": 29851,
+        "rounds": 109
       },
       "Split": {
-        "winrate": 29,
-        "wins": 2,
-        "games": 7
+        "acs": 242,
+        "score": 35628,
+        "rounds": 147
       }
     },
     "agents": {
@@ -811,44 +811,44 @@
     "games": 52,
     "maps": {
       "Ascent": {
-        "winrate": 43,
-        "wins": 3,
-        "games": 7
+        "acs": 243,
+        "score": 35525,
+        "rounds": 146
       },
       "Bind": {
-        "winrate": 62,
-        "wins": 5,
-        "games": 8
+        "acs": 190,
+        "score": 37921,
+        "rounds": 200
       },
       "Breeze": {
-        "winrate": 75,
-        "wins": 3,
-        "games": 4
+        "acs": 228,
+        "score": 19860,
+        "rounds": 87
       },
       "Fracture": {
-        "winrate": 50,
-        "wins": 3,
-        "games": 6
+        "acs": 188,
+        "score": 23064,
+        "rounds": 123
       },
       "Haven": {
-        "winrate": 71,
-        "wins": 5,
-        "games": 7
+        "acs": 227,
+        "score": 32644,
+        "rounds": 144
       },
       "Icebox": {
-        "winrate": 60,
-        "wins": 3,
-        "games": 5
+        "acs": 244,
+        "score": 22436,
+        "rounds": 92
       },
       "Pearl": {
-        "winrate": 33,
-        "wins": 2,
-        "games": 6
+        "acs": 213,
+        "score": 27890,
+        "rounds": 131
       },
       "Split": {
-        "winrate": 56,
-        "wins": 5,
-        "games": 9
+        "acs": 194,
+        "score": 37513,
+        "rounds": 193
       }
     },
     "agents": {
@@ -1013,44 +1013,44 @@
     "games": 45,
     "maps": {
       "Ascent": {
-        "winrate": 50,
-        "wins": 3,
-        "games": 6
+        "acs": 179,
+        "score": 21813,
+        "rounds": 122
       },
       "Bind": {
-        "winrate": 50,
-        "wins": 3,
-        "games": 6
+        "acs": 217,
+        "score": 32929,
+        "rounds": 152
       },
       "Breeze": {
-        "winrate": 33,
-        "wins": 1,
-        "games": 3
+        "acs": 248,
+        "score": 17366,
+        "rounds": 70
       },
       "Fracture": {
-        "winrate": 100,
-        "wins": 4,
-        "games": 4
+        "acs": 163,
+        "score": 12207,
+        "rounds": 75
       },
       "Haven": {
-        "winrate": 57,
-        "wins": 4,
-        "games": 7
+        "acs": 151,
+        "score": 21699,
+        "rounds": 144
       },
       "Icebox": {
-        "winrate": 83,
-        "wins": 5,
-        "games": 6
+        "acs": 201,
+        "score": 22305,
+        "rounds": 111
       },
       "Pearl": {
-        "winrate": 20,
-        "wins": 1,
-        "games": 5
+        "acs": 218,
+        "score": 24218,
+        "rounds": 111
       },
       "Split": {
-        "winrate": 25,
-        "wins": 2,
-        "games": 8
+        "acs": 206,
+        "score": 35075,
+        "rounds": 170
       }
     },
     "agents": {
@@ -1215,44 +1215,44 @@
     "games": 50,
     "maps": {
       "Ascent": {
-        "winrate": 25,
-        "wins": 2,
-        "games": 8
+        "acs": 244,
+        "score": 40583,
+        "rounds": 166
       },
       "Bind": {
-        "winrate": 50,
-        "wins": 4,
-        "games": 8
+        "acs": 190,
+        "score": 38063,
+        "rounds": 200
       },
       "Breeze": {
-        "winrate": 100,
-        "wins": 4,
-        "games": 4
+        "acs": 221,
+        "score": 19258,
+        "rounds": 87
       },
       "Fracture": {
-        "winrate": 40,
-        "wins": 2,
-        "games": 5
+        "acs": 219,
+        "score": 22334,
+        "rounds": 102
       },
       "Haven": {
-        "winrate": 67,
-        "wins": 4,
-        "games": 6
+        "acs": 224,
+        "score": 26849,
+        "rounds": 120
       },
       "Icebox": {
-        "winrate": 50,
-        "wins": 3,
-        "games": 6
+        "acs": 222,
+        "score": 24679,
+        "rounds": 111
       },
       "Pearl": {
-        "winrate": 20,
-        "wins": 1,
-        "games": 5
+        "acs": 213,
+        "score": 22832,
+        "rounds": 107
       },
       "Split": {
-        "winrate": 62,
-        "wins": 5,
-        "games": 8
+        "acs": 205,
+        "score": 35839,
+        "rounds": 175
       }
     },
     "agents": {
@@ -1417,44 +1417,44 @@
     "games": 30,
     "maps": {
       "Ascent": {
-        "winrate": 50,
-        "wins": 3,
-        "games": 6
+        "acs": 353,
+        "score": 44095,
+        "rounds": 125
       },
       "Bind": {
-        "winrate": 40,
-        "wins": 2,
-        "games": 5
+        "acs": 311,
+        "score": 38201,
+        "rounds": 123
       },
       "Breeze": {
-        "winrate": 100,
-        "wins": 1,
-        "games": 1
+        "acs": 388,
+        "score": 6596,
+        "rounds": 17
       },
       "Fracture": {
-        "winrate": 60,
-        "wins": 3,
-        "games": 5
+        "acs": 424,
+        "score": 43218,
+        "rounds": 102
       },
       "Haven": {
-        "winrate": 0,
-        "wins": 0,
-        "games": 2
+        "acs": 357,
+        "score": 12150,
+        "rounds": 34
       },
       "Icebox": {
-        "winrate": 33,
-        "wins": 1,
-        "games": 3
+        "acs": 319,
+        "score": 18184,
+        "rounds": 57
       },
       "Pearl": {
-        "winrate": 67,
-        "wins": 2,
-        "games": 3
+        "acs": 416,
+        "score": 25354,
+        "rounds": 61
       },
       "Split": {
-        "winrate": 60,
-        "wins": 3,
-        "games": 5
+        "acs": 344,
+        "score": 35423,
+        "rounds": 103
       }
     },
     "agents": {
@@ -1618,44 +1618,44 @@
     "games": 52,
     "maps": {
       "Ascent": {
-        "winrate": 57,
-        "wins": 4,
-        "games": 7
+        "acs": 175,
+        "score": 25707,
+        "rounds": 147
       },
       "Bind": {
-        "winrate": 43,
-        "wins": 3,
-        "games": 7
+        "acs": 155,
+        "score": 26384,
+        "rounds": 170
       },
       "Breeze": {
-        "winrate": 50,
-        "wins": 2,
-        "games": 4
+        "acs": 149,
+        "score": 12927,
+        "rounds": 87
       },
       "Fracture": {
-        "winrate": 50,
-        "wins": 3,
-        "games": 6
+        "acs": 135,
+        "score": 16592,
+        "rounds": 123
       },
       "Haven": {
-        "winrate": 29,
-        "wins": 2,
-        "games": 7
+        "acs": 136,
+        "score": 19615,
+        "rounds": 144
       },
       "Icebox": {
-        "winrate": 50,
-        "wins": 3,
-        "games": 6
+        "acs": 151,
+        "score": 16785,
+        "rounds": 111
       },
       "Pearl": {
-        "winrate": 100,
-        "wins": 6,
-        "games": 6
+        "acs": 138,
+        "score": 18124,
+        "rounds": 131
       },
       "Split": {
-        "winrate": 56,
-        "wins": 5,
-        "games": 9
+        "acs": 129,
+        "score": 24902,
+        "rounds": 193
       }
     },
     "agents": {
@@ -1819,44 +1819,44 @@
     "games": 32,
     "maps": {
       "Ascent": {
-        "winrate": 60,
-        "wins": 3,
-        "games": 5
+        "acs": 181,
+        "score": 19391,
+        "rounds": 107
       },
       "Bind": {
-        "winrate": 33,
-        "wins": 1,
-        "games": 3
+        "acs": 242,
+        "score": 16242,
+        "rounds": 67
       },
       "Breeze": {
-        "winrate": 0,
-        "wins": 0,
-        "games": 4
+        "acs": 165,
+        "score": 14320,
+        "rounds": 87
       },
       "Fracture": {
-        "winrate": 50,
-        "wins": 2,
-        "games": 4
+        "acs": 223,
+        "score": 18702,
+        "rounds": 84
       },
       "Haven": {
-        "winrate": 67,
-        "wins": 4,
-        "games": 6
+        "acs": 200,
+        "score": 25845,
+        "rounds": 129
       },
       "Icebox": {
-        "winrate": 50,
-        "wins": 1,
-        "games": 2
+        "acs": 215,
+        "score": 7538,
+        "rounds": 35
       },
       "Pearl": {
-        "winrate": 33,
-        "wins": 1,
-        "games": 3
+        "acs": 183,
+        "score": 11551,
+        "rounds": 63
       },
       "Split": {
-        "winrate": 40,
-        "wins": 2,
-        "games": 5
+        "acs": 235,
+        "score": 25645,
+        "rounds": 109
       }
     },
     "agents": {
@@ -2021,44 +2021,44 @@
     "games": 26,
     "maps": {
       "Ascent": {
-        "winrate": 40,
-        "wins": 2,
-        "games": 5
+        "acs": 259,
+        "score": 26966,
+        "rounds": 104
       },
       "Bind": {
-        "winrate": 25,
-        "wins": 1,
-        "games": 4
+        "acs": 258,
+        "score": 27553,
+        "rounds": 107
       },
       "Breeze": {
-        "winrate": 50,
-        "wins": 1,
-        "games": 2
+        "acs": 332,
+        "score": 14586,
+        "rounds": 44
       },
       "Fracture": {
-        "winrate": 100,
-        "wins": 2,
-        "games": 2
+        "acs": 274,
+        "score": 10680,
+        "rounds": 39
       },
       "Haven": {
-        "winrate": 40,
-        "wins": 2,
-        "games": 5
+        "acs": 238,
+        "score": 23811,
+        "rounds": 100
       },
       "Icebox": {
-        "winrate": 100,
-        "wins": 3,
-        "games": 3
+        "acs": 272,
+        "score": 14667,
+        "rounds": 54
       },
       "Pearl": {
-        "winrate": 100,
-        "wins": 3,
-        "games": 3
+        "acs": 207,
+        "score": 13425,
+        "rounds": 65
       },
       "Split": {
-        "winrate": 50,
-        "wins": 1,
-        "games": 2
+        "acs": 249,
+        "score": 10693,
+        "rounds": 43
       }
     },
     "agents": {
@@ -2222,44 +2222,44 @@
     "games": 27,
     "maps": {
       "Ascent": {
-        "winrate": 25,
-        "wins": 1,
-        "games": 4
+        "acs": 212,
+        "score": 16541,
+        "rounds": 78
       },
       "Bind": {
-        "winrate": 33,
-        "wins": 1,
-        "games": 3
+        "acs": 256,
+        "score": 17380,
+        "rounds": 68
       },
       "Breeze": {
-        "winrate": 100,
-        "wins": 1,
-        "games": 1
+        "acs": 219,
+        "score": 5694,
+        "rounds": 26
       },
       "Fracture": {
-        "winrate": 33,
-        "wins": 1,
-        "games": 3
+        "acs": 226,
+        "score": 12231,
+        "rounds": 54
       },
       "Haven": {
-        "winrate": 0,
-        "wins": 0,
-        "games": 3
+        "acs": 208,
+        "score": 12065,
+        "rounds": 58
       },
       "Icebox": {
-        "winrate": 100,
-        "wins": 2,
-        "games": 2
+        "acs": 346,
+        "score": 11409,
+        "rounds": 33
       },
       "Pearl": {
-        "winrate": 33,
-        "wins": 1,
-        "games": 3
+        "acs": 235,
+        "score": 16450,
+        "rounds": 70
       },
       "Split": {
-        "winrate": 38,
-        "wins": 3,
-        "games": 8
+        "acs": 230,
+        "score": 39704,
+        "rounds": 173
       }
     },
     "agents": {
@@ -2423,44 +2423,44 @@
     "games": 19,
     "maps": {
       "Ascent": {
-        "winrate": 50,
-        "wins": 2,
-        "games": 4
+        "acs": 134,
+        "score": 11522,
+        "rounds": 86
       },
       "Bind": {
-        "winrate": 33,
-        "wins": 1,
-        "games": 3
+        "acs": 224,
+        "score": 17494,
+        "rounds": 78
       },
       "Breeze": {
-        "winrate": null,
-        "wins": 0,
-        "games": 0
+        "acs": null,
+        "score": 0,
+        "rounds": 0
       },
       "Fracture": {
-        "winrate": 50,
-        "wins": 1,
-        "games": 2
+        "acs": 203,
+        "score": 10751,
+        "rounds": 53
       },
       "Haven": {
-        "winrate": 100,
-        "wins": 1,
-        "games": 1
+        "acs": 169,
+        "score": 3211,
+        "rounds": 19
       },
       "Icebox": {
-        "winrate": 33,
-        "wins": 1,
-        "games": 3
+        "acs": 188,
+        "score": 10722,
+        "rounds": 57
       },
       "Pearl": {
-        "winrate": 33,
-        "wins": 1,
-        "games": 3
+        "acs": 110,
+        "score": 7228,
+        "rounds": 66
       },
       "Split": {
-        "winrate": 33,
-        "wins": 1,
-        "games": 3
+        "acs": 208,
+        "score": 12702,
+        "rounds": 61
       }
     },
     "agents": {
@@ -2625,44 +2625,44 @@
     "games": 7,
     "maps": {
       "Ascent": {
-        "winrate": 100,
-        "wins": 1,
-        "games": 1
+        "acs": 208,
+        "score": 4992,
+        "rounds": 24
       },
       "Bind": {
-        "winrate": 0,
-        "wins": 0,
-        "games": 1
+        "acs": 242,
+        "score": 6776,
+        "rounds": 28
       },
       "Breeze": {
-        "winrate": null,
-        "wins": 0,
-        "games": 0
+        "acs": null,
+        "score": 0,
+        "rounds": 0
       },
       "Fracture": {
-        "winrate": 100,
-        "wins": 1,
-        "games": 1
+        "acs": 237,
+        "score": 7584,
+        "rounds": 32
       },
       "Haven": {
-        "winrate": null,
-        "wins": 0,
-        "games": 0
+        "acs": null,
+        "score": 0,
+        "rounds": 0
       },
       "Icebox": {
-        "winrate": 0,
-        "wins": 0,
-        "games": 1
+        "acs": 246,
+        "score": 4428,
+        "rounds": 18
       },
       "Pearl": {
-        "winrate": 0,
-        "wins": 0,
-        "games": 2
+        "acs": 213,
+        "score": 9376,
+        "rounds": 44
       },
       "Split": {
-        "winrate": 100,
-        "wins": 1,
-        "games": 1
+        "acs": 171,
+        "score": 3078,
+        "rounds": 18
       }
     },
     "agents": {
@@ -2827,44 +2827,44 @@
     "games": 34,
     "maps": {
       "Ascent": {
-        "winrate": 100,
-        "wins": 5,
-        "games": 5
+        "acs": 304,
+        "score": 29840,
+        "rounds": 98
       },
       "Bind": {
-        "winrate": 100,
-        "wins": 5,
-        "games": 5
+        "acs": 281,
+        "score": 34557,
+        "rounds": 123
       },
       "Breeze": {
-        "winrate": 0,
-        "wins": 0,
-        "games": 1
+        "acs": 285,
+        "score": 4845,
+        "rounds": 17
       },
       "Fracture": {
-        "winrate": 50,
-        "wins": 2,
-        "games": 4
+        "acs": 276,
+        "score": 19287,
+        "rounds": 70
       },
       "Haven": {
-        "winrate": 60,
-        "wins": 3,
-        "games": 5
+        "acs": 252,
+        "score": 25177,
+        "rounds": 100
       },
       "Icebox": {
-        "winrate": 25,
-        "wins": 1,
-        "games": 4
+        "acs": 180,
+        "score": 12930,
+        "rounds": 72
       },
       "Pearl": {
-        "winrate": 100,
-        "wins": 3,
-        "games": 3
+        "acs": 264,
+        "score": 17174,
+        "rounds": 65
       },
       "Split": {
-        "winrate": 86,
-        "wins": 6,
-        "games": 7
+        "acs": 246,
+        "score": 37810,
+        "rounds": 154
       }
     },
     "agents": {
@@ -3029,44 +3029,44 @@
     "games": 4,
     "maps": {
       "Ascent": {
-        "winrate": null,
-        "wins": 0,
-        "games": 0
+        "acs": null,
+        "score": 0,
+        "rounds": 0
       },
       "Bind": {
-        "winrate": null,
-        "wins": 0,
-        "games": 0
+        "acs": null,
+        "score": 0,
+        "rounds": 0
       },
       "Breeze": {
-        "winrate": null,
-        "wins": 0,
-        "games": 0
+        "acs": null,
+        "score": 0,
+        "rounds": 0
       },
       "Fracture": {
-        "winrate": null,
-        "wins": 0,
-        "games": 0
+        "acs": null,
+        "score": 0,
+        "rounds": 0
       },
       "Haven": {
-        "winrate": 0,
-        "wins": 0,
-        "games": 2
+        "acs": 141,
+        "score": 4778,
+        "rounds": 34
       },
       "Icebox": {
-        "winrate": null,
-        "wins": 0,
-        "games": 0
+        "acs": null,
+        "score": 0,
+        "rounds": 0
       },
       "Pearl": {
-        "winrate": 100,
-        "wins": 1,
-        "games": 1
+        "acs": 116,
+        "score": 2552,
+        "rounds": 22
       },
       "Split": {
-        "winrate": 0,
-        "wins": 0,
-        "games": 1
+        "acs": 191,
+        "score": 4393,
+        "rounds": 23
       }
     },
     "agents": {

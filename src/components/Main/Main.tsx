@@ -1,4 +1,5 @@
 import * as React from "react";
+import { CSSTransition, SwitchTransition } from "react-transition-group";
 
 import { PLAYERS } from "config";
 
@@ -26,16 +27,34 @@ import style from "./Main.module.scss";
 
 export const Main = () => {
     const [currentPlayer, setCurrentPlayer] = React.useState(PLAYERS[0]);
+    const playerCardContainerRef = React.useRef(null);
 
     return (
         <div className={style.Main}>
             <div className={style.Left}>
-                <div className={style.PlayerCardContainer}>
-                    <PlayerCard
-                        player={currentPlayer}
-                        individualData={individualJson}
-                    />
-                </div>
+                <SwitchTransition>
+                    <CSSTransition
+                        key={currentPlayer}
+                        nodeRef={playerCardContainerRef}
+                        timeout={500}
+                        classNames={{
+                            enter: style.PlayerCardContainerEnter,
+                            enterActive: style.PlayerCardContainerEnterActive,
+                            exit: style.PlayerCardContainerExit,
+                            exitActive: style.PlayerCardContainerExitActive,
+                        }}
+                    >
+                        <div
+                            ref={playerCardContainerRef}
+                            className={style.PlayerCardContainer}
+                        >
+                            <PlayerCard
+                                player={currentPlayer}
+                                individualData={individualJson}
+                            />
+                        </div>
+                    </CSSTransition>
+                </SwitchTransition>
             </div>
             <div className={style.Right}>
                 <div className={style.HeaderContainer}>

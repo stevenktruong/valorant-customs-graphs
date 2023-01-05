@@ -1,4 +1,3 @@
-import { stringify } from "querystring";
 import * as React from "react";
 
 import { PLAYER_ROLE_COLORS } from "config";

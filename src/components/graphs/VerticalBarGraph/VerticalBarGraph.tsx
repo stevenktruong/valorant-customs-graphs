@@ -14,6 +14,8 @@ interface Props {
     }[];
     initialDrawDuration: number;
     transitionDuration: number;
+    percentage: boolean;
+    ticks: number[];
 }
 
 export const VerticalBarGraph = (props: Props) => {
@@ -25,7 +27,13 @@ export const VerticalBarGraph = (props: Props) => {
 
         const svg = d3.select(svgRef.current);
 
-        const { initialDrawDuration, transitionDuration, data } = props;
+        const {
+            data,
+            initialDrawDuration,
+            transitionDuration,
+            percentage,
+            ticks,
+        } = props;
 
         const { width, height } = dimensions;
 
@@ -34,6 +42,10 @@ export const VerticalBarGraph = (props: Props) => {
         const rightPadding = 0;
         const topPadding = 20;
         const labelVerticalPadding = 8;
+
+        // When to put text above or below the bar
+        // TODO: Pick these numbers more intelligently
+        const positionThreshold = percentage ? 90 : 400;
 
         // Shift up based on the length of the longest name
         svg.append("text")
@@ -63,7 +75,7 @@ export const VerticalBarGraph = (props: Props) => {
 
         const y = d3
             .scaleLinear()
-            .domain([0, 100])
+            .domain([0, d3.max(ticks)])
             .range([height - bottomPadding, topPadding]);
 
         // Set up axes
@@ -79,8 +91,8 @@ export const VerticalBarGraph = (props: Props) => {
                 .call(
                     d3
                         .axisRight(y)
-                        .tickValues([0, 50, 100])
-                        .tickFormat(val => `${val}%`)
+                        .tickValues(ticks)
+                        .tickFormat(val => `${val}` + (percentage ? "%" : ""))
                         .tickSize(width)
                 )
                 .call(g => g.select(".domain").remove())
@@ -134,6 +146,7 @@ export const VerticalBarGraph = (props: Props) => {
                     }
                 }
             );
+
         svg.selectAll(".y-axis")
             .data([{ dimensions }])
             .join(
@@ -154,19 +167,23 @@ export const VerticalBarGraph = (props: Props) => {
                         .attr("width", x.bandwidth())
                         .attr("height", 0);
                     bars.append("text")
-                        .text("0%")
+                        .text(percentage ? "0%" : "0")
                         .attr("fill", d =>
-                            d.value > 90 ? d.textColor : "#ffffff"
+                            d.value > positionThreshold
+                                ? d.textColor
+                                : "#ffffff"
                         )
                         .style("font-size", "10px")
                         .attr("text-anchor", "middle")
                         .attr("alignment-baseline", "central")
                         .attr("x", d => x(d.label))
-                        .attr("y", d => y(0))
+                        .attr("y", y(0))
                         .attr("dx", x.bandwidth() / 2)
                         .attr(
                             "dy",
-                            d => (d.value > 90 ? 1 : -1) * labelVerticalPadding
+                            d =>
+                                (d.value > positionThreshold ? 1 : -1) *
+                                labelVerticalPadding
                         )
                         .each(stash);
 
@@ -180,7 +197,8 @@ export const VerticalBarGraph = (props: Props) => {
                     draw.select("text")
                         .textTween(function (d) {
                             return t =>
-                                `${d3.interpolateRound(0, d.value)(t)}%`;
+                                `${d3.interpolateRound(0, d.value)(t)}` +
+                                (percentage ? "%" : "");
                         })
                         .attr("y", d => y(d.value));
                 },
@@ -199,21 +217,25 @@ export const VerticalBarGraph = (props: Props) => {
                     transition
                         .select("text")
                         .attr("fill", d =>
-                            d.value > 90 ? d.textColor : "#ffffff"
+                            d.value > positionThreshold
+                                ? d.textColor
+                                : "#ffffff"
                         )
                         .textTween(function (d) {
                             return t =>
                                 `${d3.interpolateRound(
                                     this.previousValue,
                                     d.value
-                                )(t)}%`;
+                                )(t)}` + (percentage ? "%" : "");
                         })
                         .attr("x", d => x(d.label))
                         .attr("y", d => y(d.value))
                         .attr("dx", x.bandwidth() / 2)
                         .attr(
                             "dy",
-                            d => (d.value > 90 ? 1 : -1) * labelVerticalPadding
+                            d =>
+                                (d.value > positionThreshold ? 1 : -1) *
+                                labelVerticalPadding
                         );
                     transition
                         .end()

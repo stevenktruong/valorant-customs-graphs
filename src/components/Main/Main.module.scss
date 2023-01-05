@@ -20,6 +20,24 @@
         top: 0;
     }
 
+    .PlayerCardContainerEnter {
+        opacity: 0;
+    }
+
+    .PlayerCardContainerEnterActive {
+        opacity: 1;
+        transition: opacity 0.5s ease;
+    }
+
+    .PlayerCardContainerExit {
+        opacity: 1;
+    }
+
+    .PlayerCardContainerExitActive {
+        opacity: 0;
+        transition: opacity 0.5s ease;
+    }
+
     .HeaderContainer {
         display: flex;
         position: sticky;

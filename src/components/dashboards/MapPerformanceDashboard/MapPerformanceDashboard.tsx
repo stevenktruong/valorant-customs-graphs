@@ -16,7 +16,7 @@ export const MapPerformanceDashboard = (props: Props) => {
     return (
         <div className={style.MapPerformanceDashboard}>
             <div className={style.CaptionContainer}>
-                <Caption title="Map Win Rate" description="Win rate per map" />
+                <Caption title="Map Performance" description="ACS per map" />
             </div>
             <VerticalBarGraph
                 data={Object.entries(props.individualData[props.player].maps)
@@ -27,12 +27,14 @@ export const MapPerformanceDashboard = (props: Props) => {
                         ]) => ({
                             label: map,
                             color: MAP_COLORS[map],
-                            value: playerMapStats.winrate || 0,
+                            value: playerMapStats.acs || 0,
                         })
                     )
                     .sort((a, b) => b.value - a.value)}
                 initialDrawDuration={1000}
                 transitionDuration={1000}
+                percentage={false}
+                ticks={[0, 100, 200, 300, 400]}
             />
         </div>
     );
