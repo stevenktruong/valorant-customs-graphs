@@ -2,28 +2,27 @@ import * as React from "react";
 
 import { PLAYERS } from "config";
 
-import { luminance } from "helpers";
-
 import Header from "components/Header";
 import PlayerCard from "components/PlayerCard";
 import AgentCountDashboard from "components/dashboards/AgentCountDashboard";
+import AssistsDashboard from "components/dashboards/AssistsDashboard";
 import LobbyWinRateDashboard from "components/dashboards/LobbyWinRateDashboard";
 import MapCountDashboard from "components/dashboards/MapCountDashboard";
+import MapPerformanceDashboard from "components/dashboards/MapPerformanceDashboard";
 import MatchupsDashboard from "components/dashboards/MatchupsDashboard";
 import RoleLeaderboardDashboard from "components/dashboards/RoleLeaderboardDashboard";
 import TeammatesSynergyDashboard from "components/dashboards/TeammatesSynergyDashboard";
 import WinRateOverTimeDashboard from "components/dashboards/WinRateOverTimeDashboard";
 
+import assistsGivenJson from "data/assists-given-per-standard-game.json";
+import assistsReceivedJson from "data/assists-received-per-standard-game.json";
 import matchupsJson from "data/easiest-matchups.json";
 import individualJson from "data/individual.json";
 import mapsJson from "data/maps.json";
-import rolesJson from "data/roles.json";
 import winrateOverTimeJson from "data/running-winrate-over-time.json";
 import teammatesSynergyJson from "data/teammate-synergy.json";
 
 import style from "./Main.module.scss";
-
-const rolesData: Record<string, number> = rolesJson;
 
 export const Main = () => {
     const [currentPlayer, setCurrentPlayer] = React.useState(PLAYERS[0]);
@@ -82,6 +81,19 @@ export const Main = () => {
                         <AgentCountDashboard
                             player={currentPlayer}
                             individualData={individualJson}
+                        />
+                    </div>
+                    <div className={style.MapPerformanceDashboardContainer}>
+                        <MapPerformanceDashboard
+                            player={currentPlayer}
+                            individualData={individualJson}
+                        />
+                    </div>
+                    <div className={style.AssistsDashboardContainer}>
+                        <AssistsDashboard
+                            player={currentPlayer}
+                            assistsGivenData={assistsGivenJson}
+                            assistsReceivedData={assistsReceivedJson}
                         />
                     </div>
                 </div>

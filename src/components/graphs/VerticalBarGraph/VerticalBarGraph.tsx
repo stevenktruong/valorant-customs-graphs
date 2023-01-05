@@ -217,7 +217,7 @@ export const VerticalBarGraph = (props: Props) => {
                         );
                     transition
                         .end()
-                        .then(() => update.select("text").call(stash))
+                        .then(() => update.select("text").each(stash))
                         .catch(() => {});
                 }
             );

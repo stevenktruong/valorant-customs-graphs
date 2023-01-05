@@ -1,0 +1,6 @@
+@use "styles/mixins";
+
+.MapPerformanceDashboard {
+    @include mixins.dashboard;
+    flex-direction: column;
+}

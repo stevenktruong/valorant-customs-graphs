@@ -65,7 +65,6 @@ const computeStratumLabelShifts = (
             return Math.pow(Math.max(box.x0 - center[0] - R, 0), 2);
         }
 
-        let distance;
         if (box.x0 >= center[0] && box.y1 <= center[1]) {
             // Box in quadrant 1
             return Math.pow(
@@ -314,8 +313,8 @@ export const StratifiedPieGraph = (props: Props) => {
         const radialTickLength = 5;
         const horizontalTickLength = 8;
 
-        const innerLabelFontSize = width > 600 ? "10px" : "8px";
-        const stratumLabelFontSize = width > 600 ? "18px" : "10px";
+        const innerLabelFontSize = width > 400 ? "10px" : "8px";
+        const stratumLabelFontSize = width > 400 ? "18px" : "10px";
 
         // Shift left based on the length of the longest name
         let longestLabelLength;
@@ -335,7 +334,7 @@ export const StratifiedPieGraph = (props: Props) => {
                 longestLabelLength = this.getComputedTextLength();
                 labelHeight = this.getBBox().height;
                 stratumLabelDistance =
-                    longestLabelLength * (width > 600 ? 0.75 : 0.5) +
+                    longestLabelLength * (width > 400 ? 0.75 : 0.5) +
                     radialPadding;
                 this.remove();
             });

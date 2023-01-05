@@ -87,6 +87,20 @@
         grid-row-end: 32;
     }
 
+    .MapPerformanceDashboardContainer {
+        grid-column-start: 6;
+        grid-column-end: -1;
+        grid-row-start: 21;
+        grid-row-end: 26;
+    }
+
+    .AssistsDashboardContainer{
+        grid-column-start: 6;
+        grid-column-end: -1;
+        grid-row-start: 26;
+        grid-row-end: 32;
+    }
+
     @media (max-width: breakpoints.$medium-break) {
         flex-direction: column;
 
@@ -108,13 +122,6 @@
         .PlayerCardContainer {
             position: relative;
             width: 100%;
-        }
-
-        .AgentCountDashboardContainer {
-            grid-column-start: 1;
-            grid-column-end: -1;
-            grid-row-start: 21;
-            grid-row-end: 32;
         }
     }
 
@@ -148,8 +155,16 @@
             flex: 1;
         }
 
+        .MapPerformanceDashboardContainer {
+            height: 300px;
+        }
+
         .AgentCountDashboardContainer {
             height: 400px;
+        }
+
+        .AssistsDashboardContainer{
+            height: 500px;
         }
     }
 }

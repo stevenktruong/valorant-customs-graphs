@@ -30,13 +30,13 @@ export const PlayerCard = (props: Props) => (
             </div>
             <div className={style.PlayerDescriptionEntry}>
                 {props.individualData[props.player].top_agents.map(
-                    (agentData: Record<string, string>) => (
+                    (agent: string) => (
                         <img
-                            src={`/agents/${agentData.agent
-                                .split("/")
-                                .join("")}.png`}
+                            // KAY/O -> KAYO
+                            src={`/agents/${agent.split("/").join("")}.png`}
+                            key={agent}
                         />
-                    ) // KAY/O -> KAYO
+                    )
                 )}
                 <h2>Top Agents</h2>
             </div>

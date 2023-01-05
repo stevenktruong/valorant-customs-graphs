@@ -1,0 +1,5 @@
+@use "styles/mixins";
+
+.GraphContainer {
+    @include mixins.graph-container;
+}

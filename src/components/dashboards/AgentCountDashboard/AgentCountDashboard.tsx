@@ -54,8 +54,8 @@ export const AgentCountDashboard = (props: Props) => {
         <div className={style.AgentCountDashboard}>
             <div className={style.CaptionContainer}>
                 <Caption
-                    title="Agent Counter"
-                    description="Agent pick frequency"
+                    title="Agent Select"
+                    description="Agent and role pick rates"
                 />
             </div>
             <StratifiedPieGraph
