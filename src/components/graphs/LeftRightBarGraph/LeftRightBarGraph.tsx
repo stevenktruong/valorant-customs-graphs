@@ -182,6 +182,8 @@ export const LeftRightBarGraph = (props: Props) => {
                         .attr("height", y.bandwidth() - strokeWidth);
                     transition
                         .select(".leftRect")
+                        .attr("fill", d => d.color)
+                        .attr("stroke", d => d.color)
                         .attr(
                             "fill-opacity",
                             highlightedSide === "left" ? 1 : 0
@@ -190,6 +192,8 @@ export const LeftRightBarGraph = (props: Props) => {
                         .attr("width", d => xLeft(0) - xLeft(d.leftValue));
                     transition
                         .select(".rightRect")
+                        .attr("fill", d => d.color)
+                        .attr("stroke", d => d.color)
                         .attr(
                             "fill-opacity",
                             highlightedSide === "right" ? 1 : 0

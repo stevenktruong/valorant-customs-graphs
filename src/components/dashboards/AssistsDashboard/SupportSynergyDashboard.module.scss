@@ -1,0 +1,41 @@
+@use "styles/breakpoints";
+@use "styles/colors";
+@use "styles/mixins";
+
+.SupportSynergyDashboard {
+    @include mixins.dashboard;
+
+    display: flex;
+    flex-direction: column;
+
+    .GraphAndSwitcherContainer {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+
+        .SwitcherContainer {
+            align-items: flex-end;
+            height: 40px;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+
+            button {
+                border: none;
+                color: white;
+                font-size: 12px;
+                background-color: #616161;
+                width: 200px;
+                height: 25px;
+                margin: 0 2px;
+                padding: 0px 20px;
+                transition: opacity 1s ease;
+                cursor: pointer;
+            }
+
+            .InactiveButton {
+                opacity: 25%;
+            }
+        }
+    }
+}

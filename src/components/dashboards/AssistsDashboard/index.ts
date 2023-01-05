@@ -1,3 +1,3 @@
-import { AssistsDashboard } from "./AssistsDashboard";
+import { SupportSynergyDashboard } from "./SupportSynergyDashboard";
 
-export default AssistsDashboard;
+export default SupportSynergyDashboard;
