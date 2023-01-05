@@ -51,8 +51,8 @@ export const AssistsDashboard = (props: Props) => {
         <div className={style.AssistsDashboard}>
             <div className={style.CaptionContainer}>
                 <Caption
-                    title="Top Performers by Role"
-                    description="Ranked by win rate, requiring a minimum 25% play rate for consideration"
+                    title="Support Synergy"
+                    description="Highest average assists from and for teammates per 25-round game"
                 />
             </div>
             <div className={style.GraphAndSwitcherContainer}>

@@ -18,7 +18,7 @@ export const WinRateOverTimeDashboard = (props: Props) => {
             <div className={style.CaptionContainer}>
                 <Caption
                     title="Win Rate Over Time"
-                    description="Individiual performance since October 2022"
+                    description="Individiual performance in a 60-day moving average"
                 />
             </div>
             <LineGraph

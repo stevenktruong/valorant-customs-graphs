@@ -16,7 +16,10 @@ export const MapPerformanceDashboard = (props: Props) => {
     return (
         <div className={style.MapPerformanceDashboard}>
             <div className={style.CaptionContainer}>
-                <Caption title="Map Performance" description="ACS per map" />
+                <Caption
+                    title="Map Performance"
+                    description="Average combat score per map"
+                />
             </div>
             <VerticalBarGraph
                 data={Object.entries(props.individualData[props.player].maps)
