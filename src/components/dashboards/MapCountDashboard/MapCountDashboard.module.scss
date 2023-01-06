@@ -3,8 +3,8 @@
 
 .MapCountDashboard {
     @include mixins.dashboard;
-
     flex-direction: row;
+
     @media (max-width: breakpoints.$large-break) {
         flex-direction: column;
     }

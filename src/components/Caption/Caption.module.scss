@@ -1,3 +1,5 @@
+@use "styles/fonts";
+
 .Caption {
     border-left: 4px solid #ffffff;
     text-align: left;
@@ -5,12 +7,12 @@
     margin-bottom: 15px;
 
     h2 {
-        font-size: 20px;
+        font-size: fonts.$header-size;
         line-height: 70%;
     }
 
     p {
         margin-top: 5px;
-        font-size: 12px;
+        font-size: fonts.$body-size;
     }
 }

@@ -1,9 +1,11 @@
 @use "styles/breakpoints";
+@use "styles/lengths";
 
 .PlayerCard {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    height: 100%;
+    align-items: flex-start;
     color: #ffffff;
 
     img {
@@ -17,57 +19,73 @@
     }
 
     .PlayerContainer {
-        padding: 25px;
-    }
-
-    .PlayerDescription {
+        position: sticky;
+        top: 0;
         display: flex;
         flex-direction: column;
-        border-left: 2px solid #ffffff;
-        padding-left: 20px;
-        margin-top: 20px;
-        width: 50%;
+        align-items: center;
+        width: 100%;
+        padding: 25px;
+        z-index: 1;
 
-        .PlayerDescriptionEntry {
-            margin: 4px 0;
+        .PlayerDescription {
+            display: flex;
+            flex-direction: column;
+            border-left: 2px solid #ffffff;
+            padding-left: 20px;
+            margin-top: 20px;
+            width: 50%;
 
-            p {
-                font-size: 16px;
-            }
+            .PlayerDescriptionEntry {
+                margin: 4px 0;
 
-            h2 {
-                color: #c8c8c8;
-                font-size: 10px;
-            }
+                p {
+                    font-size: 16px;
+                }
 
-            img {
-                margin: 0;
-                height: 21px;
-                width: auto;
+                h2 {
+                    color: #c8c8c8;
+                    font-size: 10px;
+                }
+
+                img {
+                    margin: 0;
+                    height: 21px;
+                    width: auto;
+                }
             }
         }
     }
 
     .FullBodyAgentImageContainer {
+        position: absolute;
+        clip-path: polygon(0 0,
+                400px 0,
+                400px 400vh,
+                0 400vh);
+
         img {
             position: absolute;
-            width: 200px;
-            height: auto;
+            width: auto;
+            height: 400px;
             opacity: 25%;
             pointer-events: none;
+            z-index: 0;
         }
 
         img:nth-child(1) {
-            right: 0;
+            left: 200px;
+            top: 400px;
         }
 
         img:nth-child(2) {
-            bottom: -500px;
             left: 0px;
+            top: 800px;
         }
 
         img:nth-child(3) {
-            bottom: -650px;
+            left: 200px;
+            top: 1200px;
         }
     }
 
@@ -79,9 +97,15 @@
             margin-top: 0;
         }
 
-        .PlayerDescription {
-            width: auto;
-            margin-left: 50px;
+        .PlayerContainer {
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+
+            .PlayerDescription {
+                width: auto;
+                margin-left: 50px;
+            }
         }
 
         .FullBodyAgentImageContainer {
@@ -97,10 +121,15 @@
             margin-top: 0;
         }
 
-        .PlayerDescription {
-            width: 80%;
-            margin: 0 auto;
-            margin-bottom: 25px;
+        .PlayerContainer {
+            flex-direction: column;
+            padding: 0;
+
+            .PlayerDescription {
+                width: 80%;
+                margin: 0 auto;
+                margin-top: 15px;
+            }
         }
     }
 }

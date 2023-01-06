@@ -1,3 +1,5 @@
+@use "styles/fonts";
+
 .Leaderboard {
     flex: 1;
     height: 100%;
@@ -10,7 +12,7 @@
     width: 100%;
     height: 100%;
     list-style-position: inside;
-    font-size: 12px;
+    font-size: fonts.$body-size;
 }
 
 .Leaderboard li {

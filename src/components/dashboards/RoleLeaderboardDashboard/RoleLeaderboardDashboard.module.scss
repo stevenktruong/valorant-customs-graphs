@@ -1,5 +1,6 @@
 @use "styles/breakpoints";
 @use "styles/colors";
+@use "styles/fonts";
 @use "styles/mixins";
 
 .RoleLeaderboardDashboard {
@@ -26,14 +27,17 @@
         margin-left: 24px;
         border-right: 1px solid white;
 
-        &:last-of-type { border-right: none; }
+        &:last-of-type {
+            border-right: none;
+        }
 
         h2 {
             height: 20%;
-            font-size: 16px;
+            font-size: fonts.$sub-header-size;
         }
 
-        h2, div {
+        h2,
+        div {
             z-index: 1;
         }
 

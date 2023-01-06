@@ -8,10 +8,8 @@ interface Props {
 }
 
 export const Caption = (props: Props) => (
-    <div className={style.CaptionContainer}>
-        <div className={style.Caption}>
-            <h2>{props.title}</h2>
-            {props.description ? <p>{props.description}</p> : null}
-        </div>
+    <div className={style.Caption}>
+        <h2>{props.title}</h2>
+        {props.description ? <p>{props.description}</p> : null}
     </div>
 );

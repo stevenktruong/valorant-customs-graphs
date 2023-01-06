@@ -1,4 +1,5 @@
 @use "styles/breakpoints";
+@use "styles/fonts";
 
 .Header {
     display: flex;
@@ -16,7 +17,7 @@
         }
 
         p {
-            font-size: 12px;
+            font-size: fonts.$body-size;
         }
     }
 
@@ -38,11 +39,11 @@
             flex: 2;
 
             h1 {
-                font-size: 20px;
+                font-size: fonts.$header-size;
             }
 
             p {
-                font-size: 12px;
+                font-size: fonts.$body-size;
             }
         }
 

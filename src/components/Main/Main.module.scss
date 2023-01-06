@@ -1,5 +1,7 @@
 @use "styles/breakpoints";
 @use "styles/colors";
+@use "styles/fonts";
+@use "styles/lengths";
 
 .Main {
     display: flex;
@@ -8,17 +10,16 @@
 
     .Left {
         background-color: colors.$playercard-color;
-        width: 400px;
+        width: lengths.$left-side;
     }
 
     .Right {
         flex: 1;
-        padding-right: 400px;
+        padding-right: lengths.$left-side;
     }
 
     .PlayerCardContainer {
-        position: sticky;
-        top: 0;
+        height: 100%;
     }
 
     .PlayerCardContainerEnter {
@@ -133,13 +134,17 @@
         .Footer {
             width: 100%;
             opacity: 50%;
-            font-size: 12px;
+            font-size: fonts.$body-size;
 
             p {
                 font-style: italic;
 
-                a, a:link, a:visited, a:hover, a:active {
-                        color: #ffffff;
+                a,
+                a:link,
+                a:visited,
+                a:hover,
+                a:active {
+                    color: #ffffff;
                 }
             }
         }
@@ -215,12 +220,11 @@
         }
 
         .AgentCountDashboardContainer {
-            height: 400px;
+            height: 350px;
         }
 
         .SupportSynergyDashboardContainer {
-            height: 400px;
+            height: 350px;
         }
     }
 }
-
