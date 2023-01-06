@@ -8,16 +8,6 @@
     align-items: flex-start;
     color: #ffffff;
 
-    img {
-        width: auto;
-        height: 250px;
-    }
-
-    h1 {
-        font-size: 32px;
-        text-align: center;
-    }
-
     .PlayerContainer {
         position: sticky;
         top: 0;
@@ -27,6 +17,18 @@
         width: 100%;
         padding: 25px;
         z-index: 1;
+
+        .PlayerAvatarContainer {
+            img {
+                width: auto;
+                height: 250px;
+            }
+
+            h1 {
+                font-size: 32px;
+                text-align: center;
+            }
+        }
 
         .PlayerDescription {
             display: flex;
@@ -117,13 +119,15 @@
         flex-direction: column;
         justify-content: center;
 
-        img {
-            margin-top: 0;
-        }
-
         .PlayerContainer {
             flex-direction: column;
             padding: 0;
+
+            .PlayerAvatarContainer {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
 
             .PlayerDescription {
                 width: 80%;

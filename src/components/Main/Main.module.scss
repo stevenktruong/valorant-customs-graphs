@@ -162,7 +162,7 @@
 
         .Left {
             width: 100%;
-            padding-top: 100px;
+            padding-top: lengths.$header-height;
         }
 
         .Right {
@@ -171,7 +171,7 @@
 
         .HeaderContainer {
             width: 100vw;
-            height: 100px;
+            height: lengths.$header-height;
             position: fixed;
         }
 
@@ -186,6 +186,10 @@
     }
 
     @media (max-width: breakpoints.$mobile-break) {
+        .PlayerCardContainer {
+            background-color: colors.$background-color;
+        }
+
         .Stats {
             display: flex;
             flex-direction: column;
