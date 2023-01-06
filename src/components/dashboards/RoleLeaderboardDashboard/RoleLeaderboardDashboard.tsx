@@ -48,11 +48,12 @@ export const RoleLeaderboardDashboard = (props: Props) => (
                                         0.25
                             )
                             .map(([name, playerStats]) => ({
-                                name,
-                                winrate: playerStats.roles[d.role].winrate,
+                                label: name,
+                                score: Number(
+                                    playerStats.roles[d.role].winrate
+                                ),
                             }))
-                            .sort((a, b) => b.winrate - a.winrate)
-                            .map(d => d.name)
+                            .sort((a, b) => b.score - a.score)
                             .slice(0, 5)}
                     />
                 </div>

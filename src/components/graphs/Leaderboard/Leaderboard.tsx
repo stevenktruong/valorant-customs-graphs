@@ -3,14 +3,16 @@ import * as React from "react";
 import style from "./Leaderboard.module.scss";
 
 interface Props {
-    data: string[];
+    data: { label: string; score: number }[];
 }
 
 export const Leaderboard = (props: Props) => (
     <div className={style.Leaderboard}>
         <ol>
-            {props.data.map(label => (
-                <li key={label}>{label}</li>
+            {props.data.map(d => (
+                <li key={d.label}>
+                    {d.label} - {d.score}%
+                </li>
             ))}
         </ol>
     </div>

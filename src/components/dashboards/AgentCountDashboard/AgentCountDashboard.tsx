@@ -40,9 +40,7 @@ export const AgentCountDashboard = (props: Props) => {
         .map(([agent, playerAgentStats]: [string, Record<string, any>]) => ({
             label: agent,
             parent: String(playerAgentStats.role),
-            color: PLAYER_ROLE_COLORS[props.player][
-                orderedRoles[playerAgentStats.role]
-            ],
+            color: playerColors[orderedRoles[playerAgentStats.role]],
             count: Number(playerAgentStats.games),
         }))
         // d3.stratify() requires entries for parents and the root
