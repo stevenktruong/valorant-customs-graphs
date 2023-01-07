@@ -45,7 +45,7 @@ export const LeftRightBarGraph = (props: Props) => {
 
         // Shift left based on the length of the longest name
         svg.append("text")
-            .attr("font-size", "10px")
+            .attr("font-size", "11px")
             .attr("opacity", 0)
             .text(
                 `${data.reduce(
@@ -145,7 +145,7 @@ export const LeftRightBarGraph = (props: Props) => {
                         .attr("opacity", highlightedSide === "right" ? 1 : 0);
                     bars.selectAll("text")
                         .attr("fill", "#ffffff")
-                        .attr("font-size", "10px")
+                        .attr("font-size", "11px")
                         .attr("alignment-baseline", "central")
                         .attr("y", d => y(d.order))
                         .attr("dy", y.bandwidth() / 2);

@@ -36,7 +36,7 @@ export const HorizontalBarGraph = (props: Props) => {
 
         // Shift left based on the length of the longest name
         svg.append("text")
-            .attr("font-size", "10px")
+            .attr("font-size", "11px")
             .attr("opacity", 0)
             .text(
                 data.reduce(
@@ -93,7 +93,13 @@ export const HorizontalBarGraph = (props: Props) => {
             g
                 .attr("transform", `translate(${50}, 0)`)
                 .call(d3.axisLeft(y).tickSize(0))
-                .call(g => g.select(".domain").remove());
+                .call(g => g.select(".domain").remove())
+                .call(g =>
+                    g
+                        .selectAll(".tick text")
+                        .attr("font-size", "11px")
+                        .attr("x", 0)
+                );
 
         const stash = function (d) {
             this.previousValue = d.value;
@@ -160,7 +166,7 @@ export const HorizontalBarGraph = (props: Props) => {
                         .attr("fill", d =>
                             d.value > 90 ? d.textColor : "#ffffff"
                         )
-                        .style("font-size", "10px")
+                        .style("font-size", "11px")
                         .attr("alignment-baseline", "central")
                         .attr("x", x(0))
                         .attr("y", d => y(d.label))

@@ -39,7 +39,7 @@ export const PieGraph = (props: Props) => {
         let longestLabelLength;
         let labelHeight;
         svg.append("text")
-            .attr("font-size", "10px")
+            .attr("font-size", "11px")
             .attr("opacity", 0)
             .text(
                 `${data.reduce(
@@ -163,7 +163,7 @@ export const PieGraph = (props: Props) => {
                         .append("text")
                         .attr("fill", "#ffffff")
                         .attr("opacity", 0)
-                        .attr("font-size", "10px")
+                        .attr("font-size", "11px")
                         .text(label)
                         .attr("alignment-baseline", "central")
                         .attr("text-anchor", d =>

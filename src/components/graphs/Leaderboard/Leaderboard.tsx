@@ -9,9 +9,12 @@ interface Props {
 export const Leaderboard = (props: Props) => (
     <div className={style.Leaderboard}>
         <ol>
-            {props.data.map(d => (
+            {props.data.map((d, i) => (
                 <li key={d.label}>
-                    {d.label} - {d.score}%
+                    <span>
+                        {i + 1}. {d.label}
+                    </span>
+                    <span>{d.score}%</span>
                 </li>
             ))}
         </ol>

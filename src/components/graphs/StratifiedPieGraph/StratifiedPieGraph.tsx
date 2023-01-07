@@ -313,8 +313,8 @@ export const StratifiedPieGraph = (props: Props) => {
         const radialTickLength = 5;
         const horizontalTickLength = 8;
 
-        const innerLabelFontSize = width > 400 ? "10px" : "8px";
-        const stratumLabelFontSize = width > 400 ? "18px" : "10px";
+        const innerLabelFontSize = width > 400 ? "11px" : "8px";
+        const stratumLabelFontSize = width > 400 ? "18px" : "11px";
 
         // Shift left based on the length of the longest name
         let longestLabelLength;

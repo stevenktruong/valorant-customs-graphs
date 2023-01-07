@@ -94,6 +94,7 @@ export const Main = () => {
                     </div>
                     <div className={style.RoleLeaderboardDashboardContainer}>
                         <RoleLeaderboardDashboard
+                            player={currentPlayer}
                             individualData={individualJson}
                         />
                     </div>

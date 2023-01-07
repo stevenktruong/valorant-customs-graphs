@@ -40,7 +40,7 @@ export const LineGraph = (props: Props) => {
         const labelPadding = 4;
 
         svg.append("text")
-            .attr("font-size", "10px")
+            .attr("font-size", "11px")
             .attr("opacity", 0)
             .text("100%")
             .each(function () {
@@ -50,7 +50,7 @@ export const LineGraph = (props: Props) => {
             });
 
         svg.append("text")
-            .attr("font-size", "10px")
+            .attr("font-size", "11px")
             .attr("opacity", 0)
             .text("12/25")
             .each(function () {
@@ -135,7 +135,11 @@ export const LineGraph = (props: Props) => {
                         .attr("stroke-dasharray", "2")
                 )
                 .call(g =>
-                    g.selectAll(".tick text").attr("x", 0).attr("dy", -4)
+                    g
+                        .selectAll(".tick text")
+                        .attr("font-size", "11px")
+                        .attr("x", 0)
+                        .attr("dy", -4)
                 );
 
         const stash = function (d) {
@@ -256,7 +260,7 @@ export const LineGraph = (props: Props) => {
                             i === data.length - 1 ? "start" : "middle"
                         )
                         .attr("fill", "#ffffff")
-                        .style("font-size", "10px")
+                        .style("font-size", "11px")
                         .text(d => `${d.value}%`)
                         .attr("clip-path", "url(#clip)")
                         .each(stash);
