@@ -8,7 +8,7 @@ import HorizontalBarGraph from "components/graphs/HorizontalBarGraph";
 import style from "./LobbyWinRateDashboard.module.scss";
 
 interface Props {
-    individualData: Record<string, any>;
+    recentLobbyWinRates: Record<string, any>;
 }
 
 export const LobbyWinRateDashboard = (props: Props) => {
@@ -17,11 +17,11 @@ export const LobbyWinRateDashboard = (props: Props) => {
             <div className={style.CaptionContainer}>
                 <Caption
                     title="Lobby Win Rates"
-                    description="Lifetime performances"
+                    description="Performance over the last 90 days"
                 />
             </div>
             <HorizontalBarGraph
-                data={Object.entries(props.individualData)
+                data={Object.entries(props.recentLobbyWinRates)
                     .map(([name, playerStats]) => ({
                         label: name,
                         color: PLAYER_COLORS[name],

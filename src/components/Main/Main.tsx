@@ -21,6 +21,7 @@ import matchupsJson from "data/easiest-matchups.json";
 import individualJson from "data/individual.json";
 import mapsJson from "data/maps.json";
 import metaJson from "data/meta.json";
+import recentLobbyWinRatesJson from "data/recent-lobby-win-rates.json";
 import winrateOverTimeJson from "data/running-winrate-over-time.json";
 import teammatesSynergyJson from "data/teammate-synergy.json";
 
@@ -68,7 +69,7 @@ export const Main = () => {
                 <div className={style.Stats}>
                     <div className={style.LobbyWinRateDashboardContainer}>
                         <LobbyWinRateDashboard
-                            individualData={individualJson}
+                            recentLobbyWinRates={recentLobbyWinRatesJson}
                         />
                     </div>
                     <div className={style.MapCountDashboardContainer}>
