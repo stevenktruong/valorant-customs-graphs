@@ -45,10 +45,14 @@
             display: block;
             position: absolute;
             top: 0px;
-            right: 20px;
+            right: 60px;
             width: 80px;
-            fill: colors.$background-color;
+            opacity: 25%;
             z-index: 0;
+
+            svg {
+                transition: fill 1s;
+            }
         }
     }
 
