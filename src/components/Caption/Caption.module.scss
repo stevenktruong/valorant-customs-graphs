@@ -8,12 +8,15 @@
 
     h2 {
         font-size: fonts.$header-size;
+        font-weight: 800;
         line-height: 1;
         margin-top: 0;
     }
 
-    p {
+    h3 {
         margin-top: 5px;
-        font-size: fonts.$body-size;
+        font-size: fonts.$sub-header-size;
+        font-weight: 100;
+        color: #c7c7c7;
     }
 }

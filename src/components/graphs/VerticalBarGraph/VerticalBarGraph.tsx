@@ -99,12 +99,13 @@ export const VerticalBarGraph = (props: Props) => {
                 .call(g =>
                     g
                         .selectAll(".tick line")
-                        .attr("stroke-opacity", 0.5)
+                        .attr("stroke", "#646464")
                         .attr("stroke-dasharray", "2")
                 )
                 .call(g =>
                     g
                         .selectAll(".tick text")
+                        .attr("fill", "#646464")
                         .attr("font-size", "11px")
                         .attr("x", 0)
                         .attr("dy", -4)

@@ -670,6 +670,7 @@ export const StratifiedPieGraph = (props: Props) => {
                         .attr("fill", d => d.data.color)
                         .attr("opacity", 0)
                         .attr("font-size", stratumLabelFontSize)
+                        .attr("font-weight", "bold")
                         .text(percentage ? "0%" : "0")
                         .attr("alignment-baseline", "central")
                         .attr("text-anchor", d =>
@@ -759,6 +760,7 @@ export const StratifiedPieGraph = (props: Props) => {
                         .filter(d => d.depth === 1)
                         .select("text")
                         .attr("font-size", stratumLabelFontSize)
+                        .attr("font-weight", "bold")
                         .attr("text-anchor", d =>
                             direction(d) > 0 ? "start" : "end"
                         );

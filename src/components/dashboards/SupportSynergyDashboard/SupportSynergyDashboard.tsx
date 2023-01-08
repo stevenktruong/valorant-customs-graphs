@@ -52,7 +52,7 @@ export const SupportSynergyDashboard = (props: Props) => {
             <div className={style.CaptionContainer}>
                 <Caption
                     title="Support Synergy"
-                    description="Highest average assists from and for teammates per 25-round game"
+                    description="Highest average assists from and for teammates per standard game"
                 />
             </div>
             <div className={style.GraphAndSwitcherContainer}>

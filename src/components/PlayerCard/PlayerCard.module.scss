@@ -2,19 +2,22 @@
 @use "styles/lengths";
 
 .PlayerCard {
-    display: flex;
-    flex-direction: column;
+    display: grid;
     height: 100%;
-    color: #ffffff;
 
     .PlayerContainer {
+        grid-area: 1 / 1 / 1 / 1;
         position: sticky;
         top: 0;
         display: flex;
         flex-direction: column;
+        // height: 50vh;
+        // justify-content: flex-end;
+        color: #ffffff;
         align-items: center;
         width: 100%;
-        padding: 25px;
+        padding: 0 25px;
+        margin-top: 80px;
         z-index: 1;
 
         .PlayerAvatarContainer {
@@ -64,7 +67,8 @@
     }
 
     .FullBodyAgentImageContainer {
-        position: absolute;
+        position: relative;
+        grid-area: 1 / 1 / 1 / 1;
         clip-path: polygon(0 0,
                 400px 0,
                 400px 400vh,
@@ -73,7 +77,7 @@
         img {
             position: absolute;
             width: auto;
-            height: 400px;
+            height: 450px;
             opacity: 25%;
             pointer-events: none;
             z-index: 0;
@@ -81,17 +85,17 @@
 
         img:nth-child(1) {
             left: 200px;
-            top: 400px;
+            bottom: 1000px;
         }
 
         img:nth-child(2) {
             left: 0px;
-            top: 800px;
+            bottom: 500px;
         }
 
         img:nth-child(3) {
             left: 200px;
-            top: 1200px;
+            bottom: 0;
         }
     }
 
@@ -126,6 +130,8 @@
         .PlayerContainer {
             flex-direction: column;
             padding: 0;
+            margin-top: 0;
+            margin-bottom: 25px;
 
             .PlayerAvatarContainer {
                 display: flex;

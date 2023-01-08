@@ -10,6 +10,6 @@ interface Props {
 export const Caption = (props: Props) => (
     <div className={style.Caption}>
         <h2>{props.title}</h2>
-        {props.description ? <p>{props.description}</p> : null}
+        {props.description ? <h3>{props.description}</h3> : null}
     </div>
 );

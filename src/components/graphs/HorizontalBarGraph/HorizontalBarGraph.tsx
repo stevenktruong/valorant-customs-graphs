@@ -78,7 +78,7 @@ export const HorizontalBarGraph = (props: Props) => {
                 .call(g =>
                     g
                         .selectAll(".tick line")
-                        .attr("stroke-opacity", 0.5)
+                        .attr("stroke", "#646464")
                         .attr("stroke-dasharray", "2")
                 )
                 .call(g =>
@@ -86,7 +86,7 @@ export const HorizontalBarGraph = (props: Props) => {
                         .selectAll(".tick text")
                         .attr("y", 0)
                         .attr("dy", 16)
-                        .attr("fill", "#c8c8c8")
+                        .attr("fill", "#646464")
                 );
 
         const yAxis = g =>

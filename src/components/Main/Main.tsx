@@ -62,7 +62,7 @@ export const Main = () => {
                 <div className={style.HeaderContainer}>
                     <Header
                         title="VALORANT Customs"
-                        description="Statistics tracking of DARWIN Discord custom games - starting October 2022"
+                        description="Statistics tracking of DARWIN Discord custom games"
                         setCurrentPlayer={setCurrentPlayer}
                     />
                 </div>
@@ -118,23 +118,26 @@ export const Main = () => {
                             assistsReceivedData={assistsReceivedJson}
                         />
                     </div>
-                    <div className={style.FooterContainer}>
-                        <div className={style.Footer}>
-                            <p>
-                                Last updated: {new Date().toLocaleDateString()}{" "}
-                                (
-                                <a
-                                    href={
-                                        metaJson["most_recent_url"].split(
-                                            "?"
-                                        )[0]
-                                    }
-                                >
-                                    most recent game included
-                                </a>
-                                )
-                            </p>
-                        </div>
+                </div>
+                <div className={style.FooterContainer}>
+                    <div className={style.Footer}>
+                        <p>
+                            Starting from 10/12/2022.
+                        </p>
+                        <p>
+                            Last updated: {new Date().toLocaleDateString()}{" "}
+                            (
+                            <a
+                                href={
+                                    metaJson["most_recent_url"].split(
+                                        "?"
+                                    )[0]
+                                }
+                            >
+                                most recent game included
+                            </a>
+                            )
+                        </p>
                     </div>
                 </div>
             </div>
