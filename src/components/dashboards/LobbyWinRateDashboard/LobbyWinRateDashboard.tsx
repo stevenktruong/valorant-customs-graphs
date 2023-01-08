@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { PLAYER_COLORS } from "config";
+import { PLAYERS, PLAYER_COLORS } from "config";
 
 import Caption from "components/Caption";
 import HorizontalBarGraph from "components/graphs/HorizontalBarGraph";
@@ -30,6 +30,7 @@ export const LobbyWinRateDashboard = (props: Props) => {
                     .sort((a, b) => a.value - b.value)}
                 initialDrawDuration={1000}
                 transitionDuration={1000}
+                labels={PLAYERS}
             />
         </div>
     );

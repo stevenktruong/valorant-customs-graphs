@@ -12,6 +12,7 @@ interface Props {
         value: number;
         color: string;
     }[];
+    labels: string[];
     initialDrawDuration: number;
     transitionDuration: number;
 }
@@ -25,7 +26,7 @@ export const HorizontalBarGraph = (props: Props) => {
 
         const svg = d3.select(svgRef.current);
 
-        const { initialDrawDuration, transitionDuration, data } = props;
+        const { initialDrawDuration, transitionDuration, data, labels } = props;
 
         const { width, height } = dimensions;
 
@@ -39,15 +40,14 @@ export const HorizontalBarGraph = (props: Props) => {
             .attr("font-size", "11px")
             .attr("opacity", 0)
             .text(
-                data.reduce(
-                    (acc, curr) =>
-                        curr.label.length > acc.length ? curr.label : acc,
-                    data[0].label
+                labels.reduce((acc, curr) =>
+                    curr.length > acc.length ? curr : acc
                 )
             )
             .each(function () {
                 leftPadding =
-                    this.getComputedTextLength() + labelHorizontalPadding;
+                    this.getComputedTextLength() + 2 * labelHorizontalPadding;
+                // Times 2 because the computed text length is a little too small
                 this.remove();
             });
 
@@ -91,7 +91,7 @@ export const HorizontalBarGraph = (props: Props) => {
 
         const yAxis = g =>
             g
-                .attr("transform", `translate(${50}, 0)`)
+                .attr("transform", `translate(${leftPadding}, 0)`)
                 .call(d3.axisLeft(y).tickSize(0))
                 .call(g => g.select(".domain").remove())
                 .call(g =>
@@ -99,6 +99,7 @@ export const HorizontalBarGraph = (props: Props) => {
                         .selectAll(".tick text")
                         .attr("font-size", "11px")
                         .attr("x", 0)
+                        .attr("dx", -labelHorizontalPadding)
                 );
 
         const stash = function (d) {

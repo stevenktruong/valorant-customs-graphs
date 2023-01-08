@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { PLAYER_COLORS } from "config";
+import { PLAYERS, PLAYER_COLORS } from "config";
 
 import { luminance } from "helpers";
 
@@ -38,6 +38,7 @@ export const MatchupsDashboard = (props: Props) => {
                     .sort((a, b) => b.value - a.value)}
                 initialDrawDuration={1000}
                 transitionDuration={1000}
+                labels={PLAYERS}
             />
         </div>
     );
