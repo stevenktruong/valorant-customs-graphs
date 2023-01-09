@@ -35,9 +35,8 @@ export const SupportSynergyDashboard = (props: Props) => {
             props.assistsGivenData[props.player][i].rounds >= 100
         );
     }).forEach((playerName, i) => {
-        if (playerName === props.player) return;
         data.push({
-            label: playerName,
+            label: props.assistsReceivedData[props.player][i].assistant_name,
             leftValue: Number(
                 props.assistsReceivedData[props.player][i]
                     .assists_per_standard_game
