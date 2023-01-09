@@ -114,26 +114,19 @@ export const Main = () => {
                     <div className={style.SupportSynergyDashboardContainer}>
                         <SupportSynergyDashboard
                             player={currentPlayer}
-                            assistsGivenData={assistsGivenJson}
+                            individualData={individualJson}
                             assistsReceivedData={assistsReceivedJson}
+                            assistsGivenData={assistsGivenJson}
+                            nBars={7}
                         />
                     </div>
                 </div>
                 <div className={style.FooterContainer}>
                     <div className={style.Footer}>
+                        <p>Starting from 10/12/2022.</p>
                         <p>
-                            Starting from 10/12/2022.
-                        </p>
-                        <p>
-                            Last updated: {new Date().toLocaleDateString()}{" "}
-                            (
-                            <a
-                                href={
-                                    metaJson["most_recent_url"].split(
-                                        "?"
-                                    )[0]
-                                }
-                            >
+                            Last updated: {new Date().toLocaleDateString()} (
+                            <a href={metaJson["most_recent_url"].split("?")[0]}>
                                 most recent game included
                             </a>
                             )

@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { PLAYER_COLORS } from "config";
+import { PLAYERS, PLAYER_COLORS } from "config";
 
 import Caption from "components/Caption";
 import LeftRightBarGraph from "components/graphs/LeftRightBarGraph";
@@ -9,43 +9,67 @@ import style from "./SupportSynergyDashboard.module.scss";
 
 interface Props {
     player: string;
-    assistsGivenData: Record<string, any>;
+    individualData: Record<string, any>;
     assistsReceivedData: Record<string, any>;
+    assistsGivenData: Record<string, any>;
+    nBars: number;
 }
 
 export const SupportSynergyDashboard = (props: Props) => {
     const [currentSortSide, setSortSide] = React.useState("left");
 
     const data: {
-        label: any;
+        label?: string;
         leftValue: any;
         rightValue: any;
         color: string;
         order: number;
     }[] = [];
 
-    props.assistsReceivedData[props.player].forEach(
-        (assistsReceivedData: Record<string, any>, i: number) => {
-            if (assistsReceivedData.assistant_name === props.player) return;
-            data.push({
-                label: assistsReceivedData.assistant_name,
-                leftValue: Number(
-                    assistsReceivedData.assists_per_standard_game
-                ),
-                rightValue: Number(
-                    props.assistsGivenData[props.player][i]
-                        .assists_per_standard_game
-                ),
-                color: PLAYER_COLORS[assistsReceivedData.assistant_name],
-                order: 0,
-            });
-        }
-    );
+    PLAYERS.filter((playerName, i) => {
+        if (props.individualData[props.player].games < 20) return true;
+
+        // For players with enough games, filter out players with too few rounds
+        return (
+            props.assistsReceivedData[props.player][i].rounds >= 100 &&
+            props.assistsGivenData[props.player][i].rounds >= 100
+        );
+    }).forEach((playerName, i) => {
+        if (playerName === props.player) return;
+        data.push({
+            label: playerName,
+            leftValue: Number(
+                props.assistsReceivedData[props.player][i]
+                    .assists_per_standard_game
+            ),
+            rightValue: Number(
+                props.assistsGivenData[props.player][i]
+                    .assists_per_standard_game
+            ),
+            color: PLAYER_COLORS[
+                props.assistsReceivedData[props.player][i].assistant_name
+            ],
+            order: 0,
+        });
+    });
+
+    // Add filler values to get a total of nBars bars
+    for (let i = data.length; i < props.nBars; i++) {
+        data.push({
+            label: undefined,
+            leftValue: 0,
+            rightValue: 0,
+            color: "",
+            order: 0,
+        });
+    }
 
     if (currentSortSide === "left")
         data.sort((a, b) => a.leftValue - b.leftValue);
     else data.sort((a, b) => a.rightValue - b.rightValue);
-    data.forEach((d, i) => (d.order = i));
+    data.forEach((d, i) => (d.order = data.length - i));
+
+    console.table(data);
 
     return (
         <div className={style.SupportSynergyDashboard}>

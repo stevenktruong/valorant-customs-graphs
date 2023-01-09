@@ -8,7 +8,7 @@ import style from "./LeftRightBarGraph.module.scss";
 
 interface Props {
     data: {
-        label: string;
+        label?: string;
         leftValue: number;
         rightValue: number;
         color: string;
@@ -113,6 +113,7 @@ export const LeftRightBarGraph = (props: Props) => {
                         .attr("y", d => y(d.order) + strokeWidth / 2)
                         .attr("width", 0)
                         .attr("height", y.bandwidth() - strokeWidth);
+                    bars.selectAll("text").attr("opacity", d => d.label);
                     const leftText = bars
                         .append("text")
                         .attr("class", "leftText")
@@ -204,6 +205,7 @@ export const LeftRightBarGraph = (props: Props) => {
                         .selectAll("text")
                         .attr("y", d => y(d.order))
                         .attr("dy", y.bandwidth() / 2);
+                    transition.selectAll("text").attr("opacity", d => d.label);
                     const leftText = transition.select(".leftText");
                     leftText
                         .attr("x", d => xLeft(d.leftValue))
