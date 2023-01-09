@@ -102,12 +102,14 @@
     @media (max-width: breakpoints.$medium-break) {
         flex-direction: row;
         justify-content: center;
+        align-items: center;
 
         img {
             margin-top: 0;
         }
 
         .PlayerContainer {
+            margin: 25px 0;
             flex-direction: row;
             align-items: center;
             justify-content: center;
@@ -130,8 +132,7 @@
         .PlayerContainer {
             flex-direction: column;
             padding: 0;
-            margin-top: 0;
-            margin-bottom: 25px;
+            margin: 25px 0;
 
             .PlayerAvatarContainer {
                 display: flex;
