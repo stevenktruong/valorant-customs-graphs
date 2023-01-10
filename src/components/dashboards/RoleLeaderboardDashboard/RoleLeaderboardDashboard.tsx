@@ -5,10 +5,12 @@ import { PLAYER_COLORS } from "config";
 import Caption from "components/Caption";
 import Leaderboard from "components/graphs/Leaderboard";
 
-import { ReactComponent as ControllerIcon } from "assets/agent-classes/controller.svg";
-import { ReactComponent as DuelistIcon } from "assets/agent-classes/duelist.svg";
-import { ReactComponent as InitiatorIcon } from "assets/agent-classes/initiator.svg";
-import { ReactComponent as SentinelIcon } from "assets/agent-classes/sentinel.svg";
+import {
+    ControllerIcon,
+    DuelistIcon,
+    InitiatorIcon,
+    SentinelIcon,
+} from "./Icons";
 
 import style from "./RoleLeaderboardDashboard.module.scss";
 
@@ -39,7 +41,7 @@ export const RoleLeaderboardDashboard = (props: Props) => (
                 >
                     <h2>{d.role}s</h2>
                     <div className={style.IconContainer}>
-                        <d.Icon fill={PLAYER_COLORS[props.player]} id="icon" />
+                        <d.Icon fill={PLAYER_COLORS[props.player]} />
                     </div>
                     <Leaderboard
                         data={Object.entries(props.individualData)

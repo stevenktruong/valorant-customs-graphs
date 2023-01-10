@@ -5,7 +5,7 @@ module.exports = {
     module: {
         loaders: [
             // Typescript
-            { test: /\.tsx?$/, loader: "ts-loader" },
+            { test: /\.tsx?$/, loader: "ts-loader" }
         ],
     },
 };

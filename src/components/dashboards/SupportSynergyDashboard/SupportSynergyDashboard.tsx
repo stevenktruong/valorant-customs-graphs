@@ -68,8 +68,6 @@ export const SupportSynergyDashboard = (props: Props) => {
     else data.sort((a, b) => a.rightValue - b.rightValue);
     data.forEach((d, i) => (d.order = data.length - i));
 
-    console.table(data);
-
     return (
         <div className={style.SupportSynergyDashboard}>
             <div className={style.CaptionContainer}>

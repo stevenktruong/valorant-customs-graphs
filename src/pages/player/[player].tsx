@@ -1,4 +1,6 @@
 import * as React from "react";
+import { useRouter } from "next/router";
+import { GetStaticPaths, GetStaticProps } from "next";
 import { CSSTransition, SwitchTransition } from "react-transition-group";
 
 import { PLAYERS } from "config";
@@ -15,20 +17,46 @@ import SupportSynergyDashboard from "components/dashboards/SupportSynergyDashboa
 import TeammatesSynergyDashboard from "components/dashboards/TeammatesSynergyDashboard";
 import WinRateOverTimeDashboard from "components/dashboards/WinRateOverTimeDashboard";
 
-import assistsGivenJson from "data/assists-given-per-standard-game.json";
-import assistsReceivedJson from "data/assists-received-per-standard-game.json";
-import matchupsJson from "data/easiest-matchups.json";
-import individualJson from "data/individual.json";
-import mapsJson from "data/maps.json";
-import metaJson from "data/meta.json";
-import recentLobbyWinRatesJson from "data/recent-lobby-win-rates.json";
-import winrateOverTimeJson from "data/running-winrate-over-time.json";
-import teammatesSynergyJson from "data/teammate-synergy.json";
+import style from "./[player].module.scss";
+import { ParsedUrlQuery } from "querystring";
 
-import style from "./Main.module.scss";
+interface Props {
+    assistsGivenJson: Record<string, any>;
+    assistsReceivedJson: Record<string, any>;
+    matchupsJson: Record<string, any>;
+    individualJson: Record<string, any>;
+    mapsJson: Record<string, any>;
+    metaJson: Record<string, any>;
+    recentLobbyWinRatesJson: Record<string, any>;
+    winrateOverTimeJson: Record<string, any>[];
+    teammatesSynergyJson: Record<string, any>;
+}
 
-export const Main = () => {
-    const [currentPlayer, setCurrentPlayer] = React.useState(PLAYERS[0]);
+interface Params extends ParsedUrlQuery {
+    player: string;
+}
+
+const Index = (props: Props) => {
+    const {
+        assistsGivenJson,
+        assistsReceivedJson,
+        matchupsJson,
+        individualJson,
+        mapsJson,
+        metaJson,
+        recentLobbyWinRatesJson,
+        winrateOverTimeJson,
+        teammatesSynergyJson,
+    } = props;
+
+    const router = useRouter();
+    let { player } = router.query as Params;
+
+    if (!PLAYERS.includes(player) || !player) {
+        player = PLAYERS[0];
+    }
+
+    const [currentPlayer, setCurrentPlayer] = React.useState(player);
     const playerCardContainerRef = React.useRef(null);
 
     return (
@@ -123,9 +151,9 @@ export const Main = () => {
                 </div>
                 <div className={style.FooterContainer}>
                     <div className={style.Footer}>
-                        <p>Starting from 10/12/2022.</p>
                         <p>
-                            Last updated: {new Date().toLocaleDateString()} (
+                            Starting from 10/12/2022. Last updated:{" "}
+                            {new Date().toLocaleDateString()} (
                             <a href={metaJson["most_recent_url"].split("?")[0]}>
                                 most recent game included
                             </a>
@@ -137,3 +165,30 @@ export const Main = () => {
         </div>
     );
 };
+
+export const getStaticPaths: GetStaticPaths<Params> = async () => {
+    return {
+        paths: PLAYERS.map(player => ({
+            params: { player },
+        })),
+        fallback: false,
+    };
+};
+
+export const getStaticProps: GetStaticProps<Props> = async () => {
+    return {
+        props: {
+            assistsGivenJson: require("data/assists-given-per-standard-game.json"),
+            assistsReceivedJson: require("data/assists-received-per-standard-game.json"),
+            matchupsJson: require("data/easiest-matchups.json"),
+            individualJson: require("data/individual.json"),
+            mapsJson: require("data/maps.json"),
+            metaJson: require("data/meta.json"),
+            recentLobbyWinRatesJson: require("data/recent-lobby-win-rates.json"),
+            winrateOverTimeJson: require("data/running-winrate-over-time.json"),
+            teammatesSynergyJson: require("data/teammate-synergy.json"),
+        },
+    };
+};
+
+export default Index;
