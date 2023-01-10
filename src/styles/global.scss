@@ -18,3 +18,9 @@ body {
     font-family: "Segoe UI", sans-serif;
     font-weight: 100;
 }
+
+@font-face {
+    font-family: "Tungsten Bold";
+    src: local("Tungsten Bold"),
+        url(/fonts/Tungsten-Bold/Tungsten-Bold.ttf) format("truetype");
+}

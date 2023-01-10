@@ -1,0 +1,54 @@
+@use "styles/colors";
+
+$height: 60px;
+
+.Header {
+    display: flex;
+    flex-direction: column;
+    width: max-content;
+
+    .TitleContainer {
+        display: flex;
+        flex-direction: row;
+
+        .HeaderLeft {
+            fill: colors.$red;
+            width: auto;
+            height: $height;
+        }
+
+        .Title {
+            display: flex;
+            height: $height;
+            background-color: colors.$red;
+            align-items: center;
+            justify-content: center;
+
+            h2 {
+                color: #ffffff;
+                padding: 0 20px;
+                font-size: 50px;
+                font-family: "Tungsten Bold";
+                font-weight: 100;
+                text-transform: uppercase;
+                letter-spacing: 2px;
+                margin-top: 4px;
+            }
+        }
+
+        .HeaderRight {
+            fill: colors.$red;
+            width: auto;
+            height: $height;
+        }
+    }
+
+    h3 {
+        color: white;
+        display: block;
+        margin-top: 8px;
+        padding-right: 50px;
+        font-weight: 100;
+        text-align: end;
+    }
+}

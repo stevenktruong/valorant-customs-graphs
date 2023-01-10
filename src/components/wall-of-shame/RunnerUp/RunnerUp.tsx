@@ -1,31 +1,27 @@
 import * as React from "react";
 
-import style from "./TopPlayer.module.scss";
+import style from "./RunnerUp.module.scss";
 
 interface Props {
     name: string;
+    rank: number;
     value: string;
 }
 
-export const TopPlayer = (props: Props) => {
+export const RunnerUp = (props: Props) => {
     return (
-        <svg className={style.TopPlayer} viewBox="0 0 341 356">
+        <svg className={style.RunnerUp} viewBox="0 0 426 175">
             <g className={style.AvatarContainer}>
-                <path
-                    d="M 100,300 L 100,0 L325,0 L325,300 L275,300"
-                    transform="translate(15, 25)"
-                    mask={`url(#${style.Mask})`}
-                />
                 <image
                     href={`/players/${props.name}.png`}
                     x="25"
                     y="25"
-                    width="250"
-                    height="250"
+                    width="125"
+                    height="125"
                     transform="translate(15, 25)"
                 />
                 <text x="0" y="65">
-                    01
+                    0{props.rank}
                 </text>
             </g>
             <g className={style.PlayerInfo}>
@@ -34,7 +30,7 @@ export const TopPlayer = (props: Props) => {
                     y="285"
                     width="250"
                     height="40"
-                    transform="translate(15, 25)"
+                    transform="translate(150, -235)"
                     mask={`url(#${style.Mask})`}
                 />
                 <text
@@ -43,7 +39,7 @@ export const TopPlayer = (props: Props) => {
                     dx="10"
                     dy="22"
                     alignmentBaseline="middle"
-                    transform="translate(15, 25)"
+                    transform="translate(150, -235)"
                 >
                     {props.name}
                 </text>
@@ -54,26 +50,23 @@ export const TopPlayer = (props: Props) => {
                     dy="22"
                     textAnchor="end"
                     alignmentBaseline="middle"
-                    transform="translate(15, 25)"
+                    transform="translate(150, -235)"
                 >
                     {props.value}
                 </text>
             </g>
             <mask id={style.Mask}>
-                <rect width="100%" height="100%" />
-                <path
-                    d="M 200,280 L 235,280 L 210,330 L 175,330"
-                    transform="translate(-10, 0)"
-                />
+                <rect width="100%" height="200%" />
+                <path d="M 200,280 L 235,280 L 210,330 L 175,330" />
             </mask>
             <g className={style.Ticks}>
                 <path
                     d="M 210,280 L 220,280 L 195,330 L 185,330"
-                    transform="translate(0, 25)"
+                    transform="translate(145, -235)"
                 />
                 <path
                     d="M 210,280 L 220,280 L 195,330 L 185,330"
-                    transform="translate(15, 25)"
+                    transform="translate(160, -235)"
                 />
             </g>
         </svg>

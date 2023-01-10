@@ -1,0 +1,48 @@
+@use "styles/colors";
+
+.WallOfShame {
+    width: 100%;
+
+    .Title {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+
+        h1 {
+            height: max-content;
+            color: #ffffff;
+            font-family: "Tungsten Bold";
+            font-weight: 100;
+            font-size: 120px;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            border: 2px solid colors.$red;
+            padding: 0 80px;
+        }
+
+        span {
+            color: colors.$red;
+        }
+    }
+
+    .Screen {
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        background-image: url(/wall-of-shame-background.svg);
+        background-position: center;
+        background-size: auto 50%;
+
+        &:first-of-type {
+            background: none;
+        }
+
+        .LeaderboardContainer:first-of-type {
+            margin-right: 100px;
+        }
+    }
+}

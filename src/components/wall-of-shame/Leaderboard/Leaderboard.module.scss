@@ -1,0 +1,13 @@
+.Leaderboard {
+    .PlayersContainer {
+        display: flex;
+        flex-direction: row;
+
+        .RunnerUps {
+            display: flex;
+            flex-direction: column;
+            margin-left: 100px;
+            margin-top: 25px;
+        }
+    }
+}

@@ -1,22 +1,15 @@
 @use "styles/colors";
 
-.TopPlayer {
+.RunnerUp {
     width: 300px;
     font-family: "Segoe UI", sans-serif;
 
     .AvatarContainer {
-        path {
+        text {
+            fill: colors.$navy;
             stroke: colors.$red;
             stroke-width: 2px;
-            fill-opacity: 0;
-            z-index: 0;
-        }
-
-        text {
-            fill: colors.$red;
-            stroke: colors.$navy;
-            stroke-width: 2px;
-            font-size: 72px;
+            font-size: 60px;
             font-family: Impact;
             font-weight: 800;
         }
@@ -26,8 +19,8 @@
         text {
             fill: #ffffff;
             stroke: none;
-            font-size: 20px;
-            font-weight: bold;
+            font-size: 18px;
+            font-weight: normal;
         }
 
         rect {
