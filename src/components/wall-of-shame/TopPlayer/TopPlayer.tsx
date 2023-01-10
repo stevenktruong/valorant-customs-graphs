@@ -11,11 +11,11 @@ export const TopPlayer = (props: Props) => {
     return (
         <svg className={style.TopPlayer}>
             <g>
-                <rect
+                <path
                     className={style.BackgroundRectangle}
-                    width="100"
-                    height="200"
+                    d="M 100,0 L300,0 L300,300 L100,300 Z"
                 />
+                <image href="/players/andy.png" />
             </g>
         </svg>
     );
