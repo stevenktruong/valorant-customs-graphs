@@ -91,7 +91,14 @@ const Index = (props: Props) => {
                     <Header
                         title="VALORANT Customs"
                         description="Statistics tracking of DARWIN Discord custom games"
-                        setCurrentPlayer={setCurrentPlayer}
+                        setCurrentPlayer={(player: string) => {
+                            setCurrentPlayer(player);
+                            router.push(
+                                { pathname: `/player/${player}` },
+                                undefined,
+                                { shallow: true }
+                            );
+                        }}
                     />
                 </div>
                 <div className={style.Stats}>
