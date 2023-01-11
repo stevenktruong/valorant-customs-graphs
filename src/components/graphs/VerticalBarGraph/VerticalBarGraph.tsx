@@ -139,7 +139,8 @@ export const VerticalBarGraph = (props: Props) => {
                             .transition()
                             .duration(transitionDuration / 2)
                             .ease(d3.easeLinear)
-                            .attr("opacity", 0)
+                            .attr("opacity", 0);
+                        update
                             .transition()
                             .duration(0)
                             .delay(transitionDuration / 2)
