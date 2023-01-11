@@ -196,7 +196,7 @@ const computeStratumLabelShifts = (
         }
     }
 
-    const nItr = 5000;
+    const nItr = 500;
     for (let n = 0; n < nItr; n++) {
         const T = 1000 * (1 - (n + 1) / nItr);
         const i = Math.floor(Math.random() * stratumLabelBoxes.length);
