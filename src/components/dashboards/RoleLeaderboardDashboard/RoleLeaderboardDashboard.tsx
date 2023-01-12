@@ -49,7 +49,7 @@ export const RoleLeaderboardDashboard = (props: Props) => (
                                 ([name, playerStats]) =>
                                     playerStats.games &&
                                     playerStats.roles[d.role].games /
-                                        playerStats.games >
+                                        playerStats.games >=
                                         0.25
                             )
                             .map(([name, playerStats]) => ({
