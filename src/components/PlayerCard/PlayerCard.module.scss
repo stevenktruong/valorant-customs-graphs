@@ -8,16 +8,16 @@
     .PlayerContainer {
         grid-area: 1 / 1 / 1 / 1;
         position: sticky;
-        top: 0;
+        top: 80px;
         display: flex;
         flex-direction: column;
         // height: 50vh;
         // justify-content: flex-end;
         color: #ffffff;
         align-items: center;
+        align-self: flex-start;
         width: 100%;
         padding: 0 25px;
-        margin-top: 80px;
         z-index: 1;
 
         .PlayerAvatarContainer {
@@ -70,10 +70,7 @@
     .FullBodyAgentImageContainer {
         position: relative;
         grid-area: 1 / 1 / 1 / 1;
-        clip-path: polygon(0 0,
-                400px 0,
-                400px 400vh,
-                0 400vh);
+        clip-path: polygon(0 0, 400px 0, 400px 400vh, 0 400vh);
 
         img {
             position: absolute;
