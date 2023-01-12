@@ -5,13 +5,17 @@ import style from "./PlayerSelector.module.scss";
 interface Props {
     id?: string;
     names: string[];
+    currentPlayer: string;
     setCurrentPlayer: CallableFunction;
 }
 
 export const PlayerSelector = (props: Props) => {
     return (
         <div className={style.PlayerSelector}>
-            <select onChange={e => props.setCurrentPlayer(e.target.value)}>
+            <select
+                onChange={e => props.setCurrentPlayer(e.target.value)}
+                defaultValue={props.currentPlayer}
+            >
                 {props.names.map(name => (
                     <option key={name} value={name}>
                         {name}

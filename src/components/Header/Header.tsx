@@ -9,6 +9,7 @@ import style from "./Header.module.scss";
 interface Props {
     title: string;
     description: string;
+    currentPlayer: string;
     setCurrentPlayer: CallableFunction;
 }
 
@@ -22,6 +23,7 @@ export const Header = (props: Props) => (
             <h2>Player:</h2>
             <PlayerSelector
                 id={style.Selector}
+                currentPlayer={props.currentPlayer}
                 setCurrentPlayer={props.setCurrentPlayer}
                 names={PLAYERS}
             />
