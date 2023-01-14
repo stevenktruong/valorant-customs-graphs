@@ -14,15 +14,15 @@
     },
     {
       "opponent_name": "brian",
-      "winrate": 55,
-      "wins": 12,
-      "games": 22
+      "winrate": 57,
+      "wins": 13,
+      "games": 23
     },
     {
       "opponent_name": "cade",
-      "winrate": 54,
+      "winrate": 52,
       "wins": 13,
-      "games": 24
+      "games": 25
     },
     {
       "opponent_name": "darwin",
@@ -32,15 +32,15 @@
     },
     {
       "opponent_name": "josh",
-      "winrate": 52,
-      "wins": 14,
-      "games": 27
+      "winrate": 54,
+      "wins": 15,
+      "games": 28
     },
     {
       "opponent_name": "lindsey",
-      "winrate": 52,
+      "winrate": 50,
       "wins": 16,
-      "games": 31
+      "games": 32
     },
     {
       "opponent_name": "sequential",
@@ -50,33 +50,33 @@
     },
     {
       "opponent_name": "sophie",
-      "winrate": 41,
+      "winrate": 39,
       "wins": 9,
-      "games": 22
+      "games": 23
     },
     {
       "opponent_name": "steve",
-      "winrate": 52,
+      "winrate": 50,
       "wins": 11,
-      "games": 21
+      "games": 22
     },
     {
       "opponent_name": "steven",
-      "winrate": 37,
-      "wins": 7,
-      "games": 19
+      "winrate": 38,
+      "wins": 8,
+      "games": 21
     },
     {
       "opponent_name": "sun",
-      "winrate": 53,
-      "wins": 10,
-      "games": 19
+      "winrate": 55,
+      "wins": 11,
+      "games": 20
     },
     {
       "opponent_name": "susi",
-      "winrate": 47,
-      "wins": 7,
-      "games": 15
+      "winrate": 50,
+      "wins": 8,
+      "games": 16
     },
     {
       "opponent_name": "susu",
@@ -198,9 +198,9 @@
   "brian": [
     {
       "opponent_name": "andy",
-      "winrate": 45,
+      "winrate": 43,
       "wins": 10,
-      "games": 22
+      "games": 23
     },
     {
       "opponent_name": "brandon",
@@ -216,15 +216,15 @@
     },
     {
       "opponent_name": "cade",
-      "winrate": 36,
+      "winrate": 35,
       "wins": 8,
-      "games": 22
+      "games": 23
     },
     {
       "opponent_name": "darwin",
-      "winrate": 30,
+      "winrate": 29,
       "wins": 6,
-      "games": 20
+      "games": 21
     },
     {
       "opponent_name": "josh",
@@ -234,9 +234,9 @@
     },
     {
       "opponent_name": "lindsey",
-      "winrate": 39,
+      "winrate": 36,
       "wins": 9,
-      "games": 23
+      "games": 25
     },
     {
       "opponent_name": "sequential",
@@ -246,21 +246,21 @@
     },
     {
       "opponent_name": "sophie",
-      "winrate": 35,
+      "winrate": 33,
       "wins": 12,
-      "games": 34
+      "games": 36
     },
     {
       "opponent_name": "steve",
-      "winrate": 53,
+      "winrate": 47,
       "wins": 9,
-      "games": 17
+      "games": 19
     },
     {
       "opponent_name": "steven",
-      "winrate": 31,
+      "winrate": 29,
       "wins": 4,
-      "games": 13
+      "games": 14
     },
     {
       "opponent_name": "sun",
@@ -296,9 +296,9 @@
   "cade": [
     {
       "opponent_name": "andy",
-      "winrate": 46,
-      "wins": 11,
-      "games": 24
+      "winrate": 48,
+      "wins": 12,
+      "games": 25
     },
     {
       "opponent_name": "brandon",
@@ -308,9 +308,9 @@
     },
     {
       "opponent_name": "brian",
-      "winrate": 64,
-      "wins": 14,
-      "games": 22
+      "winrate": 65,
+      "wins": 15,
+      "games": 23
     },
     {
       "opponent_name": "cade",
@@ -320,15 +320,15 @@
     },
     {
       "opponent_name": "darwin",
-      "winrate": 33,
-      "wins": 7,
-      "games": 21
+      "winrate": 36,
+      "wins": 8,
+      "games": 22
     },
     {
       "opponent_name": "josh",
-      "winrate": 50,
-      "wins": 9,
-      "games": 18
+      "winrate": 53,
+      "wins": 10,
+      "games": 19
     },
     {
       "opponent_name": "lindsey",
@@ -362,9 +362,9 @@
     },
     {
       "opponent_name": "sun",
-      "winrate": 45,
-      "wins": 5,
-      "games": 11
+      "winrate": 50,
+      "wins": 6,
+      "games": 12
     },
     {
       "opponent_name": "susi",
@@ -406,15 +406,15 @@
     },
     {
       "opponent_name": "brian",
-      "winrate": 70,
-      "wins": 14,
-      "games": 20
+      "winrate": 71,
+      "wins": 15,
+      "games": 21
     },
     {
       "opponent_name": "cade",
-      "winrate": 67,
+      "winrate": 64,
       "wins": 14,
-      "games": 21
+      "games": 22
     },
     {
       "opponent_name": "darwin",
@@ -424,15 +424,15 @@
     },
     {
       "opponent_name": "josh",
-      "winrate": 54,
-      "wins": 14,
-      "games": 26
+      "winrate": 56,
+      "wins": 15,
+      "games": 27
     },
     {
       "opponent_name": "lindsey",
-      "winrate": 48,
+      "winrate": 46,
       "wins": 11,
-      "games": 23
+      "games": 24
     },
     {
       "opponent_name": "sequential",
@@ -442,33 +442,33 @@
     },
     {
       "opponent_name": "sophie",
-      "winrate": 48,
+      "winrate": 47,
       "wins": 20,
-      "games": 42
+      "games": 43
     },
     {
       "opponent_name": "steve",
-      "winrate": 50,
+      "winrate": 48,
       "wins": 10,
-      "games": 20
+      "games": 21
     },
     {
       "opponent_name": "steven",
-      "winrate": 41,
-      "wins": 9,
-      "games": 22
+      "winrate": 42,
+      "wins": 10,
+      "games": 24
     },
     {
       "opponent_name": "sun",
-      "winrate": 53,
-      "wins": 9,
-      "games": 17
+      "winrate": 56,
+      "wins": 10,
+      "games": 18
     },
     {
       "opponent_name": "susi",
-      "winrate": 67,
-      "wins": 8,
-      "games": 12
+      "winrate": 69,
+      "wins": 9,
+      "games": 13
     },
     {
       "opponent_name": "susu",
@@ -492,9 +492,9 @@
   "josh": [
     {
       "opponent_name": "andy",
-      "winrate": 48,
+      "winrate": 46,
       "wins": 13,
-      "games": 27
+      "games": 28
     },
     {
       "opponent_name": "brandon",
@@ -510,15 +510,15 @@
     },
     {
       "opponent_name": "cade",
-      "winrate": 50,
+      "winrate": 47,
       "wins": 9,
-      "games": 18
+      "games": 19
     },
     {
       "opponent_name": "darwin",
-      "winrate": 46,
+      "winrate": 44,
       "wins": 12,
-      "games": 26
+      "games": 27
     },
     {
       "opponent_name": "josh",
@@ -528,9 +528,9 @@
     },
     {
       "opponent_name": "lindsey",
-      "winrate": 45,
+      "winrate": 42,
       "wins": 10,
-      "games": 22
+      "games": 24
     },
     {
       "opponent_name": "sequential",
@@ -540,21 +540,21 @@
     },
     {
       "opponent_name": "sophie",
-      "winrate": 38,
+      "winrate": 35,
       "wins": 11,
-      "games": 29
+      "games": 31
     },
     {
       "opponent_name": "steve",
-      "winrate": 38,
+      "winrate": 33,
       "wins": 6,
-      "games": 16
+      "games": 18
     },
     {
       "opponent_name": "steven",
-      "winrate": 38,
+      "winrate": 36,
       "wins": 8,
-      "games": 21
+      "games": 22
     },
     {
       "opponent_name": "sun",
@@ -590,9 +590,9 @@
   "lindsey": [
     {
       "opponent_name": "andy",
-      "winrate": 48,
-      "wins": 15,
-      "games": 31
+      "winrate": 50,
+      "wins": 16,
+      "games": 32
     },
     {
       "opponent_name": "brandon",
@@ -602,9 +602,9 @@
     },
     {
       "opponent_name": "brian",
-      "winrate": 61,
-      "wins": 14,
-      "games": 23
+      "winrate": 64,
+      "wins": 16,
+      "games": 25
     },
     {
       "opponent_name": "cade",
@@ -614,15 +614,15 @@
     },
     {
       "opponent_name": "darwin",
-      "winrate": 52,
-      "wins": 12,
-      "games": 23
+      "winrate": 54,
+      "wins": 13,
+      "games": 24
     },
     {
       "opponent_name": "josh",
-      "winrate": 55,
-      "wins": 12,
-      "games": 22
+      "winrate": 58,
+      "wins": 14,
+      "games": 24
     },
     {
       "opponent_name": "lindsey",
@@ -650,21 +650,21 @@
     },
     {
       "opponent_name": "steven",
-      "winrate": 45,
-      "wins": 9,
-      "games": 20
+      "winrate": 48,
+      "wins": 10,
+      "games": 21
     },
     {
       "opponent_name": "sun",
-      "winrate": 62,
-      "wins": 10,
-      "games": 16
+      "winrate": 67,
+      "wins": 12,
+      "games": 18
     },
     {
       "opponent_name": "susi",
-      "winrate": 54,
-      "wins": 7,
-      "games": 13
+      "winrate": 57,
+      "wins": 8,
+      "games": 14
     },
     {
       "opponent_name": "susu",
@@ -786,9 +786,9 @@
   "sophie": [
     {
       "opponent_name": "andy",
-      "winrate": 59,
-      "wins": 13,
-      "games": 22
+      "winrate": 61,
+      "wins": 14,
+      "games": 23
     },
     {
       "opponent_name": "brandon",
@@ -798,9 +798,9 @@
     },
     {
       "opponent_name": "brian",
-      "winrate": 65,
-      "wins": 22,
-      "games": 34
+      "winrate": 67,
+      "wins": 24,
+      "games": 36
     },
     {
       "opponent_name": "cade",
@@ -810,15 +810,15 @@
     },
     {
       "opponent_name": "darwin",
-      "winrate": 52,
-      "wins": 22,
-      "games": 42
+      "winrate": 53,
+      "wins": 23,
+      "games": 43
     },
     {
       "opponent_name": "josh",
-      "winrate": 62,
-      "wins": 18,
-      "games": 29
+      "winrate": 65,
+      "wins": 20,
+      "games": 31
     },
     {
       "opponent_name": "lindsey",
@@ -846,21 +846,21 @@
     },
     {
       "opponent_name": "steven",
-      "winrate": 45,
-      "wins": 5,
-      "games": 11
-    },
-    {
-      "opponent_name": "sun",
-      "winrate": 80,
-      "wins": 12,
-      "games": 15
-    },
-    {
-      "opponent_name": "susi",
       "winrate": 50,
       "wins": 6,
       "games": 12
+    },
+    {
+      "opponent_name": "sun",
+      "winrate": 82,
+      "wins": 14,
+      "games": 17
+    },
+    {
+      "opponent_name": "susi",
+      "winrate": 54,
+      "wins": 7,
+      "games": 13
     },
     {
       "opponent_name": "susu",
@@ -884,9 +884,9 @@
   "steve": [
     {
       "opponent_name": "andy",
-      "winrate": 48,
-      "wins": 10,
-      "games": 21
+      "winrate": 50,
+      "wins": 11,
+      "games": 22
     },
     {
       "opponent_name": "brandon",
@@ -896,9 +896,9 @@
     },
     {
       "opponent_name": "brian",
-      "winrate": 47,
-      "wins": 8,
-      "games": 17
+      "winrate": 53,
+      "wins": 10,
+      "games": 19
     },
     {
       "opponent_name": "cade",
@@ -908,15 +908,15 @@
     },
     {
       "opponent_name": "darwin",
-      "winrate": 50,
-      "wins": 10,
-      "games": 20
+      "winrate": 52,
+      "wins": 11,
+      "games": 21
     },
     {
       "opponent_name": "josh",
-      "winrate": 62,
-      "wins": 10,
-      "games": 16
+      "winrate": 67,
+      "wins": 12,
+      "games": 18
     },
     {
       "opponent_name": "lindsey",
@@ -944,21 +944,21 @@
     },
     {
       "opponent_name": "steven",
-      "winrate": 38,
-      "wins": 5,
-      "games": 13
+      "winrate": 43,
+      "wins": 6,
+      "games": 14
     },
     {
       "opponent_name": "sun",
-      "winrate": 36,
-      "wins": 4,
-      "games": 11
+      "winrate": 46,
+      "wins": 6,
+      "games": 13
     },
     {
       "opponent_name": "susi",
-      "winrate": 50,
-      "wins": 1,
-      "games": 2
+      "winrate": 67,
+      "wins": 2,
+      "games": 3
     },
     {
       "opponent_name": "susu",
@@ -982,9 +982,9 @@
   "steven": [
     {
       "opponent_name": "andy",
-      "winrate": 63,
-      "wins": 12,
-      "games": 19
+      "winrate": 62,
+      "wins": 13,
+      "games": 21
     },
     {
       "opponent_name": "brandon",
@@ -994,9 +994,9 @@
     },
     {
       "opponent_name": "brian",
-      "winrate": 69,
-      "wins": 9,
-      "games": 13
+      "winrate": 71,
+      "wins": 10,
+      "games": 14
     },
     {
       "opponent_name": "cade",
@@ -1006,21 +1006,21 @@
     },
     {
       "opponent_name": "darwin",
-      "winrate": 59,
-      "wins": 13,
-      "games": 22
+      "winrate": 58,
+      "wins": 14,
+      "games": 24
     },
     {
       "opponent_name": "josh",
-      "winrate": 62,
-      "wins": 13,
-      "games": 21
+      "winrate": 64,
+      "wins": 14,
+      "games": 22
     },
     {
       "opponent_name": "lindsey",
-      "winrate": 55,
+      "winrate": 52,
       "wins": 11,
-      "games": 20
+      "games": 21
     },
     {
       "opponent_name": "sequential",
@@ -1030,15 +1030,15 @@
     },
     {
       "opponent_name": "sophie",
-      "winrate": 55,
+      "winrate": 50,
       "wins": 6,
-      "games": 11
+      "games": 12
     },
     {
       "opponent_name": "steve",
-      "winrate": 62,
+      "winrate": 57,
       "wins": 8,
-      "games": 13
+      "games": 14
     },
     {
       "opponent_name": "steven",
@@ -1048,9 +1048,9 @@
     },
     {
       "opponent_name": "sun",
-      "winrate": 75,
-      "wins": 6,
-      "games": 8
+      "winrate": 78,
+      "wins": 7,
+      "games": 9
     },
     {
       "opponent_name": "susi",
@@ -1080,9 +1080,9 @@
   "sun": [
     {
       "opponent_name": "andy",
-      "winrate": 47,
+      "winrate": 45,
       "wins": 9,
-      "games": 19
+      "games": 20
     },
     {
       "opponent_name": "brandon",
@@ -1098,15 +1098,15 @@
     },
     {
       "opponent_name": "cade",
-      "winrate": 55,
+      "winrate": 50,
       "wins": 6,
-      "games": 11
+      "games": 12
     },
     {
       "opponent_name": "darwin",
-      "winrate": 47,
+      "winrate": 44,
       "wins": 8,
-      "games": 17
+      "games": 18
     },
     {
       "opponent_name": "josh",
@@ -1116,9 +1116,9 @@
     },
     {
       "opponent_name": "lindsey",
-      "winrate": 38,
+      "winrate": 33,
       "wins": 6,
-      "games": 16
+      "games": 18
     },
     {
       "opponent_name": "sequential",
@@ -1128,21 +1128,21 @@
     },
     {
       "opponent_name": "sophie",
-      "winrate": 20,
+      "winrate": 18,
       "wins": 3,
-      "games": 15
+      "games": 17
     },
     {
       "opponent_name": "steve",
-      "winrate": 64,
+      "winrate": 54,
       "wins": 7,
-      "games": 11
+      "games": 13
     },
     {
       "opponent_name": "steven",
-      "winrate": 25,
+      "winrate": 22,
       "wins": 2,
-      "games": 8
+      "games": 9
     },
     {
       "opponent_name": "sun",
@@ -1178,9 +1178,9 @@
   "susi": [
     {
       "opponent_name": "andy",
-      "winrate": 53,
+      "winrate": 50,
       "wins": 8,
-      "games": 15
+      "games": 16
     },
     {
       "opponent_name": "brandon",
@@ -1202,9 +1202,9 @@
     },
     {
       "opponent_name": "darwin",
-      "winrate": 33,
+      "winrate": 31,
       "wins": 4,
-      "games": 12
+      "games": 13
     },
     {
       "opponent_name": "josh",
@@ -1214,9 +1214,9 @@
     },
     {
       "opponent_name": "lindsey",
-      "winrate": 46,
+      "winrate": 43,
       "wins": 6,
-      "games": 13
+      "games": 14
     },
     {
       "opponent_name": "sequential",
@@ -1226,15 +1226,15 @@
     },
     {
       "opponent_name": "sophie",
-      "winrate": 50,
+      "winrate": 46,
       "wins": 6,
-      "games": 12
+      "games": 13
     },
     {
       "opponent_name": "steve",
-      "winrate": 50,
+      "winrate": 33,
       "wins": 1,
-      "games": 2
+      "games": 3
     },
     {
       "opponent_name": "steven",
