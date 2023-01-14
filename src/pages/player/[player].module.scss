@@ -3,234 +3,289 @@
 @use "styles/fonts";
 @use "styles/lengths";
 
-.Main {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-
-    .Left {
-        background-color: colors.$playercard-color;
-        width: lengths.$left-side;
-    }
-
-    .Right {
-        flex: 1;
-        padding-right: lengths.$left-side;
-    }
-
-    .PlayerCardContainer {
-        height: 100%;
-    }
-
-    .PlayerCardContainerEnter {
-        opacity: 0;
-    }
-
-    .PlayerCardContainerEnterActive {
-        opacity: 1;
-        transition: opacity 0.5s ease;
-    }
-
-    .PlayerCardContainerExit {
-        opacity: 1;
-    }
-
-    .PlayerCardContainerExitActive {
-        opacity: 0;
-        transition: opacity 0.5s ease;
-    }
-
-    .HeaderContainer {
+.Player {
+    .Header {
         display: flex;
+        flex-direction: row;
         position: sticky;
-        z-index: 10;
         top: 0;
-        background-color: colors.$background-color;
-    }
-
-    .Stats {
-        display: grid;
-        padding: 15px 25px;
-        grid-template-columns: repeat(10, 1fr);
-        grid-auto-rows: 15px;
-        column-gap: 45px;
-        row-gap: 45px;
-    }
-
-    .WinRateOverTimeDashboardContainer {
-        grid-column-start: 1;
-        grid-column-end: 7;
-        grid-row-start: 1;
-        grid-row-end: 8;
-    }
-
-    .LobbyWinRateDashboardContainer {
-        grid-column-start: 7;
-        grid-column-end: -1;
-        grid-row-start: 1;
-        grid-row-end: 10;
-    }
-
-    .TeammateSynergyDashboardContainer {
-        grid-column-start: 1;
-        grid-column-end: 4;
-        grid-row-start: 8;
-        grid-row-end: 17;
-    }
-
-    .MatchupsDashboardContainer {
-        grid-column-start: 4;
-        grid-column-end: 7;
-        grid-row-start: 8;
-        grid-row-end: 17;
-    }
-
-    .MapCountDashboardContainer {
-        grid-column-start: 7;
-        grid-column-end: -1;
-        grid-row-start: 10;
-        grid-row-end: 17;
-    }
-
-    .RoleLeaderboardDashboardContainer {
-        grid-column-start: 1;
-        grid-column-end: -1;
-        grid-row-start: 17;
-        grid-row-end: 21;
-    }
-
-    .AgentCountDashboardContainer {
-        grid-column-start: 1;
-        grid-column-end: 6;
-        grid-row-start: 21;
-        grid-row-end: 32;
-    }
-
-    .MapPerformanceDashboardContainer {
-        grid-column-start: 6;
-        grid-column-end: -1;
-        grid-row-start: 21;
-        grid-row-end: 26;
-    }
-
-    .SupportSynergyDashboardContainer {
-        grid-column-start: 6;
-        grid-column-end: -1;
-        grid-row-start: 26;
-        grid-row-end: 32;
-    }
-
-    .FooterContainer {
-        padding: 10px 25px;
+        padding: 25px;
         align-items: center;
         color: #ffffff;
+        background-color: colors.$background-color;
+        margin: 0 lengths.$left-side;
+        height: lengths.$navbar-height;
+        z-index: 10;
 
-        .Footer {
-            width: 100%;
-            opacity: 50%;
-            font-size: fonts.$body-size;
+        .TextContainer {
+            flex: 1;
+
+            h1 {
+                line-height: 100%;
+                font-size: 40px;
+            }
 
             p {
-                font-style: italic;
+                font-size: fonts.$body-size;
+                color: #c7c7c7;
+            }
+        }
 
-                &:first-child {
-                    margin-bottom: 5px;
-                }
+        .SelectorContainer {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            color: #ffffff;
 
-                a,
-                a:link,
-                a:visited,
-                a:hover,
-                a:active {
-                    color: #ffffff;
-                }
+            h2 {
+                padding-right: 10px;
             }
         }
     }
 
-    @media (max-width: breakpoints.$large-break) {
+    .Main {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+
+        .Left {
+            background-color: colors.$playercard-color;
+            width: lengths.$left-side;
+        }
+
         .Right {
             flex: 1;
-            padding-right: 0;
+            padding-right: lengths.$left-side;
+        }
+
+        .PlayerCardContainer {
+            height: 100%;
+        }
+
+        .PlayerCardContainerEnter {
+            opacity: 0;
+        }
+
+        .PlayerCardContainerEnterActive {
+            opacity: 1;
+            transition: opacity 0.5s ease;
+        }
+
+        .PlayerCardContainerExit {
+            opacity: 1;
+        }
+
+        .PlayerCardContainerExitActive {
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .Stats {
+            display: grid;
+            grid-template-columns: repeat(10, 1fr);
+            grid-auto-rows: 30px;
+            column-gap: 25px;
+            row-gap: 25px;
+            padding: 0 25px;
+            padding-top: 15px;
+        }
+
+        .WinRateOverTimeDashboardContainer {
+            grid-column-start: 1;
+            grid-column-end: 7;
+            grid-row-start: 1;
+            grid-row-end: 8;
+        }
+
+        .LobbyWinRateDashboardContainer {
+            grid-column-start: 7;
+            grid-column-end: -1;
+            grid-row-start: 1;
+            grid-row-end: 10;
+        }
+
+        .TeammateSynergyDashboardContainer {
+            grid-column-start: 1;
+            grid-column-end: 4;
+            grid-row-start: 8;
+            grid-row-end: 17;
+        }
+
+        .MatchupsDashboardContainer {
+            grid-column-start: 4;
+            grid-column-end: 7;
+            grid-row-start: 8;
+            grid-row-end: 17;
+        }
+
+        .MapCountDashboardContainer {
+            grid-column-start: 7;
+            grid-column-end: -1;
+            grid-row-start: 10;
+            grid-row-end: 17;
+        }
+
+        .RoleLeaderboardDashboardContainer {
+            grid-column-start: 1;
+            grid-column-end: -1;
+            grid-row-start: 17;
+            grid-row-end: 21;
+        }
+
+        .AgentCountDashboardContainer {
+            grid-column-start: 1;
+            grid-column-end: 6;
+            grid-row-start: 21;
+            grid-row-end: 32;
+        }
+
+        .MapPerformanceDashboardContainer {
+            grid-column-start: 6;
+            grid-column-end: -1;
+            grid-row-start: 21;
+            grid-row-end: 26;
+        }
+
+        .SupportSynergyDashboardContainer {
+            grid-column-start: 6;
+            grid-column-end: -1;
+            grid-row-start: 26;
+            grid-row-end: 32;
+        }
+
+        .FooterContainer {
+            padding: 10px 25px;
+            align-items: center;
+            color: #ffffff;
+
+            .Footer {
+                width: 100%;
+                opacity: 50%;
+                font-size: fonts.$body-size;
+
+                p {
+                    font-style: italic;
+
+                    &:first-child {
+                        margin-bottom: 5px;
+                    }
+
+                    a,
+                    a:link,
+                    a:visited,
+                    a:hover,
+                    a:active {
+                        color: #ffffff;
+                    }
+                }
+            }
+        }
+    }
+    @media (max-width: breakpoints.$large-break) {
+        .Main {
+            .Right {
+                flex: 1;
+                padding-right: 0;
+            }
         }
     }
 
     @media (max-width: breakpoints.$medium-break) {
-        flex-direction: column;
-
-        .Left {
-            width: 100%;
-            padding-top: lengths.$header-height;
+        .Header {
+            margin: 0;
         }
 
-        .Right {
-            padding-right: 0;
-        }
+        .Main {
+            flex-direction: column;
 
-        .HeaderContainer {
-            width: 100vw;
-            height: lengths.$header-height;
-            position: fixed;
-        }
+            .Left {
+                width: 100%;
+                padding-top: 0;
+            }
 
-        .Right {
-            flex: 1;
-        }
+            .Right {
+                padding-right: 0;
+            }
 
-        .PlayerCardContainer {
-            position: relative;
-            width: 100%;
+            .Right {
+                flex: 1;
+            }
+
+            .PlayerCardContainer {
+                position: relative;
+                width: 100%;
+            }
         }
     }
 
     @media (max-width: breakpoints.$mobile-break) {
-        .Left {
-            background-color: colors.$background-color;
+        .Header {
+            .TextContainer {
+                h1 {
+                    font-size: 14px;
+                }
+
+                p {
+                    font-size: 10px;
+                }
+            }
+
+            .SelectorContainer {
+                h2 {
+                    font-size: 10px;
+                }
+            }
         }
 
-        .PlayerCardContainer {
-            background-color: colors.$background-color;
-        }
+        .Main {
+            .Left {
+                background-color: colors.$background-color;
+            }
 
-        .Stats {
-            display: flex;
-            flex-direction: column;
-        }
+            .PlayerCardContainer {
+                background-color: colors.$background-color;
+            }
 
-        .WinRateOverTimeDashboardContainer {
-            height: 300px;
-        }
+            .Stats {
+                display: flex;
+                flex-direction: column;
+            }
 
-        .TeammateSynergyDashboardContainer {
-            height: 400px;
-        }
+            .WinRateOverTimeDashboardContainer {
+                height: 300px;
+            }
 
-        .MatchupsDashboardContainer {
-            height: 400px;
-        }
+            .TeammateSynergyDashboardContainer {
+                height: 400px;
+            }
 
-        .LobbyWinRateDashboardContainer {
-            height: 400px;
-        }
+            .MatchupsDashboardContainer {
+                height: 400px;
+            }
 
-        .MapCountDashboardContainer {
-            height: 400px;
-        }
+            .LobbyWinRateDashboardContainer {
+                height: 400px;
+            }
 
-        .RoleLeaderboardDashboardContainer {
-            flex: 1;
-        }
+            .MapCountDashboardContainer {
+                height: 400px;
+            }
 
-        .MapPerformanceDashboardContainer {
-            height: 300px;
-        }
+            .RoleLeaderboardDashboardContainer {
+                flex: 1;
+            }
 
-        .AgentCountDashboardContainer {
-            height: 350px;
-        }
+            .MapPerformanceDashboardContainer {
+                height: 300px;
+            }
 
-        .SupportSynergyDashboardContainer {
-            height: 350px;
+            .AgentCountDashboardContainer {
+                height: 350px;
+            }
+
+            .SupportSynergyDashboardContainer {
+                height: 350px;
+            }
         }
     }
 }

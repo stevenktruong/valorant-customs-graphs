@@ -1,3 +1,4 @@
+import Navbar from "components/Navbar";
 import Leaderboard from "components/wall-of-shame/Leaderboard";
 import { GetStaticProps } from "next";
 import * as React from "react";
@@ -46,6 +47,9 @@ const WallOfShame = (props: Props) => {
 
     return (
         <div className={style.WallOfShame}>
+            <div className={style.NavbarContainer}>
+                <Navbar />
+            </div>
             <div className={style.Screen}>
                 <div className={style.Title}>
                     <h1>

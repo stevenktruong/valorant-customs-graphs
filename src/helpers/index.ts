@@ -24,6 +24,34 @@ export const useParentDimensions = (ref: React.MutableRefObject<any>) => {
     return dimensions;
 };
 
+export const useWindowDimensions = () => {
+    const hasWindow = typeof window !== "undefined";
+
+    const getWindowDimensions = () => ({
+        width: hasWindow ? window.innerWidth : null,
+        height: hasWindow ? window.innerHeight : null,
+    });
+
+    const [windowDimensions, setWindowDimensions] = React.useState(
+        getWindowDimensions()
+    );
+
+    React.useEffect(() => {
+        function handleResize() {
+            setWindowDimensions(getWindowDimensions());
+        }
+
+        if (hasWindow) {
+            window.addEventListener("resize", handleResize);
+            return () => window.removeEventListener("resize", handleResize);
+        } else {
+            return () => {};
+        }
+    }, []);
+
+    return windowDimensions;
+};
+
 export const luminance = (color: string): number => {
     const hex = parseInt(color.slice(1), 16);
     const r = (hex >> 16) & 0xff;

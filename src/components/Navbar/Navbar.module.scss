@@ -1,0 +1,41 @@
+@use "styles/breakpoints";
+@use "styles/colors";
+@use "styles/fonts";
+@use "styles/lengths";
+
+.Navbar {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-family: "Segoe UI", sans-serif;
+    font-weight: bold;
+    font-size: 14px;
+    color: #ffffff;
+
+    a {
+        margin-left: 15px;
+
+        &:first-of-type {
+            margin-left: 60px;
+        }
+
+        &,
+        &:visited {
+            text-transform: uppercase;
+            color: #ffffff;
+            text-decoration: none;
+            padding: 5px 0;
+            border-bottom: 2px solid transparent;
+            transition: color 0.25s, border 0.25s;
+        }
+
+        &:hover {
+            color: colors.$red;
+            border-bottom: 2px solid colors.$red;
+        }
+    }
+
+    @media (max-width: breakpoints.$mobile-break) {
+        display: none;
+    }
+}

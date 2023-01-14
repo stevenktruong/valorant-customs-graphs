@@ -1,3 +1,5 @@
+@use "styles/colors";
+
 * {
     box-sizing: border-box;
     padding: 0;
@@ -14,7 +16,7 @@ html {
 }
 
 body {
-    background-color: #1a242c;
+    background-color: colors.$background-color;
     font-family: "Segoe UI", sans-serif;
     font-weight: 100;
 }
