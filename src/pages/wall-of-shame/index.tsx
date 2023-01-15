@@ -47,7 +47,9 @@ const WallOfShame = (props: Props) => {
 
     return (
         <div className={style.WallOfShame}>
-            <div className={style.Header}>{/* <Navbar /> */}</div>
+            <div className={style.Header}>
+                <Navbar />
+            </div>
             <div className={style.Screen}>
                 <div className={style.Title}>
                     <h1>

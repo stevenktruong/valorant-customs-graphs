@@ -2,6 +2,7 @@ import * as React from "react";
 
 import style from "./Navbar.module.scss";
 import Link from "next/link";
+import { useWindowDimensions } from "helpers";
 
 const links = [
     {
@@ -14,17 +15,17 @@ const links = [
     },
 ];
 
-// TODO: Implement a mobile navbar
-interface Props {
-    isMobile: boolean;
-}
+export const Navbar = () => {
+    const { width } = useWindowDimensions();
+    const isMobile: boolean = width && width <= 800 ? true : false;
 
-export const Navbar = (props: Props) => (
-    <div className={style.Navbar}>
-        {links.map(d => (
-            <Link href={d.path} key={d.name}>
-                {d.name}
-            </Link>
-        ))}
-    </div>
-);
+    return (
+        <div className={style.Navbar}>
+            {links.map(d => (
+                <Link href={d.path} key={d.name}>
+                    {d.name}
+                </Link>
+            ))}
+        </div>
+    );
+};

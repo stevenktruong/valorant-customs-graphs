@@ -58,9 +58,6 @@ const Player = (props: Props) => {
         player = PLAYERS[0];
     }
 
-    const { width } = useWindowDimensions();
-    const isMobile: boolean = width && width <= 800 ? true : false;
-
     const [currentPlayer, setCurrentPlayer] = React.useState(player);
     const playerCardContainerRef = React.useRef(null);
 
@@ -87,7 +84,7 @@ const Player = (props: Props) => {
                         names={PLAYERS}
                     />
                 </div>
-                <Navbar isMobile={isMobile} />
+                {/* <Navbar /> */}
             </div>
             <div className={style.Main}>
                 <div className={style.Left}>
