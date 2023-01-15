@@ -1,6 +1,5 @@
+@use "styles/breakpoints";
 @use "styles/colors";
-
-$height: 60px;
 
 .Header {
     display: flex;
@@ -10,16 +9,17 @@ $height: 60px;
     .TitleContainer {
         display: flex;
         flex-direction: row;
+        height: 60px;
 
         .HeaderLeft {
             fill: colors.$red;
             width: auto;
-            height: $height;
+            height: inherit;
         }
 
         .Title {
             display: flex;
-            height: $height;
+            height: inherit;
             background-color: colors.$red;
             align-items: center;
             justify-content: center;
@@ -39,7 +39,7 @@ $height: 60px;
         .HeaderRight {
             fill: colors.$red;
             width: auto;
-            height: $height;
+            height: inherit;
         }
     }
 
@@ -50,5 +50,22 @@ $height: 60px;
         padding-right: 50px;
         font-weight: 100;
         text-align: end;
+    }
+
+    @media (max-width: breakpoints.$mobile-break) {
+        .TitleContainer {
+            height: 30px;
+
+            .Title {
+                h2 {
+                    font-size: 25px;
+                }
+            }
+        }
+
+        h3 {
+            padding: 0 25px;
+            font-size: 12px;
+        }
     }
 }

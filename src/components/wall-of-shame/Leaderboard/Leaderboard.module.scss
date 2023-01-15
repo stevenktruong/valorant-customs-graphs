@@ -1,4 +1,8 @@
+@use "styles/breakpoints";
+
 .Leaderboard {
+    width: 100%;
+
     .PlayersContainer {
         display: flex;
         flex-direction: row;
@@ -8,6 +12,14 @@
             flex-direction: column;
             margin-left: 100px;
             margin-top: 25px;
+        }
+    }
+
+    @media (max-width: breakpoints.$small-break) {
+        .PlayersContainer {
+            .RunnerUps {
+                margin-left: 50px;
+            }
         }
     }
 }

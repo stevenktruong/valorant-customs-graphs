@@ -87,7 +87,7 @@ const Player = (props: Props) => {
                         names={PLAYERS}
                     />
                 </div>
-                {/* <Navbar isMobile={isMobile} /> */}
+                <Navbar isMobile={isMobile} />
             </div>
             <div className={style.Main}>
                 <div className={style.Left}>

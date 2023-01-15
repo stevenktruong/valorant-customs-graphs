@@ -1,3 +1,4 @@
+@use "styles/breakpoints";
 @use "styles/colors";
 
 .WallOfShame {
@@ -36,13 +37,35 @@
         background-image: url(/wall-of-shame-background.svg);
         background-position: center;
         background-size: auto 50%;
+        gap: 10%;
 
         &:first-of-type {
             background: none;
         }
 
-        .LeaderboardContainer:first-of-type {
-            margin-right: 100px;
+        .LeaderboardContainer {
+            width: 40%;
+        }
+    }
+
+    @media (max-width: breakpoints.$small-break) {
+        .Title {
+            h1 {
+                padding: 0 40px;
+                font-size: 50px;
+            }
+        }
+
+        .Screen {
+            flex-direction: column;
+            height: auto;
+            margin: 50px 0;
+            gap: 50px;
+
+            .LeaderboardContainer {
+                width: auto;
+                max-width: 100%;
+            }
         }
     }
 }

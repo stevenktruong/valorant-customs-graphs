@@ -13,6 +13,13 @@ export default function Document() {
                     content="Statistics tracking of DARWIN Discord custom games"
                 />
                 <link rel="manifest" href="/manifest.json" />
+                <link
+                    rel="preload"
+                    href="/fonts/Tungsten-Bold/Tungsten-Bold.ttf"
+                    as="font"
+                    crossOrigin=""
+                    type="font/ttf"
+                />
             </Head>
             <body>
                 <Main />
