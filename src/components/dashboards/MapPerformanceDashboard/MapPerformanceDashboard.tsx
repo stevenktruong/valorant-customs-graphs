@@ -3,7 +3,7 @@ import * as React from "react";
 import { MAP_COLORS } from "config";
 
 import Caption from "components/Caption";
-import VerticalBarGraph from "components/graphs/VerticalBarGraph";
+import HorizontalBarGraph from "components/graphs/HorizontalBarGraph";
 
 import style from "./MapPerformanceDashboard.module.scss";
 
@@ -21,7 +21,7 @@ export const MapPerformanceDashboard = (props: Props) => {
                     description="Average combat score per map"
                 />
             </div>
-            <VerticalBarGraph
+            <HorizontalBarGraph
                 data={Object.entries(props.individualData[props.player].maps)
                     .map(
                         ([map, playerMapStats]: [
@@ -33,11 +33,12 @@ export const MapPerformanceDashboard = (props: Props) => {
                             value: playerMapStats.acs || 0,
                         })
                     )
-                    .sort((a, b) => b.value - a.value)}
+                    .sort((a, b) => a.value - b.value)}
+                labels={Object.keys(props.individualData[props.player].maps)}
                 initialDrawDuration={1000}
                 transitionDuration={1000}
                 percentage={false}
-                ticks={[0, 100, 200, 300, 400]}
+                ticks={[0, 100, 200, 300, 400, 500]}
             />
         </div>
     );

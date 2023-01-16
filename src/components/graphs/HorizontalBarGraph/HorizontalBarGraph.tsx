@@ -15,6 +15,8 @@ interface Props {
     labels: string[];
     initialDrawDuration: number;
     transitionDuration: number;
+    percentage: boolean;
+    ticks: number[];
 }
 
 export const HorizontalBarGraph = (props: Props) => {
@@ -26,7 +28,14 @@ export const HorizontalBarGraph = (props: Props) => {
 
         const svg = d3.select(svgRef.current);
 
-        const { initialDrawDuration, transitionDuration, data, labels } = props;
+        const {
+            initialDrawDuration,
+            transitionDuration,
+            data,
+            labels,
+            percentage,
+            ticks,
+        } = props;
 
         const { width, height } = dimensions;
 
@@ -34,6 +43,10 @@ export const HorizontalBarGraph = (props: Props) => {
         const rightPadding = 20;
         const bottomPadding = 20;
         const labelHorizontalPadding = 8;
+
+        // When to put text above or below the bar
+        // TODO: Pick these numbers more intelligently
+        const positionThreshold = percentage ? 90 : 450;
 
         // Shift left based on the length of the longest name
         svg.append("text")
@@ -54,7 +67,7 @@ export const HorizontalBarGraph = (props: Props) => {
         // Set up scales
         const x = d3
             .scaleLinear()
-            .domain([0, 100])
+            .domain([0, d3.max(ticks)])
             .range([leftPadding, width - rightPadding]);
 
         const y = d3
@@ -70,8 +83,8 @@ export const HorizontalBarGraph = (props: Props) => {
                 .call(
                     d3
                         .axisTop(x)
-                        .tickValues([0, 50, 100])
-                        .tickFormat(val => `${val}%`)
+                        .tickValues(ticks)
+                        .tickFormat(val => `${val}` + (percentage ? "%" : ""))
                         .tickSize(height)
                 )
                 .call(g => g.select(".domain").remove())
@@ -126,27 +139,20 @@ export const HorizontalBarGraph = (props: Props) => {
                         .call(yAxis)
                         .attr("opacity", 1),
                 update => {
-                    // Transition only if the labels have changed
-                    const prev = update.selectAll(".tick text").data();
-                    const curr = data.map(d => d.label);
-                    if (prev.every((label, i) => label === curr[i])) {
-                        update.call(yAxis);
-                    } else {
-                        update
-                            .transition()
-                            .duration(transitionDuration / 2)
-                            .ease(d3.easeLinear)
-                            .attr("opacity", 0);
-                        update
-                            .transition()
-                            .duration(0)
-                            .delay(transitionDuration / 2)
-                            .call(yAxis)
-                            .transition()
-                            .duration(transitionDuration / 2)
-                            .ease(d3.easeLinear)
-                            .attr("opacity", 1);
-                    }
+                    update
+                        .transition()
+                        .duration(transitionDuration / 2)
+                        .ease(d3.easeLinear)
+                        .attr("opacity", 0);
+                    update
+                        .transition()
+                        .duration(0)
+                        .delay(transitionDuration / 2)
+                        .call(yAxis)
+                        .transition()
+                        .duration(transitionDuration / 2)
+                        .ease(d3.easeLinear)
+                        .attr("opacity", 1);
                 }
             );
 
@@ -163,15 +169,25 @@ export const HorizontalBarGraph = (props: Props) => {
                         .attr("width", 0)
                         .attr("height", y.bandwidth());
                     bars.append("text")
-                        .text("0%")
+                        .text(percentage ? "0%" : "0")
                         .attr("fill", d =>
-                            d.value > 90 ? d.textColor : "#ffffff"
+                            d.value > positionThreshold
+                                ? d.textColor
+                                : "#ffffff"
                         )
                         .style("font-size", "11px")
                         .attr("alignment-baseline", "central")
+                        .attr("text-anchor", d =>
+                            d.value > positionThreshold ? "end" : "start"
+                        )
                         .attr("x", x(0))
                         .attr("y", d => y(d.label))
-                        .attr("dx", labelHorizontalPadding)
+                        .attr(
+                            "dx",
+                            d =>
+                                (d.value > positionThreshold ? -1 : 1) *
+                                labelHorizontalPadding
+                        )
                         .attr("dy", y.bandwidth() / 2)
                         .each(stash);
 
@@ -183,9 +199,16 @@ export const HorizontalBarGraph = (props: Props) => {
                     draw.select("text")
                         .textTween(d => {
                             return t =>
-                                `${d3.interpolateRound(0, d.value)(t)}%`;
+                                `${d3.interpolateRound(0, d.value)(t)}` +
+                                (percentage ? "%" : "");
                         })
-                        .attr("x", d => x(d.value) + (d.value > 90 ? -40 : 0));
+                        .attr("x", d => x(d.value))
+                        .attr(
+                            "dx",
+                            d =>
+                                (d.value > positionThreshold ? -1 : 1) *
+                                labelHorizontalPadding
+                        );
                 },
                 update => {
                     const transition = update
@@ -201,18 +224,29 @@ export const HorizontalBarGraph = (props: Props) => {
                         .attr("height", y.bandwidth());
                     transition
                         .select("text")
+                        .attr("text-anchor", d =>
+                            d.value > positionThreshold ? "end" : "start"
+                        )
                         .attr("fill", d =>
-                            d.value > 90 ? d.textColor : "#ffffff"
+                            d.value > positionThreshold
+                                ? d.textColor
+                                : "#ffffff"
                         )
                         .textTween(function (d) {
                             return t =>
                                 `${d3.interpolateRound(
                                     this.previousValue,
                                     d.value
-                                )(t)}%`;
+                                )(t)}` + (percentage ? "%" : "");
                         })
-                        .attr("x", d => x(d.value) + (d.value > 90 ? -40 : 0))
+                        .attr("x", d => x(d.value))
                         .attr("y", d => y(d.label))
+                        .attr(
+                            "dx",
+                            d =>
+                                (d.value > positionThreshold ? -1 : 1) *
+                                labelHorizontalPadding
+                        )
                         .attr("dy", y.bandwidth() / 2);
                     transition
                         .end()

@@ -31,6 +31,8 @@ export const LobbyWinRateDashboard = (props: Props) => {
                 initialDrawDuration={1000}
                 transitionDuration={1000}
                 labels={PLAYERS}
+                percentage={true}
+                ticks={[0, 50, 100]}
             />
         </div>
     );
