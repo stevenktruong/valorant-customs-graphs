@@ -48,10 +48,10 @@ export const LeftRightBarGraph = (props: Props) => {
             .attr("font-size", "11px")
             .attr("opacity", 0)
             .text(
-                `${data.reduce(
-                    (acc, curr) =>
-                        curr.label.length > acc.length ? curr.label : acc,
-                    data[0].label
+                `${data.reduce((acc, curr) =>
+                    curr.label && curr.label.length > acc.length
+                        ? curr.label
+                        : acc
                 )} | 9.9`
             )
             .each(function () {
@@ -113,7 +113,6 @@ export const LeftRightBarGraph = (props: Props) => {
                         .attr("y", d => y(d.order) + strokeWidth / 2)
                         .attr("width", 0)
                         .attr("height", y.bandwidth() - strokeWidth);
-                    bars.selectAll("text").attr("opacity", d => d.label);
                     const leftText = bars
                         .append("text")
                         .attr("class", "leftText")
@@ -123,7 +122,7 @@ export const LeftRightBarGraph = (props: Props) => {
                     leftText
                         .append("tspan")
                         .attr("class", "label")
-                        .text(d => `${d.label} | `)
+                        .text(d => (d.label ? `${d.label} | ` : ""))
                         .attr("opacity", highlightedSide === "left" ? 1 : 0);
                     leftText
                         .append("tspan")
@@ -142,14 +141,15 @@ export const LeftRightBarGraph = (props: Props) => {
                     rightText
                         .append("tspan")
                         .attr("class", "label")
-                        .text(d => ` | ${d.label}`)
+                        .text(d => (d.label ? ` | ${d.label}` : ""))
                         .attr("opacity", highlightedSide === "right" ? 1 : 0);
                     bars.selectAll("text")
                         .attr("fill", "#ffffff")
                         .attr("font-size", "11px")
                         .attr("alignment-baseline", "central")
                         .attr("y", d => y(d.order))
-                        .attr("dy", y.bandwidth() / 2);
+                        .attr("dy", y.bandwidth() / 2)
+                        .attr("opacity", d => (d.label ? 1 : 0));
                     bars.selectAll("text tspan").attr(
                         "alignment-baseline",
                         "central"
@@ -183,7 +183,7 @@ export const LeftRightBarGraph = (props: Props) => {
                         .attr("height", y.bandwidth() - strokeWidth);
                     transition
                         .select(".leftRect")
-                        .attr("fill", d => d.color)
+                        .attr("fill", d => d.color || "#000000")
                         .attr("stroke", d => d.color)
                         .attr(
                             "fill-opacity",
@@ -205,17 +205,21 @@ export const LeftRightBarGraph = (props: Props) => {
                         .selectAll("text")
                         .attr("y", d => y(d.order))
                         .attr("dy", y.bandwidth() / 2);
-                    transition.selectAll("text").attr("opacity", d => d.label);
+                    transition
+                        .selectAll("text")
+                        .attr("opacity", d => (d.label ? 1 : 0));
                     const leftText = transition.select(".leftText");
                     leftText
                         .attr("x", d => xLeft(d.leftValue))
                         .select(".label")
                         .text(function (d) {
-                            return `${
-                                highlightedSide === "left"
-                                    ? d.label
-                                    : this.previousLabel
-                            } | `;
+                            return d.label
+                                ? `${
+                                      highlightedSide === "left"
+                                          ? d.label
+                                          : this.previousLabel
+                                  } | `
+                                : "";
                         })
                         .attr("opacity", highlightedSide === "left" ? 1 : 0);
                     leftText.select(".value").textTween(function (d) {
@@ -232,11 +236,13 @@ export const LeftRightBarGraph = (props: Props) => {
                         .attr("x", d => xRight(d.rightValue))
                         .select(".label")
                         .text(function (d) {
-                            return ` | ${
-                                highlightedSide === "right"
-                                    ? d.label
-                                    : this.previousLabel
-                            }`;
+                            return d.label
+                                ? ` | ${
+                                      highlightedSide === "right"
+                                          ? d.label
+                                          : this.previousLabel
+                                  }`
+                                : "";
                         })
                         .attr("opacity", highlightedSide === "right" ? 1 : 0);
                     rightText.select(".value").textTween(function (d) {

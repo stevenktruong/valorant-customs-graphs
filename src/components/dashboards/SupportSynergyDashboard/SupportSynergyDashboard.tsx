@@ -35,6 +35,11 @@ export const SupportSynergyDashboard = (props: Props) => {
             props.assistsGivenData[props.player][i].rounds >= 100
         );
     }).forEach((playerName, i) => {
+        if (
+            props.assistsReceivedData[props.player][i].assistant_name ===
+            props.player
+        )
+            return;
         data.push({
             label: props.assistsReceivedData[props.player][i].assistant_name,
             leftValue: Number(
@@ -52,9 +57,13 @@ export const SupportSynergyDashboard = (props: Props) => {
         });
     });
 
+    if (currentSortSide === "left")
+        data.sort((a, b) => a.leftValue - b.leftValue);
+    else data.sort((a, b) => a.rightValue - b.rightValue);
+
     // Add filler values to get a total of nBars bars
     for (let i = data.length; i < props.nBars; i++) {
-        data.push({
+        data.unshift({
             label: undefined,
             leftValue: 0,
             rightValue: 0,
@@ -63,9 +72,6 @@ export const SupportSynergyDashboard = (props: Props) => {
         });
     }
 
-    if (currentSortSide === "left")
-        data.sort((a, b) => a.leftValue - b.leftValue);
-    else data.sort((a, b) => a.rightValue - b.rightValue);
     data.forEach((d, i) => (d.order = data.length - i));
 
     return (
@@ -100,7 +106,7 @@ export const SupportSynergyDashboard = (props: Props) => {
                     </button>
                 </div>
                 <LeftRightBarGraph
-                    data={data.slice(-7)}
+                    data={data.slice(-props.nBars)}
                     highlightedSide={currentSortSide}
                     initialDrawDuration={1000}
                     transitionDuration={1000}
