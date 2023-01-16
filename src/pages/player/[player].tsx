@@ -1,12 +1,16 @@
-import * as React from "react";
-import { useRouter } from "next/router";
 import { GetStaticPaths, GetStaticProps } from "next";
+import { useRouter } from "next/router";
+import { ParsedUrlQuery } from "querystring";
+import * as React from "react";
 import { CSSTransition, SwitchTransition } from "react-transition-group";
 
 import { PLAYERS } from "config";
 
+import { useWindowDimensions } from "helpers";
+
 import Navbar from "components/Navbar";
 import PlayerCard from "components/PlayerCard";
+import PlayerSelector from "components/PlayerSelector";
 import AgentCountDashboard from "components/dashboards/AgentCountDashboard";
 import LobbyWinRateDashboard from "components/dashboards/LobbyWinRateDashboard";
 import MapCountDashboard from "components/dashboards/MapCountDashboard";
@@ -18,9 +22,6 @@ import TeammatesSynergyDashboard from "components/dashboards/TeammatesSynergyDas
 import WinRateOverTimeDashboard from "components/dashboards/WinRateOverTimeDashboard";
 
 import style from "./[player].module.scss";
-import { ParsedUrlQuery } from "querystring";
-import PlayerSelector from "components/PlayerSelector";
-import { useWindowDimensions } from "helpers";
 
 interface Props {
     assistsGivenJson: Record<string, any>;
@@ -115,9 +116,10 @@ const Player = (props: Props) => {
                 </div>
                 <div className={style.Right}>
                     <div className={style.Stats}>
-                        <div className={style.LobbyWinRateDashboardContainer}>
-                            <LobbyWinRateDashboard
-                                recentLobbyWinRates={recentLobbyWinRatesJson}
+                        <div className={style.MapPerformanceDashboardContainer}>
+                            <MapPerformanceDashboard
+                                player={currentPlayer}
+                                individualData={individualJson}
                             />
                         </div>
                         <div className={style.MapCountDashboardContainer}>
@@ -145,22 +147,8 @@ const Player = (props: Props) => {
                                 matchupsData={matchupsJson}
                             />
                         </div>
-                        <div
-                            className={style.RoleLeaderboardDashboardContainer}
-                        >
-                            <RoleLeaderboardDashboard
-                                player={currentPlayer}
-                                individualData={individualJson}
-                            />
-                        </div>
                         <div className={style.AgentCountDashboardContainer}>
                             <AgentCountDashboard
-                                player={currentPlayer}
-                                individualData={individualJson}
-                            />
-                        </div>
-                        <div className={style.MapPerformanceDashboardContainer}>
-                            <MapPerformanceDashboard
                                 player={currentPlayer}
                                 individualData={individualJson}
                             />
@@ -171,7 +159,7 @@ const Player = (props: Props) => {
                                 individualData={individualJson}
                                 assistsReceivedData={assistsReceivedJson}
                                 assistsGivenData={assistsGivenJson}
-                                nBars={7}
+                                nBars={10}
                             />
                         </div>
                     </div>

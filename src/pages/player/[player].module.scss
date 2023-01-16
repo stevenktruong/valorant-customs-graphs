@@ -97,7 +97,7 @@
             grid-row-end: 8;
         }
 
-        .LobbyWinRateDashboardContainer {
+        .MapPerformanceDashboardContainer {
             grid-column-start: 7;
             grid-column-end: -1;
             grid-row-start: 1;
@@ -125,32 +125,18 @@
             grid-row-end: 17;
         }
 
-        .RoleLeaderboardDashboardContainer {
-            grid-column-start: 1;
-            grid-column-end: -1;
-            grid-row-start: 17;
-            grid-row-end: 21;
-        }
-
         .AgentCountDashboardContainer {
             grid-column-start: 1;
             grid-column-end: 6;
-            grid-row-start: 21;
-            grid-row-end: 32;
-        }
-
-        .MapPerformanceDashboardContainer {
-            grid-column-start: 6;
-            grid-column-end: -1;
-            grid-row-start: 21;
-            grid-row-end: 26;
+            grid-row-start: 17;
+            grid-row-end: 28;
         }
 
         .SupportSynergyDashboardContainer {
             grid-column-start: 6;
             grid-column-end: -1;
-            grid-row-start: 26;
-            grid-row-end: 32;
+            grid-row-start: 17;
+            grid-row-end: 28;
         }
 
         .FooterContainer {
@@ -181,6 +167,7 @@
             }
         }
     }
+
     @media (max-width: breakpoints.$large-break) {
         .Main {
             .Right {
