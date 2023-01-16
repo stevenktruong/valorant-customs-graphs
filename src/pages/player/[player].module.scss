@@ -169,6 +169,10 @@
     }
 
     @media (max-width: breakpoints.$large-break) {
+        .Header {
+            margin-right: 0;
+        }
+
         .Main {
             .Right {
                 flex: 1;
@@ -178,10 +182,6 @@
     }
 
     @media (max-width: breakpoints.$medium-break) {
-        .Header {
-            margin: 0;
-        }
-
         .Main {
             flex-direction: column;
 
