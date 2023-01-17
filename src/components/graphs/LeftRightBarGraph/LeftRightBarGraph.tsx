@@ -48,11 +48,11 @@ export const LeftRightBarGraph = (props: Props) => {
             .attr("font-size", "11px")
             .attr("opacity", 0)
             .text(
-                `${data.reduce((acc, curr) =>
-                    curr.label && curr.label.length > acc.length
-                        ? curr.label
-                        : acc
-                )} | 9.9`
+                `${data
+                    .map(d => d.label)
+                    .reduce((acc, curr) =>
+                        curr && curr.length > acc.length ? curr : acc
+                    )} | 9.9`
             )
             .each(function () {
                 leftRightPadding =
