@@ -12,17 +12,17 @@ import style from "./MatchupsDashboard.module.scss";
 interface Props {
     player: string;
     matchupsData: Record<string, Record<string, any>[]>;
+
+    className?: string;
 }
 
 export const MatchupsDashboard = (props: Props) => {
     return (
-        <div className={style.MatchupsDashboard}>
-            <div className={style.CaptionContainer}>
-                <Caption
-                    title="Matchups"
-                    description="Win rate against player on opposing team"
-                />
-            </div>
+        <div className={`${style.MatchupsDashboard} ${props.className}`}>
+            <Caption
+                title="Matchups"
+                description="Win rate against player on opposing team"
+            />
             <HorizontalBarGraph
                 data={props.matchupsData[props.player]
                     .map(d => ({

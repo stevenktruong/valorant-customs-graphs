@@ -9,17 +9,17 @@ import style from "./LobbyWinRateDashboard.module.scss";
 
 interface Props {
     recentLobbyWinRates: Record<string, any>;
+
+    className?: string;
 }
 
 export const LobbyWinRateDashboard = (props: Props) => {
     return (
-        <div className={style.LobbyWinRateDashboard}>
-            <div className={style.CaptionContainer}>
-                <Caption
-                    title="Lobby Win Rates"
-                    description="Performance over the last 90 days"
-                />
-            </div>
+        <div className={`${style.LobbyWinRateDashboard} ${props.className}`}>
+            <Caption
+                title="Lobby Win Rates"
+                description="Performance over the last 90 days"
+            />
             <HorizontalBarGraph
                 data={Object.entries(props.recentLobbyWinRates)
                     .map(([name, playerStats]) => ({

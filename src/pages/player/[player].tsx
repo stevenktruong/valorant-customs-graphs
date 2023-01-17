@@ -116,52 +116,43 @@ const Player = (props: Props) => {
                 </div>
                 <div className={style.Right}>
                     <div className={style.Stats}>
-                        <div className={style.MapPerformanceDashboardContainer}>
-                            <MapPerformanceDashboard
-                                player={currentPlayer}
-                                individualData={individualJson}
-                            />
-                        </div>
-                        <div className={style.MapCountDashboardContainer}>
-                            <MapCountDashboard mapsData={mapsJson} />
-                        </div>
-                        <div
-                            className={style.WinRateOverTimeDashboardContainer}
-                        >
-                            <WinRateOverTimeDashboard
-                                player={currentPlayer}
-                                winrateOverTimeData={winrateOverTimeJson}
-                            />
-                        </div>
-                        <div
-                            className={style.TeammateSynergyDashboardContainer}
-                        >
-                            <TeammatesSynergyDashboard
-                                player={currentPlayer}
-                                teammatesSynergyData={teammatesSynergyJson}
-                            />
-                        </div>
-                        <div className={style.MatchupsDashboardContainer}>
-                            <MatchupsDashboard
-                                player={currentPlayer}
-                                matchupsData={matchupsJson}
-                            />
-                        </div>
-                        <div className={style.AgentCountDashboardContainer}>
-                            <AgentCountDashboard
-                                player={currentPlayer}
-                                individualData={individualJson}
-                            />
-                        </div>
-                        <div className={style.SupportSynergyDashboardContainer}>
-                            <SupportSynergyDashboard
-                                player={currentPlayer}
-                                individualData={individualJson}
-                                assistsReceivedData={assistsReceivedJson}
-                                assistsGivenData={assistsGivenJson}
-                                nBars={10}
-                            />
-                        </div>
+                        <MapPerformanceDashboard
+                            player={currentPlayer}
+                            individualData={individualJson}
+                            className={style.MapPerformanceDashboard}
+                        />
+                        <MapCountDashboard
+                            mapsData={mapsJson}
+                            className={style.MapCountDashboard}
+                        />
+                        <WinRateOverTimeDashboard
+                            player={currentPlayer}
+                            winrateOverTimeData={winrateOverTimeJson}
+                            className={style.WinRateOverTimeDashboard}
+                        />
+                        <TeammatesSynergyDashboard
+                            player={currentPlayer}
+                            teammatesSynergyData={teammatesSynergyJson}
+                            className={style.TeammateSynergyDashboard}
+                        />
+                        <MatchupsDashboard
+                            player={currentPlayer}
+                            matchupsData={matchupsJson}
+                            className={style.MatchupsDashboard}
+                        />
+                        <AgentCountDashboard
+                            player={currentPlayer}
+                            individualData={individualJson}
+                            className={style.AgentCountDashboard}
+                        />
+                        <SupportSynergyDashboard
+                            player={currentPlayer}
+                            individualData={individualJson}
+                            assistsReceivedData={assistsReceivedJson}
+                            assistsGivenData={assistsGivenJson}
+                            nBars={10}
+                            className={style.SupportSynergyDashboard}
+                        />
                     </div>
                     <div className={style.FooterContainer}>
                         <div className={style.Footer}>

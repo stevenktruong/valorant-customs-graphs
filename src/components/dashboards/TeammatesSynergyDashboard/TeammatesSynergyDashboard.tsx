@@ -12,17 +12,19 @@ import style from "./TeammatesSynergyDashboard.module.scss";
 interface Props {
     player: string;
     teammatesSynergyData: Record<string, Record<string, any>[]>;
+
+    className?: string;
 }
 
 export const TeammatesSynergyDashboard = (props: Props) => {
     return (
-        <div className={style.TeammatesSynergyDashboard}>
-            <div className={style.CaptionContainer}>
-                <Caption
-                    title="Teammate Synergy"
-                    description="Win rate with player on same team"
-                />
-            </div>
+        <div
+            className={`${style.TeammatesSynergyDashboard} ${props.className}`}
+        >
+            <Caption
+                title="Teammate Synergy"
+                description="Win rate with player on same team"
+            />
             <HorizontalBarGraph
                 data={props.teammatesSynergyData[props.player]
                     .map(d => ({

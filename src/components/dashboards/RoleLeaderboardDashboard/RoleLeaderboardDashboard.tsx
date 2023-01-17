@@ -17,16 +17,16 @@ import style from "./RoleLeaderboardDashboard.module.scss";
 interface Props {
     player: string;
     individualData: Record<string, any>;
+
+    className?: string;
 }
 
 export const RoleLeaderboardDashboard = (props: Props) => (
-    <div className={style.RoleLeaderboardDashboard}>
-        <div className={style.CaptionContainer}>
-            <Caption
-                title="Top Performers by Role"
-                description="Ranked by win rate, requiring a minimum 25% play rate for consideration"
-            />
-        </div>
+    <div className={`${style.RoleLeaderboardDashboard} ${props.className}`}>
+        <Caption
+            title="Top Performers by Role"
+            description="Ranked by win rate, requiring a minimum 25% play rate for consideration"
+        />
         <div className={style.LeaderboardContainer}>
             {[
                 { role: "Duelist", Icon: DuelistIcon },

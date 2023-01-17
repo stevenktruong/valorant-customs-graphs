@@ -90,49 +90,49 @@
             padding-top: 15px;
         }
 
-        .WinRateOverTimeDashboardContainer {
+        .WinRateOverTimeDashboard {
             grid-column-start: 1;
             grid-column-end: 7;
             grid-row-start: 1;
             grid-row-end: 8;
         }
 
-        .MapPerformanceDashboardContainer {
+        .MapPerformanceDashboard {
             grid-column-start: 7;
             grid-column-end: -1;
             grid-row-start: 1;
             grid-row-end: 10;
         }
 
-        .TeammateSynergyDashboardContainer {
+        .TeammateSynergyDashboard {
             grid-column-start: 1;
             grid-column-end: 4;
             grid-row-start: 8;
             grid-row-end: 17;
         }
 
-        .MatchupsDashboardContainer {
+        .MatchupsDashboard {
             grid-column-start: 4;
             grid-column-end: 7;
             grid-row-start: 8;
             grid-row-end: 17;
         }
 
-        .MapCountDashboardContainer {
+        .MapCountDashboard {
             grid-column-start: 7;
             grid-column-end: -1;
             grid-row-start: 10;
             grid-row-end: 17;
         }
 
-        .AgentCountDashboardContainer {
+        .AgentCountDashboard {
             grid-column-start: 1;
             grid-column-end: 6;
             grid-row-start: 17;
             grid-row-end: 28;
         }
 
-        .SupportSynergyDashboardContainer {
+        .SupportSynergyDashboard {
             grid-column-start: 6;
             grid-column-end: -1;
             grid-row-start: 17;
@@ -238,39 +238,39 @@
                 flex-direction: column;
             }
 
-            .WinRateOverTimeDashboardContainer {
+            .WinRateOverTimeDashboard {
                 height: 300px;
             }
 
-            .TeammateSynergyDashboardContainer {
+            .TeammateSynergyDashboard {
                 height: 400px;
             }
 
-            .MatchupsDashboardContainer {
+            .MatchupsDashboard {
                 height: 400px;
             }
 
-            .LobbyWinRateDashboardContainer {
+            .LobbyWinRateDashboard {
                 height: 400px;
             }
 
-            .MapCountDashboardContainer {
+            .MapCountDashboard {
                 height: 400px;
             }
 
-            .RoleLeaderboardDashboardContainer {
+            .RoleLeaderboardDashboard {
                 flex: 1;
             }
 
-            .MapPerformanceDashboardContainer {
+            .MapPerformanceDashboard {
                 height: 300px;
             }
 
-            .AgentCountDashboardContainer {
+            .AgentCountDashboard {
                 height: 350px;
             }
 
-            .SupportSynergyDashboardContainer {
+            .SupportSynergyDashboard {
                 height: 350px;
             }
         }

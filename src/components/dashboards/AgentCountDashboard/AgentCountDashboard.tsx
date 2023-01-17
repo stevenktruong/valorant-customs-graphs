@@ -10,6 +10,8 @@ import style from "./AgentCountDashboard.module.scss";
 interface Props {
     player: string;
     individualData: Record<string, any>;
+
+    className?: string;
 }
 
 export const AgentCountDashboard = (props: Props) => {
@@ -48,13 +50,11 @@ export const AgentCountDashboard = (props: Props) => {
         .concat({ label: "root", parent: "", color: "", count: 0 });
 
     return (
-        <div className={style.AgentCountDashboard}>
-            <div className={style.CaptionContainer}>
-                <Caption
-                    title="Agent Select"
-                    description="Agent and role pick rates"
-                />
-            </div>
+        <div className={`${style.AgentCountDashboard} ${props.className}`}>
+            <Caption
+                title="Agent Select"
+                description="Agent and role pick rates"
+            />
             <StratifiedPieGraph
                 data={data}
                 initialDrawDuration={1000}

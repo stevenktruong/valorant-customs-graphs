@@ -10,17 +10,17 @@ import style from "./WinRateOverTimeDashboard.module.scss";
 interface Props {
     player: string;
     winrateOverTimeData: Record<string, any>[];
+
+    className?: string;
 }
 
 export const WinRateOverTimeDashboard = (props: Props) => {
     return (
-        <div className={style.WinRateOverTimeDashboard}>
-            <div className={style.CaptionContainer}>
-                <Caption
-                    title="Win Rate Over Time"
-                    description="Individual performance over a 90-day moving average"
-                />
-            </div>
+        <div className={`${style.WinRateOverTimeDashboard} ${props.className}`}>
+            <Caption
+                title="Win Rate Over Time"
+                description="Individual performance over a 90-day moving average"
+            />
             <LineGraph
                 data={props.winrateOverTimeData
                     .map(d => ({

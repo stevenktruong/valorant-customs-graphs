@@ -10,17 +10,17 @@ import style from "./MapPerformanceDashboard.module.scss";
 interface Props {
     player: string;
     individualData: Record<string, any>;
+
+    className?: string;
 }
 
 export const MapPerformanceDashboard = (props: Props) => {
     return (
-        <div className={style.MapPerformanceDashboard}>
-            <div className={style.CaptionContainer}>
-                <Caption
-                    title="Map Performance"
-                    description="Average combat score per map"
-                />
-            </div>
+        <div className={`${style.MapPerformanceDashboard} ${props.className}`}>
+            <Caption
+                title="Map Performance"
+                description="Average combat score per map"
+            />
             <HorizontalBarGraph
                 data={Object.entries(props.individualData[props.player].maps)
                     .map(

@@ -9,17 +9,17 @@ interface Props {
     rolesData: {
         role: number;
     }[];
+
+    className?: string;
 }
 
 export const RoleChoiceDashboard = (props: Props) => {
     return (
-        <div className={style.RoleChoiceDashboard}>
-            <div className={style.CaptionContainer}>
-                <Caption
-                    title="Most Played Roles"
-                    description="Role pick proportion"
-                />
-            </div>
+        <div className={`${style.RoleChoiceDashboard} ${props.className}`}>
+            <Caption
+                title="Most Played Roles"
+                description="Role pick proportion"
+            />
             <PieGraph
                 data={Object.entries(props.rolesData).map(([role, count]) => ({
                     label: role,

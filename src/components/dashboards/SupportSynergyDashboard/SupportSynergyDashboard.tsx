@@ -13,6 +13,8 @@ interface Props {
     assistsReceivedData: Record<string, any>;
     assistsGivenData: Record<string, any>;
     nBars: number;
+
+    className?: string;
 }
 
 export const SupportSynergyDashboard = (props: Props) => {
@@ -75,13 +77,11 @@ export const SupportSynergyDashboard = (props: Props) => {
     data.forEach((d, i) => (d.order = data.length - i));
 
     return (
-        <div className={style.SupportSynergyDashboard}>
-            <div className={style.CaptionContainer}>
-                <Caption
-                    title="Support Synergy"
-                    description="Highest average assists from and for teammates per standard game"
-                />
-            </div>
+        <div className={`${style.SupportSynergyDashboard} ${props.className}`}>
+            <Caption
+                title="Support Synergy"
+                description="Highest average assists from and for teammates per standard game"
+            />
             <div className={style.GraphAndSwitcherContainer}>
                 <div className={style.SwitcherContainer}>
                     <button
