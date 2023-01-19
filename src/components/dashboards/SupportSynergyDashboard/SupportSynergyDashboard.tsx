@@ -107,6 +107,7 @@ export const SupportSynergyDashboard = (props: Props) => {
                 </div>
                 <LeftRightBarGraph
                     data={data.slice(-props.nBars)}
+                    labels={PLAYERS}
                     highlightedSide={currentSortSide}
                     initialDrawDuration={1000}
                     transitionDuration={1000}

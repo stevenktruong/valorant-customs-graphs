@@ -107,15 +107,10 @@ export const LineGraph = (props: Props) => {
                 .call(g =>
                     g
                         .select(".tick:last-of-type line")
-                        // .attr("y1", 16)
                         .attr("stroke-opacity", 1)
                         .attr("stroke-dasharray", "4")
                 )
-                .call(
-                    g => g.select(".tick:last-of-type text").remove()
-                    // .text("today")
-                    // .attr("dy", 32)
-                );
+                .call(g => g.select(".tick:last-of-type text").remove());
 
         const yAxis = g =>
             g
@@ -293,6 +288,10 @@ export const LineGraph = (props: Props) => {
                         })
                         .attr("x", d => x(d.date))
                         .attr("y", d => y(d.value));
+                    transition
+                        .end()
+                        .then(() => update.select("text").each(stash))
+                        .catch(() => {});
                 }
             );
     }, [props, dimensions]);

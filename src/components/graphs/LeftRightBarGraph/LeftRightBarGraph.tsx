@@ -14,6 +14,7 @@ interface Props {
         color: string;
         order: number; // Needed to position the bars
     }[];
+    labels: string[];
     initialDrawDuration: number;
     transitionDuration: number;
     highlightedSide: string;
@@ -30,6 +31,7 @@ export const LeftRightBarGraph = (props: Props) => {
 
         const {
             data,
+            labels,
             initialDrawDuration,
             transitionDuration,
             highlightedSide,
@@ -48,11 +50,9 @@ export const LeftRightBarGraph = (props: Props) => {
             .attr("font-size", "11px")
             .attr("opacity", 0)
             .text(
-                `${data
-                    .map(d => d.label)
-                    .reduce((acc, curr) =>
-                        curr && curr.length > acc.length ? curr : acc
-                    )} | 9.9`
+                `${labels.reduce((acc, curr) =>
+                    curr && curr.length > acc.length ? curr : acc
+                )} | 9.9`
             )
             .each(function () {
                 leftRightPadding =
