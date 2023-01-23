@@ -1,15 +1,15 @@
 import * as React from "react";
 
-import style from "./PlayerCard.module.scss";
+import style from "./PlayerSummary.module.scss";
 
 interface Props {
     player: string;
     individualData: Record<string, any>;
 }
 
-export const PlayerCard = (props: Props) => {
+export const PlayerSummary = (props: Props) => {
     return (
-        <div className={style.PlayerCard}>
+        <div className={style.PlayerSummary}>
             <div className={style.PlayerContainer}>
                 <div className={style.PlayerAvatarContainer}>
                     <img

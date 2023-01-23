@@ -49,7 +49,7 @@
         width: 100%;
 
         .Left {
-            background-color: colors.$playercard-color;
+            background-color: colors.$playersummary-color;
             width: lengths.$left-side;
         }
 
@@ -58,24 +58,24 @@
             padding-right: lengths.$left-side;
         }
 
-        .PlayerCardContainer {
+        .PlayerSummaryContainer {
             height: 100%;
         }
 
-        .PlayerCardContainerEnter {
+        .PlayerSummaryContainerEnter {
             opacity: 0;
         }
 
-        .PlayerCardContainerEnterActive {
+        .PlayerSummaryContainerEnterActive {
             opacity: 1;
             transition: opacity 0.5s ease;
         }
 
-        .PlayerCardContainerExit {
+        .PlayerSummaryContainerExit {
             opacity: 1;
         }
 
-        .PlayerCardContainerExitActive {
+        .PlayerSummaryContainerExitActive {
             opacity: 0;
             transition: opacity 0.5s ease;
         }
@@ -141,6 +141,7 @@
 
         .FooterContainer {
             padding: 10px 25px;
+            padding-top: 15px;
             align-items: center;
             color: #ffffff;
 
@@ -151,10 +152,6 @@
 
                 p {
                     font-style: italic;
-
-                    &:first-child {
-                        margin-bottom: 5px;
-                    }
 
                     a,
                     a:link,
@@ -198,7 +195,7 @@
                 flex: 1;
             }
 
-            .PlayerCardContainer {
+            .PlayerSummaryContainer {
                 position: relative;
                 width: 100%;
             }
@@ -229,7 +226,7 @@
                 background-color: colors.$background-color;
             }
 
-            .PlayerCardContainer {
+            .PlayerSummaryContainer {
                 background-color: colors.$background-color;
             }
 

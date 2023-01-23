@@ -1,15 +1,13 @@
+import * as React from "react";
 import { GetStaticPaths, GetStaticProps } from "next";
 import { useRouter } from "next/router";
 import { ParsedUrlQuery } from "querystring";
-import * as React from "react";
 import { CSSTransition, SwitchTransition } from "react-transition-group";
 
 import { PLAYERS } from "config";
 
-import { useWindowDimensions } from "helpers";
-
 import Navbar from "components/Navbar";
-import PlayerCard from "components/PlayerCard";
+import PlayerSummary from "components/PlayerSummary";
 import PlayerSelector from "components/PlayerSelector";
 import AgentCountDashboard from "components/dashboards/AgentCountDashboard";
 import LobbyWinRateDashboard from "components/dashboards/LobbyWinRateDashboard";
@@ -60,7 +58,7 @@ const Player = (props: Props) => {
     }
 
     const [currentPlayer, setCurrentPlayer] = React.useState(player);
-    const playerCardContainerRef = React.useRef(null);
+    const playerSummaryContainerRef = React.useRef(null);
 
     return (
         <div className={style.Player}>
@@ -92,21 +90,20 @@ const Player = (props: Props) => {
                     <SwitchTransition>
                         <CSSTransition
                             key={currentPlayer}
-                            nodeRef={playerCardContainerRef}
+                            nodeRef={playerSummaryContainerRef}
                             timeout={500}
                             classNames={{
-                                enter: style.PlayerCardContainerEnter,
-                                enterActive:
-                                    style.PlayerCardContainerEnterActive,
-                                exit: style.PlayerCardContainerExit,
-                                exitActive: style.PlayerCardContainerExitActive,
+                                enter: style.playerSummaryContainerRef,
+                                enterActive: style.playerSummaryContainerRef,
+                                exit: style.playerSummaryContainerRef,
+                                exitActive: style.playerSummaryContainerRef,
                             }}
                         >
                             <div
-                                ref={playerCardContainerRef}
-                                className={style.PlayerCardContainer}
+                                ref={playerSummaryContainerRef}
+                                className={style.PlayerSummaryContainer}
                             >
-                                <PlayerCard
+                                <PlayerSummary
                                     player={currentPlayer}
                                     individualData={individualJson}
                                 />
