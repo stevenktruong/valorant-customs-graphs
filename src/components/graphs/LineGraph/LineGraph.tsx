@@ -30,10 +30,12 @@ export const LineGraph = (props: Props) => {
         const { width, height } = dimensions;
 
         const labelHorizontalPadding = 8;
+        const labelVerticalPadding = 8;
 
         let leftPadding; // Shift left based on the length of "100%"
         let bottomPadding;
         let rotatedTextHeight; // Shift up based on the diagonal text
+        let textHeight;
 
         const rightPadding = 40;
         const topPadding = 20;
@@ -46,6 +48,7 @@ export const LineGraph = (props: Props) => {
             .each(function () {
                 leftPadding =
                     this.getComputedTextLength() + labelHorizontalPadding;
+                textHeight = this.getBBox().height;
                 this.remove();
             });
 
@@ -109,8 +112,16 @@ export const LineGraph = (props: Props) => {
                         .select(".tick:last-of-type line")
                         .attr("stroke-opacity", 1)
                         .attr("stroke-dasharray", "4")
+                        .attr("y1", -y(100) + topPadding)
+                        .attr("y2", -y(0) + textHeight)
                 )
-                .call(g => g.select(".tick:last-of-type text").remove());
+                .call(g =>
+                    g
+                        .select(".tick:last-of-type text")
+                        .text("today")
+                        .attr("transform", "")
+                        .attr("y", -y(0) + textHeight - labelVerticalPadding)
+                );
 
         const yAxis = g =>
             g

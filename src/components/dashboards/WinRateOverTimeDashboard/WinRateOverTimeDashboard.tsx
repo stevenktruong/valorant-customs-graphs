@@ -27,7 +27,7 @@ export const WinRateOverTimeDashboard = (props: Props) => {
         data[data.length - 1].date.getDay() ===
         data[data.length - 2].date.getDay()
     ) {
-        data.splice(-2);
+        data.splice(-2, 1);
     }
     return (
         <div className={`${style.WinRateOverTimeDashboard} ${props.className}`}>
