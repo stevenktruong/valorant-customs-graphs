@@ -153,10 +153,10 @@ const computeStratumLabelShifts = (
         let energy = 0;
         energy += shiftDistance2(stratumLabelBox);
         energy += 5000 * Math.exp(-roughDistanceToPie2(stratumLabelBox));
-        // energy += 0.125 * Math.max(-stratumLabelBox.x0, 0);
-        // energy += 0.125 * Math.max(width - stratumLabelBox.x0, 0);
-        // energy += 0.125 * Math.max(-stratumLabelBox.y0, 0);
-        // energy += 0.125 * Math.max(height - stratumLabelBox.y1, 0);
+        energy += 0.125 * Math.max(-stratumLabelBox.x0, 0);
+        energy += 0.125 * Math.max(width - stratumLabelBox.x0, 0);
+        energy += 0.125 * Math.max(-stratumLabelBox.y0, 0);
+        energy += 0.125 * Math.max(height - stratumLabelBox.y1, 0);
         for (let labelBox of labelBoxes) {
             if (stratumLabelBox.label === labelBox.label) continue;
             energy +=
@@ -196,7 +196,7 @@ const computeStratumLabelShifts = (
         }
     }
 
-    const nItr = 500;
+    const nItr = 1000;
     for (let n = 0; n < nItr; n++) {
         const T = 1000 * (1 - (n + 1) / nItr);
         const i = Math.floor(Math.random() * stratumLabelBoxes.length);
