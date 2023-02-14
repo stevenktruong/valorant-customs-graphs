@@ -1,3 +1,4 @@
+import { Player } from "config";
 import * as React from "react";
 
 import style from "./PlayerSelector.module.scss";
@@ -5,7 +6,7 @@ import style from "./PlayerSelector.module.scss";
 interface Props {
     id?: string;
     names: string[];
-    currentPlayer: string;
+    currentPlayer: Player;
     setCurrentPlayer: CallableFunction;
 }
 

@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { ParsedUrlQuery } from "querystring";
 import { CSSTransition, SwitchTransition } from "react-transition-group";
 
-import { PLAYERS } from "config";
+import { Player, PLAYERS } from "config";
 
 import Navbar from "components/Navbar";
 import PlayerSummary from "components/PlayerSummary";
@@ -22,22 +22,22 @@ import WinRateOverTimeDashboard from "components/dashboards/WinRateOverTimeDashb
 import style from "./[player].module.scss";
 
 interface Props {
-    assistsGivenJson: Record<string, any>;
-    assistsReceivedJson: Record<string, any>;
-    matchupsJson: Record<string, any>;
-    individualJson: Record<string, any>;
+    assistsGivenJson: Record<Player, any>;
+    assistsReceivedJson: Record<Player, any>;
+    matchupsJson: Record<Player, any>;
+    individualJson: Record<Player, any>;
     mapsJson: Record<string, any>;
     metaJson: Record<string, any>;
-    recentLobbyWinRatesJson: Record<string, any>;
-    winrateOverTimeJson: Record<string, any>[];
-    teammatesSynergyJson: Record<string, any>;
+    recentLobbyWinRatesJson: Record<Player, any>;
+    winrateOverTimeJson: Record<Player, any>[];
+    teammatesSynergyJson: Record<Player, any>;
 }
 
 interface Params extends ParsedUrlQuery {
-    player: string;
+    player: Player;
 }
 
-const Player = (props: Props) => {
+const _Player = (props: Props) => {
     const {
         assistsGivenJson,
         assistsReceivedJson,
@@ -72,7 +72,7 @@ const Player = (props: Props) => {
                     <PlayerSelector
                         id={style.Selector}
                         currentPlayer={currentPlayer}
-                        setCurrentPlayer={(player: string) => {
+                        setCurrentPlayer={(player: Player) => {
                             setCurrentPlayer(player);
                             router.push(
                                 { pathname: `/player/${player}` },
@@ -200,4 +200,4 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
     };
 };
 
-export default Player;
+export default _Player;

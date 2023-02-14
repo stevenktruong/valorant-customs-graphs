@@ -1,34 +1,30 @@
 {
-  "compilerOptions": {
-    "baseUrl": "./src",
-    "jsx": "preserve",
-    "lib": [
-      "es6",
-      "dom"
-    ],
-    // "rootDir": "src",
-    "module": "commonjs",
-    "target": "es5",
-    "sourceMap": true,
-    "moduleResolution": "node",
-    "noImplicitReturns": true,
-    "noImplicitThis": true,
-    "noImplicitAny": true,
-    "resolveJsonModule": true,
-    "esModuleInterop": true,
-    "strictNullChecks": true,
-    "allowJs": true,
-    "skipLibCheck": true,
-    "strict": false,
-    "forceConsistentCasingInFileNames": true,
-    "noEmit": true,
-    "incremental": true,
-    "isolatedModules": true
-  },
-  "include": [
-    "./src/**/*"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+    "compilerOptions": {
+        "baseUrl": "./src",
+        "jsx": "preserve",
+        "lib": ["es6", "dom"],
+        "paths": {
+            "data/*": ["../data/*"]
+        },
+        // "rootDir": "src",
+        "module": "commonjs",
+        "target": "es5",
+        "sourceMap": true,
+        "moduleResolution": "node",
+        "noImplicitReturns": true,
+        "noImplicitThis": true,
+        "noImplicitAny": true,
+        "resolveJsonModule": true,
+        "esModuleInterop": true,
+        "strictNullChecks": true,
+        "allowJs": true,
+        "skipLibCheck": true,
+        "strict": false,
+        "forceConsistentCasingInFileNames": true,
+        "noEmit": true,
+        "incremental": true,
+        "isolatedModules": true
+    },
+    "include": ["./src/**/*"],
+    "exclude": ["node_modules"]
 }

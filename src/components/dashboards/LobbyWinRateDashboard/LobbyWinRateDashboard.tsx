@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { PLAYERS, PLAYER_COLORS } from "config";
+import { Player, PLAYERS, PLAYER_COLORS } from "config";
 
 import Caption from "components/Caption";
 import HorizontalBarGraph from "components/graphs/HorizontalBarGraph";
@@ -8,7 +8,7 @@ import HorizontalBarGraph from "components/graphs/HorizontalBarGraph";
 import style from "./LobbyWinRateDashboard.module.scss";
 
 interface Props {
-    recentLobbyWinRates: Record<string, any>;
+    recentLobbyWinRates: Record<Player, any>;
 
     className?: string;
 }
@@ -22,7 +22,7 @@ export const LobbyWinRateDashboard = (props: Props) => {
             />
             <HorizontalBarGraph
                 data={Object.entries(props.recentLobbyWinRates)
-                    .map(([name, playerStats]) => ({
+                    .map(([name, playerStats]: [Player, any]) => ({
                         label: name,
                         color: PLAYER_COLORS[name],
                         value: playerStats.winrate || 0,

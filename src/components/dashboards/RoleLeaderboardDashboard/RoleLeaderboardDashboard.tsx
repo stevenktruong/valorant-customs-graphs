@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { PLAYER_COLORS } from "config";
+import { Player, PLAYER_COLORS } from "config";
 
 import Caption from "components/Caption";
 import Leaderboard from "components/graphs/Leaderboard";
@@ -15,7 +15,7 @@ import {
 import style from "./RoleLeaderboardDashboard.module.scss";
 
 interface Props {
-    player: string;
+    player: Player;
     individualData: Record<string, any>;
 
     className?: string;

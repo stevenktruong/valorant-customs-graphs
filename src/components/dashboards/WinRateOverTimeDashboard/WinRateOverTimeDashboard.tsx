@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { PLAYER_COLORS } from "config";
+import { Player, PLAYER_COLORS } from "config";
 
 import Caption from "components/Caption";
 import LineGraph from "components/graphs/LineGraph";
@@ -8,7 +8,7 @@ import LineGraph from "components/graphs/LineGraph";
 import style from "./WinRateOverTimeDashboard.module.scss";
 
 interface Props {
-    player: string;
+    player: Player;
     winrateOverTimeData: Record<string, any>[];
 
     className?: string;

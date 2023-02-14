@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { PLAYERS, PLAYER_COLORS } from "config";
+import { Player, PLAYERS, PLAYER_COLORS } from "config";
 
 import { luminance } from "helpers";
 
@@ -10,7 +10,7 @@ import HorizontalBarGraph from "components/graphs/HorizontalBarGraph";
 import style from "./TeammatesSynergyDashboard.module.scss";
 
 interface Props {
-    player: string;
+    player: Player;
     teammatesSynergyData: Record<string, Record<string, any>[]>;
 
     className?: string;

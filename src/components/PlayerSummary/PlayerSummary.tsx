@@ -3,7 +3,7 @@ import * as React from "react";
 import style from "./PlayerSummary.module.scss";
 
 interface Props {
-    player: string;
+    player: Player;
     individualData: Record<string, any>;
 }
 

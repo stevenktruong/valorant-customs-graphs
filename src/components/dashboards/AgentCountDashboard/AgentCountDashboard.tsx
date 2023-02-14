@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { PLAYER_ROLE_COLORS } from "config";
+import { Player, PLAYER_ROLE_COLORS } from "config";
 
 import Caption from "components/Caption";
 import StratifiedPieGraph from "components/graphs/StratifiedPieGraph";
@@ -8,7 +8,7 @@ import StratifiedPieGraph from "components/graphs/StratifiedPieGraph";
 import style from "./AgentCountDashboard.module.scss";
 
 interface Props {
-    player: string;
+    player: Player;
     individualData: Record<string, any>;
 
     className?: string;

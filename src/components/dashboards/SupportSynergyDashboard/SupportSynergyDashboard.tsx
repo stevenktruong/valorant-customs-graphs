@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { PLAYERS, PLAYER_COLORS } from "config";
+import { Player, PLAYERS, PLAYER_COLORS } from "config";
 
 import Caption from "components/Caption";
 import LeftRightBarGraph from "components/graphs/LeftRightBarGraph";
@@ -8,7 +8,7 @@ import LeftRightBarGraph from "components/graphs/LeftRightBarGraph";
 import style from "./SupportSynergyDashboard.module.scss";
 
 interface Props {
-    player: string;
+    player: Player;
     individualData: Record<string, any>;
     assistsReceivedData: Record<string, any>;
     assistsGivenData: Record<string, any>;
@@ -42,6 +42,13 @@ export const SupportSynergyDashboard = (props: Props) => {
             props.player
         )
             return;
+
+        if (
+            !PLAYERS.includes(
+                props.assistsReceivedData[props.player][i].assistant_name
+            )
+        )
+            return;
         data.push({
             label: props.assistsReceivedData[props.player][i].assistant_name,
             leftValue: Number(
@@ -53,7 +60,8 @@ export const SupportSynergyDashboard = (props: Props) => {
                     .assists_per_standard_game
             ),
             color: PLAYER_COLORS[
-                props.assistsReceivedData[props.player][i].assistant_name
+                props.assistsReceivedData[props.player][i]
+                    .assistant_name as Player
             ],
             order: 0,
         });

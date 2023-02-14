@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { MAP_COLORS } from "config";
+import { MAP_COLORS, Player, ValorantMap } from "config";
 
 import Caption from "components/Caption";
 import HorizontalBarGraph from "components/graphs/HorizontalBarGraph";
@@ -8,7 +8,7 @@ import HorizontalBarGraph from "components/graphs/HorizontalBarGraph";
 import style from "./MapPerformanceDashboard.module.scss";
 
 interface Props {
-    player: string;
+    player: Player;
     individualData: Record<string, any>;
 
     className?: string;
@@ -25,7 +25,7 @@ export const MapPerformanceDashboard = (props: Props) => {
                 data={Object.entries(props.individualData[props.player].maps)
                     .map(
                         ([map, playerMapStats]: [
-                            string,
+                            ValorantMap,
                             Record<string, any>
                         ]) => ({
                             label: map,

@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { MAP_COLORS } from "config";
+import { MAP_COLORS, ValorantMap } from "config";
 
 import Caption from "components/Caption";
 import PieGraph from "components/graphs/PieGraph";
@@ -8,7 +8,7 @@ import PieGraph from "components/graphs/PieGraph";
 import style from "./MapCountDashboard.module.scss";
 
 interface Props {
-    mapsData: Record<string, number>;
+    mapsData: Record<ValorantMap, number>;
 
     className?: string;
 }
@@ -21,11 +21,13 @@ export const MapCountDashboard = (props: Props) => {
                 description="Lobby map pick frequency"
             />
             <PieGraph
-                data={Object.entries(props.mapsData).map(([map, count]) => ({
-                    label: map,
-                    color: MAP_COLORS[map],
-                    count: Number(count),
-                }))}
+                data={Object.entries(props.mapsData).map(
+                    ([map, count]: [ValorantMap, number]) => ({
+                        label: map,
+                        color: MAP_COLORS[map],
+                        count: Number(count),
+                    })
+                )}
                 initialDrawDuration={1000}
                 transitionDuration={1000}
             />
