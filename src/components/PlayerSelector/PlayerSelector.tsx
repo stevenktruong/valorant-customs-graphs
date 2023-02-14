@@ -1,5 +1,6 @@
-import { Player } from "config";
 import * as React from "react";
+
+import { Player } from "config";
 
 import style from "./PlayerSelector.module.scss";
 

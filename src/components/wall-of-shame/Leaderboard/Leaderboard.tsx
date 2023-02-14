@@ -1,9 +1,11 @@
 import * as React from "react";
+
+import RunnerUp from "../RunnerUp";
+import TopPlayer from "../TopPlayer";
+
 import Header from "components/wall-of-shame/Header";
 
 import style from "./Leaderboard.module.scss";
-import TopPlayer from "../TopPlayer";
-import RunnerUp from "../RunnerUp";
 
 interface Props {
     title: string;

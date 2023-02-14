@@ -1,11 +1,9 @@
 import * as React from "react";
 
-import { Player, PLAYERS, PLAYER_COLORS } from "config";
-
-import { luminance } from "helpers";
-
 import Caption from "components/Caption";
 import HorizontalBarGraph from "components/graphs/HorizontalBarGraph";
+import { PLAYERS, PLAYER_COLORS, Player } from "config";
+import { luminance } from "helpers";
 
 import style from "./TeammatesSynergyDashboard.module.scss";
 

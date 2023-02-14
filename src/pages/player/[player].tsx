@@ -1,14 +1,13 @@
-import * as React from "react";
 import { GetStaticPaths, GetStaticProps } from "next";
 import { useRouter } from "next/router";
-import { ParsedUrlQuery } from "querystring";
+import * as React from "react";
 import { CSSTransition, SwitchTransition } from "react-transition-group";
 
-import { Player, PLAYERS } from "config";
+import { ParsedUrlQuery } from "querystring";
 
 import Navbar from "components/Navbar";
-import PlayerSummary from "components/PlayerSummary";
 import PlayerSelector from "components/PlayerSelector";
+import PlayerSummary from "components/PlayerSummary";
 import AgentCountDashboard from "components/dashboards/AgentCountDashboard";
 import LobbyWinRateDashboard from "components/dashboards/LobbyWinRateDashboard";
 import MapCountDashboard from "components/dashboards/MapCountDashboard";
@@ -18,6 +17,7 @@ import RoleLeaderboardDashboard from "components/dashboards/RoleLeaderboardDashb
 import SupportSynergyDashboard from "components/dashboards/SupportSynergyDashboard";
 import TeammatesSynergyDashboard from "components/dashboards/TeammatesSynergyDashboard";
 import WinRateOverTimeDashboard from "components/dashboards/WinRateOverTimeDashboard";
+import { PLAYERS, Player } from "config";
 
 import style from "./[player].module.scss";
 

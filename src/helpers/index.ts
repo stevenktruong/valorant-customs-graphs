@@ -1,5 +1,6 @@
-import * as d3 from "d3";
 import * as React from "react";
+
+import * as d3 from "d3";
 
 export const useParentDimensions = (ref: React.MutableRefObject<any>) => {
     const [dimensions, setDimensions] = React.useState({

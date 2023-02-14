@@ -1,16 +1,15 @@
 import * as React from "react";
 
-import { Player, PLAYER_COLORS } from "config";
-
-import Caption from "components/Caption";
-import Leaderboard from "components/graphs/Leaderboard";
-
 import {
     ControllerIcon,
     DuelistIcon,
     InitiatorIcon,
     SentinelIcon,
 } from "./Icons";
+
+import Caption from "components/Caption";
+import Leaderboard from "components/graphs/Leaderboard";
+import { PLAYER_COLORS, Player } from "config";
 
 import style from "./RoleLeaderboardDashboard.module.scss";
 

@@ -1,25 +1,36 @@
 import Navbar from "components/Navbar";
 import Leaderboard from "components/wall-of-shame/Leaderboard";
+import { Player, PLAYERS } from "config";
 import { GetStaticProps } from "next";
 import * as React from "react";
 
 import style from "./index.module.scss";
 
+type Datum = { name: Player; value: string };
+
 interface Props {
-    wallOfShameJson: Record<string, any>;
+    bodyshotData: Datum[];
+    feetData: Datum[];
+    kniferData: Datum[];
+    knifeeData: Datum[];
+    masochistData: Datum[];
+    sabotagerData: Datum[];
+    plantData: Datum[];
+    bombDeathData: Datum[];
 }
 
 const topFive = (
-    wallOfShameJson: Record<string, Record<string, number>>,
+    wallOfShameJson: Record<Player, Record<string, any>>,
     key: string,
-    valueFormat: (d: { name: string; value: number }) => string = d =>
+    valueFormat: (d: { name: Player; value: number }) => string = d =>
         String(d.value)
 ) =>
     Object.entries(wallOfShameJson)
-        .map(([player, stats]: [string, Record<string, number>]) => ({
+        .map(([player, stats]: [Player, Record<string, number>]) => ({
             name: player,
             value: stats[key],
         }))
+        .filter(stats => PLAYERS.includes(stats.name))
         .sort((a, b) => b.value - a.value)
         .slice(0, 5)
         .map(d => ({
@@ -28,23 +39,6 @@ const topFive = (
         }));
 
 const WallOfShame = (props: Props) => {
-    const bodyshotData = topFive(
-        props.wallOfShameJson,
-        "bodyshot_rate",
-        d => `${d.value}%`
-    );
-    const feetData = topFive(
-        props.wallOfShameJson,
-        "legshot_rate",
-        d => `${d.value}%`
-    );
-
-    const kniferData = topFive(props.wallOfShameJson, "knife_kills");
-    const knifeeData = topFive(props.wallOfShameJson, "knife_deaths");
-
-    const masochistData = topFive(props.wallOfShameJson, "self_damage");
-    const sabotagerData = topFive(props.wallOfShameJson, "team_damage");
-
     return (
         <div className={style.WallOfShame}>
             <div className={style.Header}>
@@ -58,61 +52,77 @@ const WallOfShame = (props: Props) => {
                 </div>
             </div>
             <div className={style.Screen}>
-                <div className={style.LeaderboardContainer}>
-                    <Leaderboard
-                        title="Bodyshot Barry's"
-                        description="Highest body shot percent"
-                        data={bodyshotData}
-                    />
-                </div>
-                <div className={style.LeaderboardContainer}>
-                    <Leaderboard
-                        title="Foot Hunters"
-                        description="Highest leg shot percent"
-                        data={feetData}
-                    />
-                </div>
+                <Leaderboard
+                    title="Bodyshot Barry's"
+                    description="Highest body shot percent"
+                    data={props.bodyshotData}
+                />
+                <Leaderboard
+                    title="Foot Hunters"
+                    description="Highest leg shot percent"
+                    data={props.feetData}
+                />
             </div>
             <div className={style.Screen}>
-                <div className={style.LeaderboardContainer}>
-                    <Leaderboard
-                        title="Top Knifers"
-                        description="Most knife kills"
-                        data={kniferData}
-                    />
-                </div>
-                <div className={style.LeaderboardContainer}>
-                    <Leaderboard
-                        title="Top Knifees"
-                        description="Most deaths to a knife"
-                        data={knifeeData}
-                    />
-                </div>
+                <Leaderboard
+                    title="Top Knifers"
+                    description="Most knife kills"
+                    data={props.kniferData}
+                />
+                <Leaderboard
+                    title="Top Knifees"
+                    description="Most deaths to a knife"
+                    data={props.knifeeData}
+                />
             </div>
             <div className={style.Screen}>
-                <div className={style.LeaderboardContainer}>
-                    <Leaderboard
-                        title="Top Masochists"
-                        description="Most damage done to self"
-                        data={masochistData}
-                    />
-                </div>
-                <div className={style.LeaderboardContainer}>
-                    <Leaderboard
-                        title="Top Sabotagers"
-                        description="Most damage done to allies"
-                        data={sabotagerData}
-                    />
-                </div>
+                <Leaderboard
+                    title="Top Masochists"
+                    description="Most damage done to self"
+                    data={props.masochistData}
+                />
+                <Leaderboard
+                    title="Top Sabotagers"
+                    description="Most damage done to allies"
+                    data={props.sabotagerData}
+                />
+            </div>
+            <div className={style.Screen}>
+                <Leaderboard
+                    title="Bomb Bitches"
+                    description="Most bomb plants"
+                    data={props.plantData}
+                />
+                <Leaderboard
+                    title="Tortoises"
+                    description="Most bomb deaths"
+                    data={props.bombDeathData}
+                />
             </div>
         </div>
     );
 };
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
+    const wallOfShameJson = require("data/wall-of-shame.json");
     return {
         props: {
-            wallOfShameJson: require("data/wall-of-shame.json"),
+            bodyshotData: topFive(
+                wallOfShameJson,
+                "bodyshot_rate",
+                d => `${d.value}%`
+            ),
+            feetData: topFive(
+                wallOfShameJson,
+                "legshot_rate",
+                d => `${d.value}%`
+            ),
+            kniferData: topFive(wallOfShameJson, "knife_kills"),
+            knifeeData: topFive(wallOfShameJson, "knife_deaths"),
+            masochistData: topFive(wallOfShameJson, "self_damage"),
+            sabotagerData: topFive(wallOfShameJson, "team_damage"),
+            plantData: topFive(wallOfShameJson, "plants"),
+            bombDeathData: topFive(wallOfShameJson, "bomb_deaths"),
         },
     };
 };

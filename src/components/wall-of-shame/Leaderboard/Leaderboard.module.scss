@@ -1,8 +1,6 @@
 @use "styles/breakpoints";
 
 .Leaderboard {
-    width: 100%;
-
     .PlayersContainer {
         display: flex;
         flex-direction: row;

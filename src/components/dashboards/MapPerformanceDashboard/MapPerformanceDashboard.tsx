@@ -1,9 +1,8 @@
 import * as React from "react";
 
-import { MAP_COLORS, Player, ValorantMap } from "config";
-
 import Caption from "components/Caption";
 import HorizontalBarGraph from "components/graphs/HorizontalBarGraph";
+import { MAP_COLORS, Player, ValorantMap } from "config";
 
 import style from "./MapPerformanceDashboard.module.scss";
 

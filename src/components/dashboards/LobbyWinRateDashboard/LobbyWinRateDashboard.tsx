@@ -1,9 +1,8 @@
 import * as React from "react";
 
-import { Player, PLAYERS, PLAYER_COLORS } from "config";
-
 import Caption from "components/Caption";
 import HorizontalBarGraph from "components/graphs/HorizontalBarGraph";
+import { PLAYERS, PLAYER_COLORS, Player } from "config";
 
 import style from "./LobbyWinRateDashboard.module.scss";
 

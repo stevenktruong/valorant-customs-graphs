@@ -1,9 +1,8 @@
 import * as React from "react";
 
-import { Player, PLAYER_COLORS } from "config";
-
 import Caption from "components/Caption";
 import LineGraph from "components/graphs/LineGraph";
+import { PLAYER_COLORS, Player } from "config";
 
 import style from "./WinRateOverTimeDashboard.module.scss";
 

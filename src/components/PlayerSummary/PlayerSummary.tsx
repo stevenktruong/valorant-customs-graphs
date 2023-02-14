@@ -1,5 +1,7 @@
 import * as React from "react";
 
+import { Player } from "config";
+
 import style from "./PlayerSummary.module.scss";
 
 interface Props {

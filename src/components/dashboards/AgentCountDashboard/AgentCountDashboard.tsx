@@ -1,9 +1,8 @@
 import * as React from "react";
 
-import { Player, PLAYER_ROLE_COLORS } from "config";
-
 import Caption from "components/Caption";
 import StratifiedPieGraph from "components/graphs/StratifiedPieGraph";
+import { PLAYER_ROLE_COLORS, Player } from "config";
 
 import style from "./AgentCountDashboard.module.scss";
 

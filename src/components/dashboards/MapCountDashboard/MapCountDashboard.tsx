@@ -1,9 +1,8 @@
 import * as React from "react";
 
-import { MAP_COLORS, ValorantMap } from "config";
-
 import Caption from "components/Caption";
 import PieGraph from "components/graphs/PieGraph";
+import { MAP_COLORS, ValorantMap } from "config";
 
 import style from "./MapCountDashboard.module.scss";
 

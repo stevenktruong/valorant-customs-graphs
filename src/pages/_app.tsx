@@ -1,6 +1,6 @@
-import * as React from "react";
-import Head from "next/head";
 import App from "next/app";
+import Head from "next/head";
+import * as React from "react";
 
 import "styles/global.scss";
 

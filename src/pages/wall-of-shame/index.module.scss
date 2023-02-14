@@ -3,8 +3,6 @@
 @use "styles/lengths";
 
 .WallOfShame {
-    width: 100%;
-
     .Header {
         position: fixed;
         top: 0;
@@ -14,6 +12,7 @@
         width: 100%;
         height: lengths.$navbar-height;
         padding: 25px;
+        padding-right: calc(25px + lengths.$left-side);
         background-color: colors.$background-color;
     }
 
@@ -50,19 +49,22 @@
         background-image: url(/wall-of-shame-background.svg);
         background-position: center;
         background-size: auto 50%;
-        gap: 10%;
+        gap: 5%;
 
         &:first-of-type {
             background: none;
         }
+    }
 
-        .LeaderboardContainer {
-            width: 40%;
+    @media (max-width: breakpoints.$large-break) {
+        .Header {
+            padding-right: 25px;
         }
     }
 
     @media (max-width: breakpoints.$small-break) {
         .Title {
+            margin-top: lengths.$navbar-height;
             h1 {
                 padding: 0 40px;
                 font-size: 50px;

@@ -1,9 +1,8 @@
 import * as React from "react";
 
-import { Player, PLAYERS, PLAYER_COLORS } from "config";
-
 import Caption from "components/Caption";
 import LeftRightBarGraph from "components/graphs/LeftRightBarGraph";
+import { PLAYERS, PLAYER_COLORS, Player } from "config";
 
 import style from "./SupportSynergyDashboard.module.scss";
 

@@ -1,8 +1,9 @@
+import Link from "next/link";
 import * as React from "react";
 
-import style from "./Navbar.module.scss";
-import Link from "next/link";
 import { useWindowDimensions } from "helpers";
+
+import style from "./Navbar.module.scss";
 
 const links = [
     {

@@ -35,7 +35,7 @@
         }
     }
 
-    @media (max-width: breakpoints.$mobile-break) {
+    @media (max-width: breakpoints.$small-break) {
         display: none;
     }
 }
