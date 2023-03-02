@@ -19,7 +19,7 @@ export const WinRateOverTimeDashboard = (props: Props) => {
             date: new Date(d.block_end_time),
             value: d.data[props.player].winrate || 0,
         }))
-        .filter(d => d.date >= new Date("2022-10-16"));
+        .slice(-13); // 12 weeks + today
 
     // If the last two data points correspond to the same day, remove one of them
     if (
