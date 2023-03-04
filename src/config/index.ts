@@ -22,7 +22,7 @@ export const PLAYERS = Object.values(Player);
 
 export const PLAYER_COLORS: Record<Player, string> = {
     [Player.Andy]: "#f6de64",
-    [Player.Bree]: "#384268",
+    [Player.Bree]: "#5c64f4",
     [Player.Brandon]: "#384268",
     [Player.Brian]: "#757e8a",
     [Player.Cade]: "#dbff9e",
@@ -58,6 +58,26 @@ export const PLAYER_ROLE_COLORS: Record<Player, string[]> = {
     [Player.Susu]: ["#cb759c", "#987d68", "#afa392", "#ffffff"],
     [Player.Tang]: ["#cea891", "#998e91", "#f2d5cf", "#ffffff"],
     [Player.Yang]: ["#c62c38", "#c64049", "#e86f68", "#ffffff"],
+};
+
+export const PLAYER_TAG: Record<Player, string> = {
+    [Player.Andy]: "Candysan",
+    [Player.Brandon]: "BigBoiB",
+    [Player.Bree]: "Brioche",
+    [Player.Brian]: "brianwoohoo",
+    [Player.Cade]: "RhythmKing",
+    [Player.Darwin]: "ChzGorditaCrunch",
+    [Player.Josh]: "bot001341",
+    [Player.Lindsey]: "aylindsay",
+    // [Player.Sequential]: "Sequential",
+    [Player.Sophie]: "chushberry",
+    [Player.Steve]: "Selintt",
+    [Player.Steven]: "youngsmasher",
+    [Player.Sun]: "sun",
+    [Player.Susi]: "SusTwins",
+    [Player.Susu]: "danielscutiegf",
+    [Player.Tang]: "tangy",
+    [Player.Yang]: "Tyblerone",
 };
 
 export enum ValorantMap {

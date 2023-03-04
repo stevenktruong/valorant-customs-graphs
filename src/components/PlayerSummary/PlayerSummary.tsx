@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { Player } from "config";
+import { PLAYER_TAG, Player } from "config";
 
 import style from "./PlayerSummary.module.scss";
 
@@ -22,7 +22,7 @@ export const PlayerSummary = (props: Props) => {
                 </div>
                 <div className={style.PlayerDescription}>
                     <div className={style.PlayerDescriptionEntry}>
-                        <p>{props.individualData[props.player].valorant_tag}</p>
+                        <p>{PLAYER_TAG[props.player]}</p>
                         <h2>Valorant Tag</h2>
                     </div>
                     <div className={style.PlayerDescriptionEntry}>
