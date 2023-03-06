@@ -2,7 +2,7 @@ import * as React from "react";
 
 import Caption from "components/Caption";
 import StratifiedPieGraph from "components/graphs/StratifiedPieGraph";
-import { PLAYER_ROLE_COLORS, Player } from "config";
+import { PLAYER_COLORS, Player } from "config";
 
 import style from "./AgentCountDashboard.module.scss";
 
@@ -14,7 +14,7 @@ interface Props {
 }
 
 export const AgentCountDashboard = (props: Props) => {
-    const playerColors = PLAYER_ROLE_COLORS[props.player];
+    const playerColors = PLAYER_COLORS[props.player];
 
     // Pick hex colors based on which roles are played the most
     const orderedRoles: Record<string, number> = {};

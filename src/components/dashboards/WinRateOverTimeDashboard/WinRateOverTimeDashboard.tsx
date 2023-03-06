@@ -36,7 +36,7 @@ export const WinRateOverTimeDashboard = (props: Props) => {
             />
             <LineGraph
                 data={data}
-                color={PLAYER_COLORS[props.player]}
+                color={PLAYER_COLORS[props.player][0]}
                 initialDrawDuration={1000}
                 transitionDuration={1000}
             />

@@ -61,7 +61,7 @@ export const SupportSynergyDashboard = (props: Props) => {
             color: PLAYER_COLORS[
                 props.assistsReceivedData[props.player][i]
                     .assistant_name as Player
-            ],
+            ][0],
             order: 0,
         });
     });

@@ -25,9 +25,9 @@ export const MatchupsDashboard = (props: Props) => {
                 data={props.matchupsData[props.player]
                     .map(d => ({
                         label: d.opponent_name,
-                        color: PLAYER_COLORS[props.player],
+                        color: PLAYER_COLORS[props.player][0],
                         textColor:
-                            luminance(PLAYER_COLORS[props.player]) > 128
+                            luminance(PLAYER_COLORS[props.player][0]) > 128
                                 ? "#000000"
                                 : "#ffffff",
                         value: d.winrate || 0,

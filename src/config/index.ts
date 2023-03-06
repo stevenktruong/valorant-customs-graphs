@@ -20,27 +20,7 @@ export enum Player {
 
 export const PLAYERS = Object.values(Player);
 
-export const PLAYER_COLORS: Record<Player, string> = {
-    [Player.Andy]: "#f6de64",
-    [Player.Bree]: "#5c64f4",
-    [Player.Brandon]: "#384268",
-    [Player.Brian]: "#757e8a",
-    [Player.Cade]: "#dbff9e",
-    [Player.Darwin]: "#cddbff",
-    [Player.Josh]: "#faa61a",
-    [Player.Lindsey]: "#92ced5",
-    // [Player.Sequential]: "#a6735d",
-    [Player.Sophie]: "#b15c5d",
-    [Player.Steve]: "#2180ba",
-    [Player.Steven]: "#f8f4a6",
-    [Player.Sun]: "#dccdca",
-    [Player.Susi]: "#334455",
-    [Player.Susu]: "#cb759c",
-    [Player.Tang]: "#cea891",
-    [Player.Yang]: "#c62c38",
-};
-
-export const PLAYER_ROLE_COLORS: Record<Player, string[]> = {
+export const PLAYER_COLORS: Record<Player, string[]> = {
     [Player.Andy]: ["#f6de64", "#2f5c81", "#4e95c3", "#cfd0cc"],
     [Player.Bree]: ["#5c64f4", "#6c7cf4", "#acb4fc", "#d7dafc"],
     [Player.Brandon]: ["#9192be", "#aa3824", "#ead67d", "#c8a592"],

@@ -23,7 +23,7 @@ export const LobbyWinRateDashboard = (props: Props) => {
                 data={Object.entries(props.recentLobbyWinRates)
                     .map(([name, playerStats]: [Player, any]) => ({
                         label: name,
-                        color: PLAYER_COLORS[name],
+                        color: PLAYER_COLORS[name][0],
                         value: playerStats.winrate || 0,
                     }))
                     .sort((a, b) => a.value - b.value)}

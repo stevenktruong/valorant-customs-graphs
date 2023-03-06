@@ -40,7 +40,7 @@ export const RoleLeaderboardDashboard = (props: Props) => (
                 >
                     <h2>{d.role}s</h2>
                     <div className={style.IconContainer}>
-                        <d.Icon fill={PLAYER_COLORS[props.player]} />
+                        <d.Icon fill={PLAYER_COLORS[props.player][0]} />
                     </div>
                     <Leaderboard
                         data={Object.entries(props.individualData)
