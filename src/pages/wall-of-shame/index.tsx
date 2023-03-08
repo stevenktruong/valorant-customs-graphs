@@ -1,8 +1,10 @@
-import Navbar from "components/Navbar";
-import Leaderboard from "components/wall-of-shame/Leaderboard";
-import { Player, PLAYERS } from "config";
 import { GetStaticProps } from "next";
 import * as React from "react";
+
+import Navbar from "components/Navbar";
+import Leaderboard from "components/wall-of-shame/Leaderboard";
+import { PLAYERS, Player } from "config";
+import { isGetWallOfShameAPIResponse } from "models/WallOfShame";
 
 import style from "./index.module.scss";
 
@@ -104,7 +106,16 @@ const WallOfShame = (props: Props) => {
 };
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
-    const wallOfShameJson = require("data/wall-of-shame.json");
+    if (!process.env.BACKEND_URL) {
+        throw new Error("Missing BACKEND_URL environment variable");
+    }
+
+    const res = await fetch(`${process.env.BACKEND_URL}/api/wall-of-shame`);
+    const wallOfShameJson = await res.json();
+    if (!isGetWallOfShameAPIResponse(wallOfShameJson)) {
+        throw new Error("/wall-of-shame API did not return the expected data");
+    }
+
     return {
         props: {
             bodyshotData: topFive(

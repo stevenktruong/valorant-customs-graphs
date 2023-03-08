@@ -4,7 +4,7 @@
     "importOrder": [
         "^(react|next).*$",
         "<THIRD_PARTY_MODULES>",
-        "^(config|components|helpers).*$",
+        "^(config|components|helpers|models).*$",
         "^data.*$",
         "^.*scss$"
     ],

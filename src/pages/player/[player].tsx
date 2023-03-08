@@ -3,7 +3,6 @@ import { useRouter } from "next/router";
 import * as React from "react";
 import { CSSTransition, SwitchTransition } from "react-transition-group";
 
-import { GetDashboardAPIResponse } from "models/Dashboard";
 import { ParsedUrlQuery } from "querystring";
 
 import Navbar from "components/Navbar";
@@ -18,12 +17,21 @@ import RoleLeaderboardDashboard from "components/dashboards/RoleLeaderboardDashb
 import SupportSynergyDashboard from "components/dashboards/SupportSynergyDashboard";
 import TeammatesSynergyDashboard from "components/dashboards/TeammatesSynergyDashboard";
 import WinRateOverTimeDashboard from "components/dashboards/WinRateOverTimeDashboard";
-import { PLAYERS, Player } from "config";
+import { PLAYERS, Player, ValorantMap } from "config";
+import { GetDashboardAPIResponse } from "models/Dashboard";
+import { isGetDashboardAPIResponse } from "models/Dashboard";
 
 import style from "./[player].module.scss";
 
 interface Props {
-    dashboardJson: GetDashboardAPIResponse;
+    assistsGivenJson: Record<Player, any>;
+    assistsReceivedJson: Record<Player, any>;
+    matchupsJson: Record<Player, any>;
+    individualJson: Record<Player, any>;
+    mapsJson: Record<ValorantMap, any>;
+    metaJson: Record<string, any>;
+    winrateOverTimeJson: Record<Player, any>[];
+    teammatesSynergyJson: Record<Player, any>;
 }
 
 interface Params extends ParsedUrlQuery {
@@ -32,15 +40,15 @@ interface Params extends ParsedUrlQuery {
 
 const _Player = (props: Props) => {
     const {
-        assists_given_per_standard_game: assistsGivenJson,
-        assists_received_per_standard_game: assistsReceivedJson,
-        easiest_matchups: matchupsJson,
-        individual: individualJson,
-        maps: mapsJson,
-        meta: metaJson,
-        running_winrate_over_time: winrateOverTimeJson,
-        teammate_synergy: teammatesSynergyJson,
-    } = props.dashboardJson;
+        assistsGivenJson,
+        assistsReceivedJson,
+        matchupsJson,
+        individualJson,
+        mapsJson,
+        metaJson,
+        winrateOverTimeJson,
+        teammatesSynergyJson,
+    } = props;
 
     const router = useRouter();
     let { player } = router.query as Params;
@@ -177,9 +185,37 @@ export const getStaticPaths: GetStaticPaths<Params> = async () => {
 };
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
+    if (!process.env.BACKEND_URL) {
+        throw new Error("Missing BACKEND_URL environment variable");
+    }
+
+    const res = await fetch(`${process.env.BACKEND_URL}/api/dashboard`);
+    const data = await res.json();
+    if (!isGetDashboardAPIResponse(data)) {
+        throw new Error("/dashboards API did not return the expected data");
+    }
+
+    const {
+        assists_given_per_standard_game: assistsGivenJson,
+        assists_received_per_standard_game: assistsReceivedJson,
+        easiest_matchups: matchupsJson,
+        individual: individualJson,
+        maps: mapsJson,
+        meta: metaJson,
+        running_winrate_over_time: winrateOverTimeJson,
+        teammate_synergy: teammatesSynergyJson,
+    } = data;
+
     return {
         props: {
-            dashboardJson: require("data/dashboard.json"),
+            assistsGivenJson,
+            assistsReceivedJson,
+            matchupsJson,
+            individualJson,
+            mapsJson,
+            metaJson,
+            winrateOverTimeJson,
+            teammatesSynergyJson,
         },
     };
 };
