@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import * as React from "react";
 import { CSSTransition, SwitchTransition } from "react-transition-group";
 
+import { GetDashboardAPIResponse } from "models/Dashboard";
 import { ParsedUrlQuery } from "querystring";
 
 import Navbar from "components/Navbar";
@@ -22,15 +23,7 @@ import { PLAYERS, Player } from "config";
 import style from "./[player].module.scss";
 
 interface Props {
-    assistsGivenJson: Record<Player, any>;
-    assistsReceivedJson: Record<Player, any>;
-    matchupsJson: Record<Player, any>;
-    individualJson: Record<Player, any>;
-    mapsJson: Record<string, any>;
-    metaJson: Record<string, any>;
-    recentLobbyWinRatesJson: Record<Player, any>;
-    winrateOverTimeJson: Record<Player, any>[];
-    teammatesSynergyJson: Record<Player, any>;
+    dashboardJson: GetDashboardAPIResponse;
 }
 
 interface Params extends ParsedUrlQuery {
@@ -39,16 +32,15 @@ interface Params extends ParsedUrlQuery {
 
 const _Player = (props: Props) => {
     const {
-        assistsGivenJson,
-        assistsReceivedJson,
-        matchupsJson,
-        individualJson,
-        mapsJson,
-        metaJson,
-        recentLobbyWinRatesJson,
-        winrateOverTimeJson,
-        teammatesSynergyJson,
-    } = props;
+        assists_given_per_standard_game: assistsGivenJson,
+        assists_received_per_standard_game: assistsReceivedJson,
+        easiest_matchups: matchupsJson,
+        individual: individualJson,
+        maps: mapsJson,
+        meta: metaJson,
+        running_winrate_over_time: winrateOverTimeJson,
+        teammate_synergy: teammatesSynergyJson,
+    } = props.dashboardJson;
 
     const router = useRouter();
     let { player } = router.query as Params;
@@ -187,15 +179,7 @@ export const getStaticPaths: GetStaticPaths<Params> = async () => {
 export const getStaticProps: GetStaticProps<Props> = async () => {
     return {
         props: {
-            assistsGivenJson: require("data/assists-given-per-standard-game.json"),
-            assistsReceivedJson: require("data/assists-received-per-standard-game.json"),
-            matchupsJson: require("data/easiest-matchups.json"),
-            individualJson: require("data/individual.json"),
-            mapsJson: require("data/maps.json"),
-            metaJson: require("data/meta.json"),
-            recentLobbyWinRatesJson: require("data/recent-lobby-win-rates.json"),
-            winrateOverTimeJson: require("data/running-winrate-over-time.json"),
-            teammatesSynergyJson: require("data/teammate-synergy.json"),
+            dashboardJson: require("data/dashboard.json"),
         },
     };
 };
