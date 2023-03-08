@@ -190,12 +190,12 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
     // }
 
     // const res = await fetch(`${process.env.BACKEND_URL}/api/dashboard`);
-    // const data = await res.json();
+    // const dashboardJson = await res.json();
     // if (!isGetDashboardAPIResponse(data)) {
     //     throw new Error("/dashboards API did not return the expected data");
     // }
 
-    const data = require("data/dashboard.json");
+    const dashboardJson = require("data/dashboard.json");
 
     const {
         assists_given_per_standard_game: assistsGivenJson,
@@ -206,7 +206,7 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
         meta: metaJson,
         running_winrate_over_time: winrateOverTimeJson,
         teammate_synergy: teammatesSynergyJson,
-    } = data;
+    } = dashboardJson;
 
     return {
         props: {

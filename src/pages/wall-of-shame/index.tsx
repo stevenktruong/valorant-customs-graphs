@@ -106,15 +106,17 @@ const WallOfShame = (props: Props) => {
 };
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
-    if (!process.env.BACKEND_URL) {
-        throw new Error("Missing BACKEND_URL environment variable");
-    }
+    // if (!process.env.BACKEND_URL) {
+    //     throw new Error("Missing BACKEND_URL environment variable");
+    // }
 
-    const res = await fetch(`${process.env.BACKEND_URL}/api/wall-of-shame`);
-    const wallOfShameJson = await res.json();
-    if (!isGetWallOfShameAPIResponse(wallOfShameJson)) {
-        throw new Error("/wall-of-shame API did not return the expected data");
-    }
+    // const res = await fetch(`${process.env.BACKEND_URL}/api/wall-of-shame`);
+    // const wallOfShameJson = await res.json();
+    // if (!isGetWallOfShameAPIResponse(wallOfShameJson)) {
+    //     throw new Error("/wall-of-shame API did not return the expected data");
+    // }
+
+    const wallOfShameJson = require("data/wall-of-shame.json");
 
     return {
         props: {
