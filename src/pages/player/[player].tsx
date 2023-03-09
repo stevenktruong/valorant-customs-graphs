@@ -185,17 +185,28 @@ export const getStaticPaths: GetStaticPaths<Params> = async () => {
 };
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
-    // if (!process.env.BACKEND_URL) {
-    //     throw new Error("Missing BACKEND_URL environment variable");
-    // }
+    if (!process.env.BACKEND_URL) {
+        throw new Error("Missing BACKEND_URL environment variable");
+    }
 
-    // const res = await fetch(`${process.env.BACKEND_URL}/api/dashboard`);
-    // const dashboardJson = await res.json();
-    // if (!isGetDashboardAPIResponse(data)) {
-    //     throw new Error("/dashboards API did not return the expected data");
-    // }
+    let dashboardJson;
+    try {
+        const res = await fetch(`${process.env.BACKEND_URL}/dashboard`);
+        const dashboardJson = await res.json();
+        if (!isGetDashboardAPIResponse(dashboardJson)) {
+            throw new Error("/dashboards API did not return the expected data");
+        }
+    } catch {
+        console.log(
+            "Failed to fetch data from the backend. Falling back on cached data."
+        );
+    }
 
-    const dashboardJson = require("data/dashboard.json");
+    if (!dashboardJson) {
+        dashboardJson = require("data/dashboard.json");
+    }
+
+    // const dashboardJson = require("data/dashboard.json");
 
     const {
         assists_given_per_standard_game: assistsGivenJson,
