@@ -1,4 +1,4 @@
-import { GetStaticProps } from "next";
+import { GetServerSideProps } from "next";
 import * as React from "react";
 
 import Navbar from "components/Navbar";
@@ -105,7 +105,7 @@ const WallOfShame = (props: Props) => {
     );
 };
 
-export const getStaticProps: GetStaticProps<Props> = async () => {
+export const getServerSideProps: GetServerSideProps<Props> = async () => {
     if (!process.env.BACKEND_URL) {
         throw new Error("Missing BACKEND_URL environment variable");
     }
