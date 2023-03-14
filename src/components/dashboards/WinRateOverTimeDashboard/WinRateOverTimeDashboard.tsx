@@ -3,6 +3,7 @@ import * as React from "react";
 import Caption from "components/Caption";
 import LineGraph from "components/graphs/LineGraph";
 import { PLAYER_COLORS, Player } from "config";
+import { useWindowDimensions } from "helpers";
 
 import style from "./WinRateOverTimeDashboard.module.scss";
 
@@ -14,12 +15,15 @@ interface Props {
 }
 
 export const WinRateOverTimeDashboard = (props: Props) => {
+    const { width } = useWindowDimensions();
+    const showFewerPoints: boolean = width && width <= 500 ? true : false;
+
     const data = props.winrateOverTimeData
         .map(d => ({
             date: new Date(d.block_end_time),
             value: d.data[props.player].winrate || 0,
         }))
-        .slice(-13); // 12 weeks + today
+        .slice(-((showFewerPoints ? 8 : 12) + 1)); // 8 or 12 weeks + today
 
     // If the last two data points correspond to the same day, remove one of them
     if (
