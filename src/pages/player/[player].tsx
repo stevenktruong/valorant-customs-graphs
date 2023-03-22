@@ -192,18 +192,15 @@ export const getServerSideProps: GetServerSideProps<Props> = async () => {
     let dashboardJson;
     try {
         const res = await fetch(`${process.env.BACKEND_URL}/dashboard`);
-        const dashboardJson = await res.json();
+        dashboardJson = await res.json();
         if (!isGetDashboardAPIResponse(dashboardJson)) {
             throw new Error("/dashboards API did not return the expected data");
         }
     } catch {
+        dashboardJson = require("data/dashboard.json");
         console.log(
             "Failed to fetch data from the backend. Falling back on cached data."
         );
-    }
-
-    if (!dashboardJson) {
-        dashboardJson = require("data/dashboard.json");
     }
 
     // const dashboardJson = require("data/dashboard.json");

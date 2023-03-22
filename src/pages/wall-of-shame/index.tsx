@@ -120,13 +120,10 @@ export const getServerSideProps: GetServerSideProps<Props> = async () => {
             );
         }
     } catch {
+        wallOfShameJson = require("data/wall-of-shame.json");
         console.log(
             "Failed to fetch data from the backend. Falling back on cached data."
         );
-
-        if (!wallOfShameJson) {
-            wallOfShameJson = require("data/wall-of-shame.json");
-        }
     }
 
     return {
