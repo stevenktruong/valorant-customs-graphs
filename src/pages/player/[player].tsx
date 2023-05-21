@@ -83,7 +83,7 @@ const _Player = (props: Props) => {
                         names={PLAYERS}
                     />
                 </div>
-                {/* <Navbar /> */}
+                <Navbar />
             </div>
             <div className={style.Main}>
                 <div className={style.Left}>
