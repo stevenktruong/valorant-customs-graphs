@@ -19,6 +19,8 @@ interface Props {
     sabotagerData: Datum[];
     plantData: Datum[];
     bombDeathData: Datum[];
+    loseStreakData: Datum[];
+    winStreakData: Datum[];
 }
 
 const topFive = (
@@ -101,6 +103,18 @@ const WallOfShame = (props: Props) => {
                     data={props.bombDeathData}
                 />
             </div>
+            <div className={style.Screen}>
+                <Leaderboard
+                    title="Crypto Throwers"
+                    description="Longest lose streak"
+                    data={props.loseStreakData}
+                />
+                <Leaderboard
+                    title="Stream Snipers"
+                    description="Longest win streak"
+                    data={props.winStreakData}
+                />
+            </div>
         </div>
     );
 };
@@ -144,6 +158,8 @@ export const getServerSideProps: GetServerSideProps<Props> = async () => {
             sabotagerData: topFive(wallOfShameJson, "team_damage"),
             plantData: topFive(wallOfShameJson, "plants"),
             bombDeathData: topFive(wallOfShameJson, "bomb_deaths"),
+            loseStreakData: topFive(wallOfShameJson, "longest_lose_streak"),
+            winStreakData: topFive(wallOfShameJson, "longest_win_streak"),
         },
     };
 };
