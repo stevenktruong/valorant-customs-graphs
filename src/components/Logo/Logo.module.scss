@@ -1,0 +1,13 @@
+@use "styles/colors";
+
+.Logo {
+    justify-self: flex-start;
+
+    img {
+        pointer-events: none;
+        width: 40px;
+        height: auto;
+        padding-bottom: 8px;
+        border-bottom: 2px solid colors.$red;
+    }
+}

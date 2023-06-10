@@ -1,9 +1,10 @@
-import { PLAYERS } from "config";
 import { NextRequest, NextResponse } from "next/server";
+
+import { PLAYERS } from "config";
 
 export function middleware(request: NextRequest): NextResponse | void {
     const url = request.nextUrl.clone();
-    if (url.pathname === "/" || url.pathname === "/player") {
+    if (url.pathname === "/player") {
         url.pathname = `/player/${
             PLAYERS[Math.floor(Math.random() * PLAYERS.length)]
         }`;

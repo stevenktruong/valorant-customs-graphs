@@ -5,6 +5,7 @@ import { CSSTransition, SwitchTransition } from "react-transition-group";
 
 import { ParsedUrlQuery } from "querystring";
 
+import Logo from "components/Logo";
 import Navbar from "components/Navbar";
 import PlayerSelector from "components/PlayerSelector";
 import PlayerSummary from "components/PlayerSummary";
@@ -63,10 +64,7 @@ const _Player = (props: Props) => {
     return (
         <div className={style.Player}>
             <div className={style.Header}>
-                <div className={style.TextContainer}>
-                    <h1>VALORANT Customs</h1>
-                    <p>Statistics tracking of DARWIN Discord custom games</p>
-                </div>
+                <Logo />
                 <div className={style.SelectorContainer}>
                     <h2>Player:</h2>
                     <PlayerSelector
@@ -83,6 +81,7 @@ const _Player = (props: Props) => {
                         names={PLAYERS}
                     />
                 </div>
+                <div className={style.Spacer} />
                 <Navbar />
             </div>
             <div className={style.Main}>

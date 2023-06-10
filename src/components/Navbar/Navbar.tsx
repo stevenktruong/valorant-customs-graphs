@@ -7,6 +7,10 @@ import style from "./Navbar.module.scss";
 
 const links = [
     {
+        name: "Home",
+        path: "/",
+    },
+    {
         name: "Dashboard",
         path: "/player",
     },
@@ -22,11 +26,13 @@ export const Navbar = () => {
 
     return (
         <div className={style.Navbar}>
-            {links.map(d => (
-                <Link href={d.path} key={d.name}>
-                    {d.name}
-                </Link>
-            ))}
+            <div className={style.LinksContainer}>
+                {links.map(d => (
+                    <Link href={d.path} key={d.name}>
+                        {d.name}
+                    </Link>
+                ))}
+            </div>
         </div>
     );
 };

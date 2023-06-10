@@ -17,29 +17,21 @@
         height: lengths.$navbar-height;
         z-index: 10;
 
-        .TextContainer {
-            flex: 1;
-
-            h1 {
-                line-height: 100%;
-                font-size: 40px;
-            }
-
-            p {
-                font-size: fonts.$body-size;
-                color: #c7c7c7;
-            }
-        }
-
         .SelectorContainer {
             display: flex;
             flex-direction: row;
             align-items: center;
             color: #ffffff;
+            margin: 0 25px;
 
             h2 {
+                font-size: 18px;
                 padding-right: 10px;
             }
+        }
+
+        .Spacer {
+            flex: 1;
         }
     }
 

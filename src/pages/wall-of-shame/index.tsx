@@ -19,6 +19,8 @@ interface Props {
     sabotagerData: Datum[];
     plantData: Datum[];
     bombDeathData: Datum[];
+    baitData: Datum[];
+    baiterData: Datum[];
     loseStreakData: Datum[];
     winStreakData: Datum[];
 }
@@ -105,6 +107,18 @@ const WallOfShame = (props: Props) => {
             </div>
             <div className={style.Screen}>
                 <Leaderboard
+                    title="Best Bait"
+                    description="Least time alive on won attack rounds"
+                    data={props.baitData}
+                />
+                <Leaderboard
+                    title="Master Baiter"
+                    description="Most time alive on lost attack rounds"
+                    data={props.baiterData}
+                />
+            </div>
+            <div className={style.Screen}>
+                <Leaderboard
                     title="Crypto Throwers"
                     description="Longest lose streak"
                     data={props.loseStreakData}
@@ -158,6 +172,14 @@ export const getServerSideProps: GetServerSideProps<Props> = async () => {
             sabotagerData: topFive(wallOfShameJson, "team_damage"),
             plantData: topFive(wallOfShameJson, "plants"),
             bombDeathData: topFive(wallOfShameJson, "bomb_deaths"),
+            baitData: topFive(
+                wallOfShameJson,
+                "average_time_alive_on_won_attack_rounds"
+            ),
+            baiterData: topFive(
+                wallOfShameJson,
+                "average_time_alive_on_lost_attack_rounds"
+            ),
             loseStreakData: topFive(wallOfShameJson, "longest_lose_streak"),
             winStreakData: topFive(wallOfShameJson, "longest_win_streak"),
         },
