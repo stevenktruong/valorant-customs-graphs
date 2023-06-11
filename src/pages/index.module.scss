@@ -1,6 +1,6 @@
+@use "styles/breakpoints";
 @use "styles/colors";
 @use "styles/lengths";
-@use "styles/mixins";
 
 .HomeScreen {
     padding-bottom: 50px;
@@ -34,7 +34,7 @@
         .PlayerCardRow {
             display: flex;
             justify-content: center;
-            align-items: start;
+            align-items: flex-start;
             flex-direction: row;
             width: 100%;
             gap: 5%;
@@ -50,6 +50,29 @@
             .PlayerCardContainer:hover {
                 opacity: 1;
                 width: 30%;
+            }
+        }
+    }
+
+    @media (max-width: breakpoints.$mobile-break) {
+        .Main {
+            .PlayerCardRow {
+                flex-direction: column;
+                gap: 40px;
+                padding-top: 0;
+
+                :first-child {
+                    padding-top: 25px;
+                }
+
+                .PlayerCardContainer {
+                    opacity: 1;
+                    width: 80%;
+                }
+
+                .PlayerCardContainer:hover {
+                    width: 80%;
+                }
             }
         }
     }

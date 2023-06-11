@@ -35,7 +35,11 @@ export const PlayerCard = (props: Props) => {
                 {Array(3)
                     .fill(null)
                     .map((_, i) => (
-                        <text y={125 * i} transform="translate(-200, 300)">
+                        <text
+                            key={`name${i}`}
+                            y={125 * i}
+                            transform="translate(-200, 300)"
+                        >
                             {props.player.toUpperCase()}
                         </text>
                     ))}
@@ -62,7 +66,9 @@ export const PlayerCard = (props: Props) => {
             >
                 <text fontStyle="italicized">ROLE</text>
                 {props.roles.map((role, i) => (
-                    <text y={20 * (i + 1)}>{role.toUpperCase()}</text>
+                    <text key={`role${i}`} y={20 * (i + 1)}>
+                        {role.toUpperCase()}
+                    </text>
                 ))}
             </g>
         </svg>

@@ -1,4 +1,5 @@
 import { GetServerSideProps } from "next";
+import Link from "next/link";
 import * as React from "react";
 
 import Logo from "components/Logo";
@@ -20,33 +21,39 @@ const HomeScreen = (props: Props) => {
                 <Logo />
                 <Navbar />
             </div>
-            <div className={style.Main}>{makePlayerCardRows(props)}</div>
+            <div className={style.Main}>{makePlayerCardRows(props, 3)}</div>
         </div>
     );
 };
 
-const makePlayerCardRows = (props: Props) => {
-    const nCols = 3;
+const makePlayerCardRows = (props: Props, nCols: number) => {
     const nRows = Math.ceil(PLAYERS.length / nCols);
-
     const rows = [];
     for (let i = 0; i < nRows; i++) {
         rows.push(
-            <div className={style.PlayerCardRow}>
-                {PLAYERS.slice(3 * i, 3 * i + nCols).map((player: Player) => (
-                    <div className={style.PlayerCardContainer}>
-                        <a href={`/player/${player}`}>
-                            <PlayerCard
-                                player={player}
-                                alias={PLAYER_TAG[player]}
-                                agent={
-                                    props.individualData[player].top_agents[0]
-                                }
-                                roles={props.individualData[player].top_roles}
-                            />
-                        </a>
-                    </div>
-                ))}
+            <div key={`row${i}cols${nCols}`} className={style.PlayerCardRow}>
+                {PLAYERS.slice(nCols * i, nCols * i + nCols).map(
+                    (player: Player) => (
+                        <div
+                            key={`PlayerCard${player}cols${nCols}`}
+                            className={style.PlayerCardContainer}
+                        >
+                            <Link href={`/player/${player}`}>
+                                <PlayerCard
+                                    player={player}
+                                    alias={PLAYER_TAG[player]}
+                                    agent={
+                                        props.individualData[player]
+                                            .top_agents[0]
+                                    }
+                                    roles={
+                                        props.individualData[player].top_roles
+                                    }
+                                />
+                            </Link>
+                        </div>
+                    )
+                )}
             </div>
         );
     }
