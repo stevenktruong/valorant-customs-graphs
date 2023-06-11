@@ -1,0 +1,27 @@
+@use "styles/colors";
+
+.PlayerCard {
+    width: 100%;
+    height: 100%;
+
+    .AliasContainer,
+    .RoleContainer {
+        font-family: "Segoe UI", sans-serif;
+        font-size: 16px;
+        font-weight: bold;
+        fill: white;
+        opacity: 50%;
+
+        :first-child {
+            font-weight: normal;
+            font-style: italic;
+        }
+    }
+
+    .NameContainer {
+        font-size: 160px;
+        letter-spacing: 8px;
+        font-family: "Tungsten Bold";
+        fill: #b8b7bb;
+    }
+}

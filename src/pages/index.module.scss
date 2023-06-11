@@ -3,6 +3,8 @@
 @use "styles/mixins";
 
 .HomeScreen {
+    padding-bottom: 50px;
+
     .Header {
         position: fixed;
         top: 0;
@@ -18,6 +20,37 @@
 
         .Spacer {
             flex: 1;
+        }
+    }
+
+    .Main {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        gap: 50px;
+        padding-top: lengths.$navbar-height;
+
+        .PlayerCardRow {
+            display: flex;
+            justify-content: center;
+            align-items: start;
+            flex-direction: row;
+            width: 100%;
+            gap: 5%;
+            padding-top: 25px;
+
+            .PlayerCardContainer {
+                opacity: 0.5;
+                width: 25%;
+                transition: opacity 0.5s ease;
+                transition: width 0.5s ease;
+            }
+
+            .PlayerCardContainer:hover {
+                opacity: 1;
+                width: 30%;
+            }
         }
     }
 }

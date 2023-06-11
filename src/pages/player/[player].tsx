@@ -65,6 +65,8 @@ const _Player = (props: Props) => {
         <div className={style.Player}>
             <div className={style.Header}>
                 <Logo />
+                <Navbar />
+                <div className={style.Spacer} />
                 <div className={style.SelectorContainer}>
                     <h2>Player:</h2>
                     <PlayerSelector
@@ -81,8 +83,6 @@ const _Player = (props: Props) => {
                         names={PLAYERS}
                     />
                 </div>
-                <div className={style.Spacer} />
-                <Navbar />
             </div>
             <div className={style.Main}>
                 <div className={style.Left}>

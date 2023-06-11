@@ -1,6 +1,7 @@
 import { GetServerSideProps } from "next";
 import * as React from "react";
 
+import Logo from "components/Logo";
 import Navbar from "components/Navbar";
 import Leaderboard from "components/wall-of-shame/Leaderboard";
 import { PLAYERS, Player } from "config";
@@ -48,6 +49,7 @@ const WallOfShame = (props: Props) => {
     return (
         <div className={style.WallOfShame}>
             <div className={style.Header}>
+                <Logo />
                 <Navbar />
             </div>
             <div className={style.Screen}>
