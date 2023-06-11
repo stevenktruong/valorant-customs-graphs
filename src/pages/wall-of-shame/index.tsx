@@ -9,7 +9,16 @@ import { isGetWallOfShameAPIResponse } from "models/WallOfShame";
 
 import style from "./index.module.scss";
 
-const categories: [Record<string, string>, Record<string, string>][] = [
+interface Category {
+    title: string;
+    description: string;
+    caption: string;
+    key: string;
+    reverse?: boolean;
+    valueFormat?: (d: { name: Player; value: number }) => string;
+}
+
+const categories: [Category, Category][] = [
     [
         // Body part hit rates
         {
@@ -17,12 +26,14 @@ const categories: [Record<string, string>, Record<string, string>][] = [
             description: "Highest body shot percent",
             caption: "So no head?",
             key: "bodyshot_rate",
+            valueFormat: (d: { name: Player; value: number }) => `${d.value}%`,
         },
         {
             title: "FOOT HUNTERS",
             description: "Highest leg shot percent",
             caption: "Toes? We don't judge.",
             key: "legshot_rate",
+            valueFormat: (d: { name: Player; value: number }) => `${d.value}%`,
         },
     ],
     [
@@ -59,15 +70,18 @@ const categories: [Record<string, string>, Record<string, string>][] = [
         // Time alive on attack
         {
             title: "BIGGEST BAIT",
-            description: "Least time alive on lost attack rounds",
+            description: "Least time alive on won attack rounds",
             caption: "Your duty is ... over.",
             key: "average_time_alive_on_lost_attack_rounds",
+            reverse: true,
+            valueFormat: (d: { name: Player; value: number }) => `${d.value}s`,
         },
         {
             title: "MASTER BAITERS",
             description: "Most time alive on lost attack rounds",
             caption: "Time to start holding W.",
             key: "average_time_alive_on_won_attack_rounds",
+            valueFormat: (d: { name: Player; value: number }) => `${d.value}s`,
         },
     ],
     [
@@ -128,10 +142,11 @@ const WallOfShame = (props: Props) => {
                     </h1>
                 </div>
             </div>
-            {props.categoryPairs.map(categoryPair => (
-                <div className={style.Screen}>
+            {props.categoryPairs.map((categoryPair, i) => (
+                <div key={`screen${i}`} className={style.Screen}>
                     {categoryPair.map(category => (
                         <Leaderboard
+                            key={category.title}
                             title={category.title}
                             description={category.description}
                             data={category.data}
@@ -146,6 +161,7 @@ const WallOfShame = (props: Props) => {
 const topFive = (
     wallOfShameJson: Record<Player, Record<string, any>>,
     key: string,
+    reverse: boolean = false,
     valueFormat: (d: { name: Player; value: number }) => string = d =>
         String(d.value)
 ) =>
@@ -155,7 +171,7 @@ const topFive = (
             value: stats[key],
         }))
         .filter(stats => PLAYERS.includes(stats.name))
-        .sort((a, b) => b.value - a.value)
+        .sort((a, b) => (reverse ? -1 : 1) * (b.value - a.value))
         .slice(0, 5)
         .map(d => ({
             name: d.name,
@@ -179,13 +195,23 @@ export const getServerSideProps: GetServerSideProps<Props> = async () => {
                 title: categoryPair[0].title,
                 description: categoryPair[0].description,
                 caption: categoryPair[0].caption,
-                data: topFive(wallOfShameJson, categoryPair[0].key),
+                data: topFive(
+                    wallOfShameJson,
+                    categoryPair[0].key,
+                    categoryPair[0].reverse,
+                    categoryPair[0].valueFormat
+                ),
             },
             {
                 title: categoryPair[1].title,
                 description: categoryPair[1].description,
                 caption: categoryPair[1].caption,
-                data: topFive(wallOfShameJson, categoryPair[1].key),
+                data: topFive(
+                    wallOfShameJson,
+                    categoryPair[1].key,
+                    categoryPair[1].reverse,
+                    categoryPair[1].valueFormat
+                ),
             },
         ]
     );
