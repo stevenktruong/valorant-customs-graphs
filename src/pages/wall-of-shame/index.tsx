@@ -9,22 +9,139 @@ import { isGetWallOfShameAPIResponse } from "models/WallOfShame";
 
 import style from "./index.module.scss";
 
+const categories: [Record<string, string>, Record<string, string>][] = [
+    [
+        // Body part hit rates
+        {
+            title: "BODYSHOT BARRY'S",
+            description: "Highest body shot percent",
+            caption: "So no head?",
+            key: "bodyshot_rate",
+        },
+        {
+            title: "FOOT HUNTERS",
+            description: "Highest leg shot percent",
+            caption: "Toes? We don't judge.",
+            key: "legshot_rate",
+        },
+    ],
+    [
+        // Knifing
+        {
+            title: "TOP KNIFERS",
+            description: "Most knife kills",
+            caption: "Put backstabbing on the resume.",
+            key: "knife_kills",
+        },
+        {
+            title: "TOP KNIFEES",
+            description: "Most deaths to knife",
+            caption: "Poor souls.",
+            key: "knife_deaths",
+        },
+    ],
+    [
+        // Team damage
+        {
+            title: "TOP MASOCHISTS",
+            description: "Most damage done to self",
+            caption: "Game was too easy, had to add a challenge.",
+            key: "self_damage",
+        },
+        {
+            title: "TOP SABOTAGERS",
+            description: "Most damage done to allies",
+            caption: "You didn't do /that/ much damage.",
+            key: "team_damage",
+        },
+    ],
+    [
+        // Time alive on attack
+        {
+            title: "BIGGEST BAIT",
+            description: "Least time alive on lost attack rounds",
+            caption: "Your duty is ... over.",
+            key: "average_time_alive_on_lost_attack_rounds",
+        },
+        {
+            title: "MASTER BAITERS",
+            description: "Most time alive on lost attack rounds",
+            caption: "Time to start holding W.",
+            key: "average_time_alive_on_won_attack_rounds",
+        },
+    ],
+    [
+        // Bomb things
+        {
+            title: "BOMB BITCHES",
+            description: "Most bomb plants",
+            caption: "You're not just their planter!",
+            key: "plants",
+        },
+        {
+            title: "TORTOISES",
+            description: "Most bomb deaths",
+            caption: "Took slow and steady too literally.",
+            key: "bomb_deaths",
+        },
+    ],
+    [
+        // Streaks
+        {
+            title: "CRYPTO THROWERS",
+            description: "Longest lose streak",
+            caption: "At least you're the best at something.",
+            key: "longest_lose_streak",
+        },
+        {
+            title: "STREAM SNIPERS",
+            description: "Longest win streak",
+            caption: "Leave some for the rest of us.",
+            key: "longest_win_streak",
+        },
+    ],
+];
+
 type Datum = { name: Player; value: string };
+type CategoryData = {
+    title: string;
+    description: string;
+    caption: string;
+    data: Datum[];
+};
 
 interface Props {
-    bodyshotData: Datum[];
-    feetData: Datum[];
-    kniferData: Datum[];
-    knifeeData: Datum[];
-    masochistData: Datum[];
-    sabotagerData: Datum[];
-    plantData: Datum[];
-    bombDeathData: Datum[];
-    baitData: Datum[];
-    baiterData: Datum[];
-    loseStreakData: Datum[];
-    winStreakData: Datum[];
+    categoryPairs: [CategoryData, CategoryData][];
 }
+
+const WallOfShame = (props: Props) => {
+    return (
+        <div className={style.WallOfShame}>
+            <div className={style.Header}>
+                <Logo />
+                <Navbar />
+            </div>
+            <div className={style.Screen}>
+                <div className={style.Title}>
+                    <h1>
+                        Wall of <span>Shame</span>
+                    </h1>
+                </div>
+            </div>
+            {props.categoryPairs.map(categoryPair => (
+                <div className={style.Screen}>
+                    {categoryPair.map(category => (
+                        <Leaderboard
+                            title={category.title}
+                            description={category.description}
+                            data={category.data}
+                        />
+                    ))}
+                </div>
+            ))}
+        </div>
+    );
+};
 
 const topFive = (
     wallOfShameJson: Record<Player, Record<string, any>>,
@@ -45,146 +162,36 @@ const topFive = (
             value: valueFormat(d),
         }));
 
-const WallOfShame = (props: Props) => {
-    return (
-        <div className={style.WallOfShame}>
-            <div className={style.Header}>
-                <Logo />
-                <Navbar />
-            </div>
-            <div className={style.Screen}>
-                <div className={style.Title}>
-                    <h1>
-                        Wall of <span>Shame</span>
-                    </h1>
-                </div>
-            </div>
-            <div className={style.Screen}>
-                <Leaderboard
-                    title="Bodyshot Barry's"
-                    description="Highest body shot percent"
-                    data={props.bodyshotData}
-                />
-                <Leaderboard
-                    title="Foot Hunters"
-                    description="Highest leg shot percent"
-                    data={props.feetData}
-                />
-            </div>
-            <div className={style.Screen}>
-                <Leaderboard
-                    title="Top Knifers"
-                    description="Most knife kills"
-                    data={props.kniferData}
-                />
-                <Leaderboard
-                    title="Top Knifees"
-                    description="Most deaths to a knife"
-                    data={props.knifeeData}
-                />
-            </div>
-            <div className={style.Screen}>
-                <Leaderboard
-                    title="Top Masochists"
-                    description="Most damage done to self"
-                    data={props.masochistData}
-                />
-                <Leaderboard
-                    title="Top Sabotagers"
-                    description="Most damage done to allies"
-                    data={props.sabotagerData}
-                />
-            </div>
-            <div className={style.Screen}>
-                <Leaderboard
-                    title="Bomb Bitches"
-                    description="Most bomb plants"
-                    data={props.plantData}
-                />
-                <Leaderboard
-                    title="Tortoises"
-                    description="Most bomb deaths"
-                    data={props.bombDeathData}
-                />
-            </div>
-            <div className={style.Screen}>
-                <Leaderboard
-                    title="Best Bait"
-                    description="Least time alive on won attack rounds"
-                    data={props.baitData}
-                />
-                <Leaderboard
-                    title="Master Baiter"
-                    description="Most time alive on lost attack rounds"
-                    data={props.baiterData}
-                />
-            </div>
-            <div className={style.Screen}>
-                <Leaderboard
-                    title="Crypto Throwers"
-                    description="Longest lose streak"
-                    data={props.loseStreakData}
-                />
-                <Leaderboard
-                    title="Stream Snipers"
-                    description="Longest win streak"
-                    data={props.winStreakData}
-                />
-            </div>
-        </div>
-    );
-};
-
 export const getServerSideProps: GetServerSideProps<Props> = async () => {
     if (!process.env.BACKEND_URL) {
         throw new Error("Missing BACKEND_URL environment variable");
     }
 
-    let wallOfShameJson;
-    try {
-        const res = await fetch(`${process.env.BACKEND_URL}/wall-of-shame`);
-        wallOfShameJson = await res.json();
-        if (!isGetWallOfShameAPIResponse(wallOfShameJson)) {
-            throw new Error(
-                "/wall-of-shame API did not return the expected data"
-            );
-        }
-    } catch {
-        wallOfShameJson = require("data/wall-of-shame.json");
-        console.log(
-            "Failed to fetch data from the backend. Falling back on cached data."
-        );
+    const res = await fetch(`${process.env.BACKEND_URL}/wall-of-shame`);
+    const wallOfShameJson = await res.json();
+    if (!isGetWallOfShameAPIResponse(wallOfShameJson)) {
+        throw new Error("/wall-of-shame API did not return the expected data");
     }
 
+    const categoryPairs: [CategoryData, CategoryData][] = categories.map(
+        categoryPair => [
+            {
+                title: categoryPair[0].title,
+                description: categoryPair[0].description,
+                caption: categoryPair[0].caption,
+                data: topFive(wallOfShameJson, categoryPair[0].key),
+            },
+            {
+                title: categoryPair[1].title,
+                description: categoryPair[1].description,
+                caption: categoryPair[1].caption,
+                data: topFive(wallOfShameJson, categoryPair[1].key),
+            },
+        ]
+    );
+
     return {
-        props: {
-            bodyshotData: topFive(
-                wallOfShameJson,
-                "bodyshot_rate",
-                d => `${d.value}%`
-            ),
-            feetData: topFive(
-                wallOfShameJson,
-                "legshot_rate",
-                d => `${d.value}%`
-            ),
-            kniferData: topFive(wallOfShameJson, "knife_kills"),
-            knifeeData: topFive(wallOfShameJson, "knife_deaths"),
-            masochistData: topFive(wallOfShameJson, "self_damage"),
-            sabotagerData: topFive(wallOfShameJson, "team_damage"),
-            plantData: topFive(wallOfShameJson, "plants"),
-            bombDeathData: topFive(wallOfShameJson, "bomb_deaths"),
-            baitData: topFive(
-                wallOfShameJson,
-                "average_time_alive_on_won_attack_rounds"
-            ),
-            baiterData: topFive(
-                wallOfShameJson,
-                "average_time_alive_on_lost_attack_rounds"
-            ),
-            loseStreakData: topFive(wallOfShameJson, "longest_lose_streak"),
-            winStreakData: topFive(wallOfShameJson, "longest_win_streak"),
-        },
+        props: { categoryPairs },
     };
 };
 

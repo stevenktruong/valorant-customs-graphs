@@ -188,21 +188,11 @@ export const getServerSideProps: GetServerSideProps<Props> = async () => {
         throw new Error("Missing BACKEND_URL environment variable");
     }
 
-    let dashboardJson;
-    try {
-        const res = await fetch(`${process.env.BACKEND_URL}/dashboard`);
-        dashboardJson = await res.json();
-        if (!isGetDashboardAPIResponse(dashboardJson)) {
-            throw new Error("/dashboards API did not return the expected data");
-        }
-    } catch {
-        dashboardJson = require("data/dashboard.json");
-        console.log(
-            "Failed to fetch data from the backend. Falling back on cached data."
-        );
+    const res = await fetch(`${process.env.BACKEND_URL}/dashboard`);
+    const dashboardJson = await res.json();
+    if (!isGetDashboardAPIResponse(dashboardJson)) {
+        throw new Error("/dashboards API did not return the expected data");
     }
-
-    // const dashboardJson = require("data/dashboard.json");
 
     const {
         assists_given_per_standard_game: assistsGivenJson,
