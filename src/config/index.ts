@@ -1,5 +1,4 @@
 export enum Player {
-    Andy = "andy",
     Bree = "bree",
     Brandon = "brandon",
     Brian = "brian",
@@ -22,7 +21,6 @@ export enum Player {
 export const PLAYERS = Object.values(Player);
 
 export const PLAYER_COLORS: Record<Player, string[]> = {
-    [Player.Andy]: ["#f6de64", "#2f5c81", "#4e95c3", "#cfd0cc"],
     [Player.Bree]: ["#5c64f4", "#6c7cf4", "#acb4fc", "#d7dafc"],
     [Player.Brandon]: ["#9192be", "#aa3824", "#ead67d", "#c8a592"],
     [Player.Brian]: ["#757e8a", "#447e8a", "#5c9da4", "#ffffff"],
@@ -43,7 +41,6 @@ export const PLAYER_COLORS: Record<Player, string[]> = {
 };
 
 export const PLAYER_TAG: Record<Player, string> = {
-    [Player.Andy]: "Candysan",
     [Player.Brandon]: "JHardRTolkien",
     [Player.Bree]: "Brioche",
     [Player.Brian]: "brianwoohoo",
