@@ -50,7 +50,7 @@ export const PLAYER_TAG: Record<Player, string> = {
     [Player.Darwin]: "ChzGorditaCrunch",
     [Player.Elke]: "Uzumaki 好き",
     [Player.Iram]: "march 7 inches",
-    [Player.Jason]: "kingofwallstreet",
+    [Player.Jason]: "wayson",
     [Player.Josh]: "bot001341",
     [Player.Lindsey]: "honey butter",
     [Player.Sophie]: "chushberry",
