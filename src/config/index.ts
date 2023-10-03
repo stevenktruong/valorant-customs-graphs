@@ -5,6 +5,8 @@ export enum Player {
     Cade = "cade",
     Darwin = "darwin",
     Elke = "elke",
+    Iram = "iram",
+    Jason = "jason",
     Josh = "josh",
     Lindsey = "lindsey",
     // Sequential = "sequential",
@@ -20,13 +22,15 @@ export enum Player {
 
 export const PLAYERS = Object.values(Player);
 
-export const PLAYER_COLORS: Record<Player, string[]> = {
+export const PLAYER_COLORS: Record<Player, [string, string, string, string]> = {
     [Player.Bree]: ["#5c64f4", "#6c7cf4", "#acb4fc", "#d7dafc"],
     [Player.Brandon]: ["#9192be", "#aa3824", "#ead67d", "#c8a592"],
     [Player.Brian]: ["#757e8a", "#447e8a", "#5c9da4", "#ffffff"],
     [Player.Cade]: ["#dbff9e", "#0f793e", "#479d56", "#91cb9e"],
     [Player.Darwin]: ["#cddbff", "#7f8ceb", "#ffc561", "#fffd8f"],
     [Player.Elke]: ["#60111f", "#9b2127", "#e59755", "#decdc2"],
+    [Player.Iram]: ["#ecccd2", "#b39bee", "#2350c2", "#fb7de0"],
+    [Player.Jason]: ["#00f1d2", "#a5ada2", "#e2e5de", "#02fb77"],
     [Player.Josh]: ["#faa61a", "#fead5b", "#fde7c1", "#ffffff"],
     [Player.Lindsey]: ["#92ced5", "#d1988d", "#ebd5ca", "#ffffff"],
     // [Player.Sequential]: ["#a6735d", "#4e6b32", "#7b8769", "#dce1cc"],
@@ -47,6 +51,8 @@ export const PLAYER_TAG: Record<Player, string> = {
     [Player.Cade]: "RhythmKing",
     [Player.Darwin]: "ChzGorditaCrunch",
     [Player.Elke]: "Uzumaki 好き",
+    [Player.Iram]: "march 7 inches",
+    [Player.Jason]: "kingofwallstreet",
     [Player.Josh]: "bot001341",
     [Player.Lindsey]: "aylindsay",
     // [Player.Sequential]: "Sequential",
