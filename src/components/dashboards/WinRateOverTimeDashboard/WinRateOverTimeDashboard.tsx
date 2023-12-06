@@ -25,13 +25,6 @@ export const WinRateOverTimeDashboard = (props: Props) => {
         }))
         .slice(-((showFewerPoints ? 8 : 12) + 1)); // 8 or 12 weeks + today
 
-    // If the last two data points correspond to the same day, remove one of them
-    if (
-        data[data.length - 1].date.getDay() ===
-        data[data.length - 2].date.getDay()
-    ) {
-        data.splice(-2, 1);
-    }
     return (
         <div className={`${style.WinRateOverTimeDashboard} ${props.className}`}>
             <Caption
