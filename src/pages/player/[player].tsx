@@ -92,10 +92,10 @@ const _Player = (props: Props) => {
                             nodeRef={playerSummaryContainerRef}
                             timeout={500}
                             classNames={{
-                                enter: style.playerSummaryContainerRef,
-                                enterActive: style.playerSummaryContainerRef,
-                                exit: style.playerSummaryContainerRef,
-                                exitActive: style.playerSummaryContainerRef,
+                                enter: style.PlayerSummaryContainerEnter,
+                                enterActive: style.PlayerSummaryContainerEnterActive,
+                                exit: style.PlayerSummaryContainerExit,
+                                exitActive: style.PlayerSummaryContainerExitActive,
                             }}
                         >
                             <div
