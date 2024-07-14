@@ -118,6 +118,7 @@ export const AGENT_COLORS: Record<ValorantAgent, [string, string]> = {
 };
 
 export enum ValorantMap {
+    Abyss = "Abyss",
     Ascent = "Ascent",
     Bind = "Bind",
     Breeze = "Breeze",
@@ -131,6 +132,7 @@ export enum ValorantMap {
 }
 
 export const MAP_COLORS: Record<ValorantMap, string> = {
+    Abyss: "#5fdbf3",
     Ascent: "#a79cd0",
     Bind: "#b9835d",
     Breeze: "#649ab1",
