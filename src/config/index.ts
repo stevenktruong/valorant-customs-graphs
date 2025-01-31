@@ -86,7 +86,9 @@ export enum ValorantAgent {
     Sage = "Sage",
     Skye = "Skye",
     Sova = "Sova",
+    Tejo = "Tejo",
     Viper = "Viper",
+    Vyse = "Vyse",
     Yoru = "Yoru",
 }
 
@@ -113,7 +115,9 @@ export const AGENT_COLORS: Record<ValorantAgent, [string, string]> = {
     [ValorantAgent.Sage]: ["#438291", "#1c2e32"],
     [ValorantAgent.Skye]: ["#3e573c", "#222015"],
     [ValorantAgent.Sova]: ["#3b5a91", "#202d5b"],
+    [ValorantAgent.Tejo]: ["#ebd07a", "#3a465e"],
     [ValorantAgent.Viper]: ["#1b6f3a", "#203e32"],
+    [ValorantAgent.Vyse]: ["#311d52", "#b7c3d3"],
     [ValorantAgent.Yoru]: ["#4259a8", "#19233d"],
 };
 
